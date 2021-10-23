@@ -25,18 +25,34 @@ export class StoryEditorState {
     this.story = story;
   };
 
+  public setPageDisplay(pageDisplayDiv: HTMLDivElement) {
+    this.pageDisplay = pageDisplayDiv;
+    console.log('page display set: ', this.pageDisplay);
+  }
+
   @action public toggleAddTextBlock = () => {
     this.addingTextBlock = !this.addingTextBlock;
 
     if (this.addingTextBlock) {
-      this.pageDisplay = this.addingTextBlock
-        ? (document.getElementById('page-display') as HTMLDivElement)
-        : undefined;
-      document.addEventListener('click', this.onMouseClick);
+      this.pageDisplay.addEventListener('click', this.addTextBlock);
+      this.pageDisplay.style.cursor = 'crosshair';
     } else {
-      this.pageDisplay = undefined;
-      document.removeEventListener('click', this.onMouseClick);
+      this.pageDisplay.removeEventListener('click', this.addTextBlock);
+      this.pageDisplay.style.cursor = 'default';
     }
+  };
+
+  @action private addTextBlock = (e: MouseEvent) => {
+    // Get position to add text block
+    const mousePos = new Vector(e.clientX, e.clientY);
+
+    const pageRect = this.pageDisplay.getBoundingClientRect();
+    const pagePos = new Vector(pageRect.left, pageRect.top);
+    mousePos.sub(pagePos);
+    mousePos.print();
+
+    // No longer adding text block
+    this.toggleAddTextBlock();
   };
 
   @action private handleKeyPress = (key: string) => {
@@ -44,15 +60,6 @@ export class StoryEditorState {
       case 'Escape':
         this.addingTextBlock = false;
         break;
-    }
-  };
-
-  private onMouseClick = (e: MouseEvent) => {
-    console.log('clicked');
-
-    // What to do with this click
-    // TODO - potentially abstract this into EditorAction class
-    if (this.addingTextBlock) {
     }
   };
 }
