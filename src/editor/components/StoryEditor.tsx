@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { StoryEditorState } from '../state/StoryEditorState';
 import { EditorNavbar } from './navbar/EditorNavbar';
+import { PageNavbar } from './navbar/PageNavbar';
 
 import './story-editor.scss';
 
@@ -24,7 +25,9 @@ export class StoryEditor extends React.Component<Props> {
         <div className={'editor-navbar-area'}>
           <EditorNavbar storyEditorState={storyEditorState} />
         </div>
-        <div className={'page-navbar-area'}></div>
+        <div className={'page-navbar-area'}>
+          <PageNavbar />
+        </div>
         <div className={'page-area'}></div>
       </div>
     );
