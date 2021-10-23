@@ -33,7 +33,7 @@ export class StoryEditor extends React.Component<Props> {
 
         <div className={'page-area'}>
           <div className={'page-edit-area'}>
-            <PageDisplay page={storyEditorState.story.selectedPage} />
+            <PageDisplay storyEditorState={storyEditorState} />
           </div>
           <div className={'page-details-panel'}>
             <DetailsPanel storyEditorState={storyEditorState} />
