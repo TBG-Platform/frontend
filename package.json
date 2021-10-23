@@ -26,6 +26,7 @@
     "react": "^16.13.1",
     "react-color": "^2.18.1",
     "react-dom": "^16.13.1",
+    "react-flow-renderer": "^9.6.9",
     "react-split-pane": "^0.1.92",
     "save-dev": "0.0.1-security",
     "tslint": "^6.1.2"
