@@ -21,9 +21,10 @@ export class StoryEditor extends React.Component<Props> {
 
     return (
       <div className={'story-editor'}>
-        <div className={'navbar-area'}>
+        <div className={'editor-navbar-area'}>
           <EditorNavbar storyEditorState={storyEditorState} />
         </div>
+        <div className={'page-navbar-area'}></div>
         <div className={'page-area'}></div>
       </div>
     );

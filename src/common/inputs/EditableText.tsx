@@ -28,7 +28,7 @@ export class EditableText extends React.Component<Props> {
       content = <FitTextInput text={text} onChange={onChange} inputFieldPadding={10} />;
     }
 
-    return <div className={'editable-text-container'}>{content}</div>;
+    return <div className={'editable-text-container ' + className}>{content}</div>;
   }
 
   @action private onClickLabel = () => {

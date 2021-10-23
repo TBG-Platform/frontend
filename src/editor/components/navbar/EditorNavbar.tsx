@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+
 import { EditableText } from '../../../common/inputs/EditableText';
-import { FitTextInput } from '../../../common/inputs/FitTextInput';
 import { StoryEditorState } from '../../state/StoryEditorState';
 
 import './editor-navbar.scss';
