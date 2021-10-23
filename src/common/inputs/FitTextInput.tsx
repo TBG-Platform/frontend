@@ -5,8 +5,8 @@ import React from 'react';
 import './fit-text-input.scss';
 
 interface Props {
-  value: string;
-  onChange: (value: string) => void;
+  text: string;
+  onChange: (text: string) => void;
   inputFieldPadding: number;
 }
 
@@ -20,17 +20,18 @@ export class FitTextInput extends React.Component<Props> {
   }
 
   public render() {
-    const { value } = this.props;
+    const { text } = this.props;
 
     return (
       <div className={'fit-text-input'}>
         <span ref={this.hiddenNameRef} className={'hidden-name'}>
-          {value}
+          {text}
         </span>
         <InputGroup
+          id={'fit-text-input'}
           inputRef={this.nameInputRef}
           autoFocus
-          value={value}
+          value={text}
           onChange={this.onInputChange}
         />
       </div>

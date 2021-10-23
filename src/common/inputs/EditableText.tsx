@@ -1,0 +1,46 @@
+import { action, observable } from 'mobx';
+import { observer } from 'mobx-react';
+import React from 'react';
+import { FitTextInput } from './FitTextInput';
+
+import './editable-text.scss';
+
+interface Props {
+  text: string;
+  onChange: (text: string) => void;
+  className?: string;
+}
+
+@observer
+export class EditableText extends React.Component<Props> {
+  @observable private isEditing = false;
+
+  public render() {
+    const { text, onChange, className } = this.props;
+
+    let content: JSX.Element = (
+      <div className={'editable-text-label'} onClick={this.onClickLabel}>
+        {text}
+      </div>
+    );
+
+    if (this.isEditing) {
+      content = <FitTextInput text={text} onChange={onChange} inputFieldPadding={10} />;
+    }
+
+    return <div className={'editable-text-container'}>{content}</div>;
+  }
+
+  @action private onClickLabel = () => {
+    this.isEditing = true;
+    document.addEventListener('click', this.onClickDocument);
+  };
+
+  @action private onClickDocument = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('#fit-text-input')) {
+      this.isEditing = false;
+      document.removeEventListener('click', this.onClickDocument);
+    }
+  };
+}

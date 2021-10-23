@@ -1,0 +1,18 @@
+@import '../../common/tbg-palette.scss';
+
+.editable-text-container {
+  .editable-text-label {
+    height: 30px;
+    padding: 0px 10px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      border: 1px solid $mainBorderColor;
+      border-radius: 3px;
+      padding: 0px 9px;
+    }
+  }
+}
