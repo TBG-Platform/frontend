@@ -18,7 +18,12 @@ export class StoryEditor extends React.Component<Props> {
       return this.renderEntryDialog();
     }
 
-    return <div className={'story-editor'}></div>;
+    return (
+      <div className={'story-editor'}>
+        <div className={'navbar-area'}></div>
+        <div className={'page-area'}></div>
+      </div>
+    );
   }
 
   private renderEntryDialog() {
