@@ -2,8 +2,10 @@ import { Button, Dialog, Icon, Intent } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StoryEditorState } from '../state/StoryEditorState';
+import { DetailsPanel } from './details-panel/DetailsPanel';
 import { EditorNavbar } from './navbar/EditorNavbar';
 import { PageNavbar } from './navbar/PageNavbar';
+import { PageDisplay } from './page/PageDisplay';
 
 import './story-editor.scss';
 
@@ -30,8 +32,12 @@ export class StoryEditor extends React.Component<Props> {
         </div>
 
         <div className={'page-area'}>
-          <div className={'page-edit-area'}></div>
-          <div className={'page-details-panel'}></div>
+          <div className={'page-edit-area'}>
+            <PageDisplay page={storyEditorState.story.selectedPage} />
+          </div>
+          <div className={'page-details-panel'}>
+            <DetailsPanel storyEditorState={storyEditorState} />
+          </div>
         </div>
       </div>
     );

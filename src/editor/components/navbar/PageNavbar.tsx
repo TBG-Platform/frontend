@@ -1,3 +1,4 @@
+import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 
@@ -20,6 +21,12 @@ export class PageNavbar extends React.Component<Props> {
     return (
       <div className={'page-navbar'}>
         <EditableText text={page.name} onChange={page.setName} label={'Page'} />
+
+        <Divider className={'divider'} />
+
+        <ButtonGroup minimal>
+          <Button icon={'new-text-box'} outlined />
+        </ButtonGroup>
       </div>
     );
   }

@@ -9,6 +9,7 @@ export class StoryEditorState {
     const story = new Story();
 
     const startPage = new Page();
+    startPage.setName('First page');
     story.addPage(startPage);
     story.selectPage(startPage.id);
 
