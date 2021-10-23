@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
-import { Page } from '../../state/Page';
+
 import { StoryEditorState } from '../../state/StoryEditorState';
 
 import './page-display.scss';
@@ -18,7 +18,7 @@ export class PageDisplay extends React.Component<Props> {
       cursor: this.getCursorClass(),
     };
 
-    return <div className={'page-display'} style={pageStyle}></div>;
+    return <div id={'page-display'} className={'page-display'} style={pageStyle}></div>;
   }
 
   private getCursorClass() {
