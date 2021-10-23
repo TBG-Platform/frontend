@@ -1,0 +1,19 @@
+@import '../../../common/tbg-palette.scss';
+
+.page-item-widget {
+  position: absolute;
+  cursor: pointer;
+  padding: 1px;
+
+  &.selected {
+    border: 1px solid blue;
+    padding: 0px;
+  }
+
+  &.unselected {
+    &:hover {
+      border: 1px solid $mainBorderColor;
+      padding: 0px;
+    }
+  }
+}

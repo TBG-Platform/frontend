@@ -27,7 +27,6 @@ export class StoryEditorState {
 
   public setPageDisplay(pageDisplayDiv: HTMLDivElement) {
     this.pageDisplay = pageDisplayDiv;
-    console.log('page display set: ', this.pageDisplay);
   }
 
   @action public toggleAddTextBlock = () => {
@@ -49,7 +48,8 @@ export class StoryEditorState {
     const pageRect = this.pageDisplay.getBoundingClientRect();
     const pagePos = new Vector(pageRect.left, pageRect.top);
     mousePos.sub(pagePos);
-    mousePos.print();
+
+    this.story.selectedPage.addTextBlock(mousePos);
 
     // No longer adding text block
     this.toggleAddTextBlock();
