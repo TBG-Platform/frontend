@@ -37,4 +37,19 @@
     flex: 0 0 50px;
     border-bottom: 1px solid $mainBorderColor;
   }
+
+  .page-area {
+    flex: 1 1 100%;
+
+    display: flex;
+
+    .page-edit-area {
+      flex: 1 1 100%;
+    }
+
+    .page-details-panel {
+      flex: 0 0 300px;
+      border-left: 1px solid $mainBorderColor;
+    }
+  }
 }
