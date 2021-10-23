@@ -2,6 +2,7 @@ import { Button, Dialog, Icon, Intent } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StoryEditorState } from '../state/StoryEditorState';
+import { EditorNavbar } from './navbar/EditorNavbar';
 
 import './story-editor.scss';
 
@@ -20,7 +21,9 @@ export class StoryEditor extends React.Component<Props> {
 
     return (
       <div className={'story-editor'}>
-        <div className={'navbar-area'}></div>
+        <div className={'navbar-area'}>
+          <EditorNavbar />
+        </div>
         <div className={'page-area'}></div>
       </div>
     );
