@@ -26,4 +26,6 @@ export class PageItem {
   @action public setHeight(height: number) {
     this.style.height = height + '%';
   }
+
+  public onMouseMove = (e: MouseEvent) => {};
 }

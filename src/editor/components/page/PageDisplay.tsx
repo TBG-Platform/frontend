@@ -32,6 +32,7 @@ export class PageDisplay extends React.Component<Props> {
             pageItem={item}
             selected={page.isItemSelected(item.id)}
             onClick={() => page.selectItem(item.id)}
+            pageDisplayElement={storyEditorState.pageDisplay}
           />
         ))}
       </div>

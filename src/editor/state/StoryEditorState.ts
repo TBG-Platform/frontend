@@ -8,7 +8,7 @@ export class StoryEditorState {
   @observable.ref public story?: Story;
   @observable public addingTextBlock = false;
 
-  private pageDisplay?: HTMLDivElement;
+  public pageDisplay?: HTMLDivElement;
 
   constructor() {
     keyboardObserver.addKeyListener(this.handleKeyPress);
