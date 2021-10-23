@@ -1,11 +1,26 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+import { EditableText } from '../../../common/inputs/EditableText';
+
+import { StoryEditorState } from '../../state/StoryEditorState';
 
 import './page-navbar.scss';
 
+interface Props {
+  storyEditorState: StoryEditorState;
+}
+
 @observer
-export class PageNavbar extends React.Component {
+export class PageNavbar extends React.Component<Props> {
   public render() {
-    return <div className={'page-navbar'}></div>;
+    const { storyEditorState } = this.props;
+
+    const page = storyEditorState.story.selectedPage;
+
+    return (
+      <div className={'page-navbar'}>
+        <EditableText text={page.name} onChange={page.setName} label={'Page'} />
+      </div>
+    );
   }
 }

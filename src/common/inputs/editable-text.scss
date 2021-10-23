@@ -1,7 +1,15 @@
 @import '../../common/tbg-palette.scss';
 
 .editable-text-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
   .editable-text-label {
+    font-weight: bold;
+  }
+
+  .editable-text-content {
     height: 30px;
     padding: 0px 10px;
     cursor: pointer;

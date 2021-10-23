@@ -18,7 +18,7 @@ export class EditorNavbar extends React.Component<Props> {
 
     return (
       <div className={'editor-navbar'}>
-        <EditableText text={story.name} onChange={story.setName} />
+        <EditableText text={story.name} onChange={story.setName} label={'Story'} />
       </div>
     );
   }

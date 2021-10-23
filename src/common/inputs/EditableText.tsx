@@ -9,6 +9,7 @@ interface Props {
   text: string;
   onChange: (text: string) => void;
   className?: string;
+  label?: string;
 }
 
 @observer
@@ -16,10 +17,10 @@ export class EditableText extends React.Component<Props> {
   @observable private isEditing = false;
 
   public render() {
-    const { text, onChange, className } = this.props;
+    const { text, onChange, className, label } = this.props;
 
     let content: JSX.Element = (
-      <div className={'editable-text-label'} onClick={this.onClickLabel}>
+      <div className={'editable-text-content'} onClick={this.onClickText}>
         {text}
       </div>
     );
@@ -28,10 +29,15 @@ export class EditableText extends React.Component<Props> {
       content = <FitTextInput text={text} onChange={onChange} inputFieldPadding={10} />;
     }
 
-    return <div className={'editable-text-container ' + className}>{content}</div>;
+    return (
+      <div className={'editable-text-container ' + className}>
+        {label && <span className={'editable-text-label'}>{label}</span>}
+        {content}
+      </div>
+    );
   }
 
-  @action private onClickLabel = () => {
+  @action private onClickText = () => {
     this.isEditing = true;
     document.addEventListener('click', this.onClickDocument);
   };
