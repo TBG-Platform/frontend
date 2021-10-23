@@ -12,8 +12,6 @@ interface Props {
 @observer
 export class EditorNavbar extends React.Component<Props> {
   public render() {
-    const { storyEditorState } = this.props;
-
     return <div className={'editor-navbar'}>{this.renderStoryName()}</div>;
   }
 

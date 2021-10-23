@@ -6,3 +6,11 @@
   margin: 0;
   white-space: pre;
 }
+
+.fit-text-input {
+  .bp3-input-group {
+    input {
+      padding-bottom: 1px;
+    }
+  }
+}
