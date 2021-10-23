@@ -1,9 +1,9 @@
-import { action, observable } from 'mobx';
+import { StoryEditorState } from './editor/state/StoryEditorState';
 
 export class AppState {
-  @observable public count = 0;
+  public storyEditorState?: StoryEditorState;
 
-  @action incCount() {
-    this.count++;
+  constructor() {
+    this.storyEditorState = new StoryEditorState();
   }
 }
