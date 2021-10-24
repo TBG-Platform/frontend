@@ -4,15 +4,17 @@ import { Vector } from '../../utils/Vector';
 import { Page } from './Page';
 import { Story } from './Story';
 
+export enum DetailsPanelFocus {
+  NONE = 'none',
+  PAGE_ITEM = 'page-item',
+}
+
 export class StoryEditorState {
   @observable.ref public story?: Story;
+  @observable public detailsPanelFocus = DetailsPanelFocus.NONE;
   @observable public addingTextBlock = false;
 
   public pageDisplay?: HTMLDivElement;
-
-  constructor() {
-    keyboardObserver.addKeyListener(this.handleKeyPress);
-  }
 
   @action public createNewStory = () => {
     const story = new Story();
@@ -33,9 +35,11 @@ export class StoryEditorState {
     this.addingTextBlock = !this.addingTextBlock;
 
     if (this.addingTextBlock) {
+      keyboardObserver.addSpecificKeyListener(this.handleKeyPress, ['Escape']);
       this.pageDisplay.addEventListener('click', this.addTextBlock);
-      this.pageDisplay.style.cursor = 'crosshair';
+      this.pageDisplay.style.cursor = 'pointer';
     } else {
+      keyboardObserver.removeSpecificKeyListener(this.handleKeyPress, ['Escape']);
       this.pageDisplay.removeEventListener('click', this.addTextBlock);
       this.pageDisplay.style.cursor = 'default';
     }
@@ -56,10 +60,7 @@ export class StoryEditorState {
   };
 
   @action private handleKeyPress = (key: string) => {
-    switch (key) {
-      case 'Escape':
-        this.addingTextBlock = false;
-        break;
-    }
+    // Stop adding text block
+    this.toggleAddTextBlock();
   };
 }

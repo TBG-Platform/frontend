@@ -22,9 +22,6 @@ export class Page {
   }
 
   @action public addTextBlock(pos: Vector) {
-    console.log('added text block at:');
-    pos.print();
-
     const textBlock = new PageItem(pos, 400, 120);
 
     this.items.push(textBlock);

@@ -28,6 +28,7 @@ export class PageItemWidget extends React.Component<Props> {
         ref={this.pageItemRef}
         id={pageItem.id}
         className={classNames.join(' ')}
+        draggable={'false'}
         onMouseDown={this.onItemMouseDown}
         style={{ ...pageItem.style }}
       >

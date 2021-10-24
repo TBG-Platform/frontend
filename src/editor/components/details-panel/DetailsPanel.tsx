@@ -11,6 +11,10 @@ interface Props {
 @observer
 export class DetailsPanel extends React.Component<Props> {
   public render() {
+    const { storyEditorState } = this.props;
+
+    let panelContent: JSX.Element = undefined;
+
     return <div className={'details-panel'}></div>;
   }
 }
