@@ -44,4 +44,8 @@ export class PageItem {
     this.height = height;
     this.style.height = height + 'px';
   };
+
+  @action public setText = (text: string) => {
+    this.text = text;
+  };
 }

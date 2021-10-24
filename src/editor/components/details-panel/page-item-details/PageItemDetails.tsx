@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { NumberInput, NumberInputSize } from '../../../../common/inputs/number-input/NumberInput';
+import { TextAreaInput } from '../../../../common/inputs/text-area-input/TextAreaInput';
 
 import { PageItem } from '../../../state/PageItem';
 
@@ -13,7 +14,12 @@ interface Props {
 @observer
 export class PageItemDetails extends React.Component<Props> {
   public render() {
-    return <div className={'page-item-details'}>{this.renderTransformSettings()}</div>;
+    return (
+      <div className={'page-item-details'}>
+        {this.renderTransformSettings()}
+        {this.renderContentSettings()}
+      </div>
+    );
   }
 
   private renderTransformSettings() {
@@ -59,6 +65,13 @@ export class PageItemDetails extends React.Component<Props> {
   private renderContentSettings() {
     const { pageItem } = this.props;
 
-    return <div className={'section content'}></div>;
+    return (
+      <div className={'section content'}>
+        <div className={'section-title'}>Content</div>
+        <div className={'section-content'}>
+          <TextAreaInput label={'Text'} text={pageItem.text} onChange={pageItem.setText} />
+        </div>
+      </div>
+    );
   }
 }
