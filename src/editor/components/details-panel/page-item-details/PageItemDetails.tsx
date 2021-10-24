@@ -88,10 +88,26 @@ export class PageItemDetails extends React.Component<Props> {
                 outlined={pageItem.textSettings.isXAlignSelected(TextAlign.CENTER)}
                 onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.CENTER)}
               />
-              <Button icon={'alignment-right'} />
-              <Button icon={'alignment-top'} />
-              <Button icon={'alignment-vertical-center'} />
-              <Button icon={'alignment-bottom'} />
+              <Button
+                icon={'alignment-right'}
+                outlined={pageItem.textSettings.isXAlignSelected(TextAlign.END)}
+                onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.END)}
+              />
+              <Button
+                icon={'alignment-top'}
+                outlined={pageItem.textSettings.isYAlignSelected(TextAlign.START)}
+                onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.START)}
+              />
+              <Button
+                icon={'alignment-vertical-center'}
+                outlined={pageItem.textSettings.isYAlignSelected(TextAlign.CENTER)}
+                onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.CENTER)}
+              />
+              <Button
+                icon={'alignment-bottom'}
+                outlined={pageItem.textSettings.isYAlignSelected(TextAlign.END)}
+                onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.END)}
+              />
             </ButtonGroup>
           </div>
         </div>
