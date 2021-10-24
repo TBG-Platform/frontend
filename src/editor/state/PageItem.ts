@@ -23,18 +23,18 @@ export class PageItem {
   @action public setPosition(pos: Vector) {
     this.left = pos.x;
     this.top = pos.y;
-    this.settings.left = pos.x + 'px';
-    this.settings.top = pos.y + 'px';
+    this.settings.left = pos.x + '%';
+    this.settings.top = pos.y + '%';
   }
 
   @action public setLeft = (left: number) => {
     this.left = left;
-    this.settings.left = left + 'px';
+    this.settings.left = left + '%';
   };
 
   @action public setTop = (top: number) => {
     this.top = top;
-    this.settings.top = top + 'px';
+    this.settings.top = top + '%';
   };
 
   @action public setWidth = (width: number) => {

@@ -62,7 +62,12 @@ export class StoryEditorState {
     const pagePos = new Vector(pageRect.left, pageRect.top);
     mousePos.sub(pagePos);
 
-    this.story.selectedPage.addTextBlock(mousePos);
+    // Position as percentage value
+    const leftPercent = (mousePos.x / pageRect.width) * 100;
+    const topPercent = (mousePos.y / pageRect.height) * 100;
+    const pos = new Vector(leftPercent, topPercent);
+
+    this.story.selectedPage.addTextBlock(pos);
     this.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
 
     // No longer adding text block

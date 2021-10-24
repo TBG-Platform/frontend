@@ -85,7 +85,12 @@ export class PageItemWidget extends React.Component<Props> {
     // Adjust by drag offset
     mousePos.sub(this.dragOffset);
 
-    pageItem.setPosition(mousePos);
+    // Get position as percentage values
+    const leftPercent = (mousePos.x / pageRect.width) * 100;
+    const topPercent = (mousePos.y / pageRect.height) * 100;
+    const pos = new Vector(leftPercent, topPercent);
+
+    pageItem.setPosition(pos);
   }
 
   private onResizeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
