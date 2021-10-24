@@ -14,6 +14,7 @@ interface Props {
 
 @observer
 export class PageItemWidget extends React.Component<Props> {
+  private pageItemRef = React.createRef<HTMLDivElement>();
   private dragOffset = new Vector();
 
   public render() {
@@ -24,23 +25,23 @@ export class PageItemWidget extends React.Component<Props> {
 
     return (
       <div
+        ref={this.pageItemRef}
         id={pageItem.id}
         className={classNames.join(' ')}
-        onMouseDown={this.onMouseDown}
+        onMouseDown={this.onItemMouseDown}
         style={{ ...pageItem.style }}
       >
-        <div className={'page-item-content'}>
+        <div className={'page-item-content'} draggable={'false'}>
           {pageItem.text}
-          <div className={'resize-handle'}></div>
+          <div className={'resize-handle'} onMouseDown={this.onResizeMouseDown}></div>
         </div>
       </div>
     );
   }
 
-  private onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  private onItemMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     // Work out the drag offset; mouse pos relative to item pos
-    const item = e.target as HTMLDivElement;
-    const itemRect = item.getBoundingClientRect();
+    const itemRect = this.pageItemRef.current.getBoundingClientRect();
     const itemPos = new Vector(itemRect.left, itemRect.top);
 
     const mousePos = new Vector(e.clientX, e.clientY);
@@ -49,17 +50,17 @@ export class PageItemWidget extends React.Component<Props> {
     this.dragOffset = mousePos;
 
     // Setup drag listeners
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('mouseup', this.onMouseUp);
+    document.addEventListener('mousemove', this.onDragItem);
+    document.addEventListener('mouseup', this.onDragEnd);
   };
 
-  private onMouseMove = (e: MouseEvent) => {
+  private onDragItem = (e: MouseEvent) => {
     this.updateItemPos(new Vector(e.clientX, e.clientY));
   };
 
-  private onMouseUp = (_e: MouseEvent) => {
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('mouseup', this.onMouseUp);
+  private onDragEnd = (_e: MouseEvent) => {
+    document.removeEventListener('mousemove', this.onDragItem);
+    document.removeEventListener('mouseup', this.onDragEnd);
 
     this.props.onClick();
   };
@@ -77,4 +78,32 @@ export class PageItemWidget extends React.Component<Props> {
 
     pageItem.setPosition(mousePos);
   }
+
+  private onResizeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
+    // Setup resize listeners
+    document.addEventListener('mousemove', this.onResize);
+    document.addEventListener('mouseup', this.onResizeEnd);
+  };
+
+  private onResize = (e: MouseEvent) => {
+    const { pageItem } = this.props;
+
+    // Mouse pos - item left is new width
+    const itemRect = this.pageItemRef.current.getBoundingClientRect();
+    const itemPos = new Vector(itemRect.x, itemRect.y);
+
+    const mousePos = new Vector(e.clientX, e.clientY);
+    mousePos.sub(itemPos);
+
+    pageItem.setWidth(mousePos.x);
+    pageItem.setHeight(mousePos.y);
+  };
+
+  private onResizeEnd = () => {
+    // Remove listeners
+    document.removeEventListener('mousemove', this.onResize);
+    document.removeEventListener('mouseup', this.onResizeEnd);
+  };
 }

@@ -25,7 +25,7 @@ export class Page {
     console.log('added text block at:');
     pos.print();
 
-    const textBlock = new PageItem(pos, 50, 25);
+    const textBlock = new PageItem(pos, 400, 120);
 
     this.items.push(textBlock);
 
