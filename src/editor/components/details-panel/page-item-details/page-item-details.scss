@@ -31,4 +31,18 @@
     display: flex;
     gap: 20px;
   }
+
+  .content .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .text-settings-row {
+      .text-settings-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
 }

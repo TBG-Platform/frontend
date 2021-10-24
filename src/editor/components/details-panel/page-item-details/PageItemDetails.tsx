@@ -1,3 +1,4 @@
+import { Button, ButtonGroup } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { NumberInput, NumberInputSize } from '../../../../common/inputs/number-input/NumberInput';
@@ -70,6 +71,16 @@ export class PageItemDetails extends React.Component<Props> {
         <div className={'section-title'}>Content</div>
         <div className={'section-content'}>
           <TextAreaInput label={'Text'} text={pageItem.text} onChange={pageItem.setText} />
+          <div className={'text-settings-row'}>
+            <ButtonGroup minimal>
+              <Button icon={'alignment-left'} />
+              <Button icon={'alignment-horizontal-center'} />
+              <Button icon={'alignment-right'} />
+              <Button icon={'alignment-top'} />
+              <Button icon={'alignment-vertical-center'} />
+              <Button icon={'alignment-bottom'} />
+            </ButtonGroup>
+          </div>
         </div>
       </div>
     );
