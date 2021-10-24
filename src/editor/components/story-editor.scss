@@ -41,6 +41,7 @@
   .page-area {
     flex: 1 1 100%;
 
+    overflow: hidden;
     display: flex;
 
     .page-edit-area {
