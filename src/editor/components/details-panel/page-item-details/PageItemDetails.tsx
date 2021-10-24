@@ -1,11 +1,11 @@
-import { Button, ButtonGroup } from '@blueprintjs/core';
+import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { NumberInput, NumberInputSize } from '../../../../common/inputs/number-input/NumberInput';
 import { TextAreaInput } from '../../../../common/inputs/text-area-input/TextAreaInput';
 
 import { PageItem } from '../../../state/PageItem';
-import { TextAlign } from '../../../state/TextSettings';
+import { TextAlign, TextDecoration } from '../../../state/TextSettings';
 
 import './page-item-details.scss';
 
@@ -93,6 +93,7 @@ export class PageItemDetails extends React.Component<Props> {
                 outlined={pageItem.textSettings.isXAlignSelected(TextAlign.END)}
                 onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.END)}
               />
+              <Divider />
               <Button
                 icon={'alignment-top'}
                 outlined={pageItem.textSettings.isYAlignSelected(TextAlign.START)}
@@ -107,6 +108,30 @@ export class PageItemDetails extends React.Component<Props> {
                 icon={'alignment-bottom'}
                 outlined={pageItem.textSettings.isYAlignSelected(TextAlign.END)}
                 onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.END)}
+              />
+            </ButtonGroup>
+          </div>
+          <div className={'text-settings-row'}>
+            <ButtonGroup minimal>
+              <Button
+                icon={'bold'}
+                outlined={pageItem.textSettings.bold}
+                onClick={pageItem.textSettings.toggleBold}
+              />
+              <Button
+                icon={'italic'}
+                outlined={pageItem.textSettings.italic}
+                onClick={pageItem.textSettings.toggleItalic}
+              />
+              <Button
+                icon={'underline'}
+                outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.UNDERLINE)}
+                onClick={() => pageItem.textSettings.setDecoration(TextDecoration.UNDERLINE)}
+              />
+              <Button
+                icon={'strikethrough'}
+                outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.STRIKETHROUGH)}
+                onClick={() => pageItem.textSettings.setDecoration(TextDecoration.STRIKETHROUGH)}
               />
             </ButtonGroup>
           </div>
