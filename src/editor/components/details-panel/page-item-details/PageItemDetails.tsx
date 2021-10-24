@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { NumberInput, NumberInputSize } from '../../../../common/inputs/NumberInput';
+import { NumberInput, NumberInputSize } from '../../../../common/inputs/number-input/NumberInput';
 
 import { PageItem } from '../../../state/PageItem';
 
@@ -54,5 +54,11 @@ export class PageItemDetails extends React.Component<Props> {
         </div>
       </div>
     );
+  }
+
+  private renderContentSettings() {
+    const { pageItem } = this.props;
+
+    return <div className={'section content'}></div>;
   }
 }
