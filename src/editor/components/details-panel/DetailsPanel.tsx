@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { StoryEditorState } from '../../state/StoryEditorState';
+
+import { DetailsPanelFocus, StoryEditorState } from '../../state/StoryEditorState';
+import { PageItemDetails } from './page-item-details/PageItemDetails';
 
 import './details-panel.scss';
 
@@ -15,6 +17,16 @@ export class DetailsPanel extends React.Component<Props> {
 
     let panelContent: JSX.Element = undefined;
 
-    return <div className={'details-panel'}></div>;
+    switch (storyEditorState.detailsPanelFocus) {
+      case DetailsPanelFocus.PAGE_ITEM:
+        const pageItem = storyEditorState.story?.selectedPage?.selectedItem;
+        if (pageItem) {
+          panelContent = <PageItemDetails pageItem={pageItem} />;
+        }
+
+        break;
+    }
+
+    return <div className={'details-panel'}>{panelContent}</div>;
   }
 }

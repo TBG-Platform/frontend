@@ -31,6 +31,10 @@ export class StoryEditorState {
     this.pageDisplay = pageDisplayDiv;
   }
 
+  @action public setDetailsPanelFocus(focus: DetailsPanelFocus) {
+    this.detailsPanelFocus = focus;
+  }
+
   @action public toggleAddTextBlock = () => {
     this.addingTextBlock = !this.addingTextBlock;
 
@@ -54,6 +58,7 @@ export class StoryEditorState {
     mousePos.sub(pagePos);
 
     this.story.selectedPage.addTextBlock(mousePos);
+    this.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
 
     // No longer adding text block
     this.toggleAddTextBlock();

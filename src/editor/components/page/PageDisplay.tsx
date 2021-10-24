@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { StoryEditorState } from '../../state/StoryEditorState';
+import { DetailsPanelFocus, StoryEditorState } from '../../state/StoryEditorState';
 import { PageItemWidget } from './PageItemWidget';
 
 import './page-display.scss';
@@ -31,7 +31,10 @@ export class PageDisplay extends React.Component<Props> {
             key={'item-' + item.id}
             pageItem={item}
             selected={page.isItemSelected(item.id)}
-            onClick={() => page.selectItem(item.id)}
+            onClick={() => {
+              page.selectItem(item.id);
+              storyEditorState.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
+            }}
             pageDisplayElement={storyEditorState.pageDisplay}
           />
         ))}
