@@ -48,12 +48,12 @@
       flex: 1 1 100%;
       padding: 20px;
       background-color: $mainBackgroundColor;
+
+      overflow-y: auto;
     }
 
     .page-details-panel {
-      flex: 0 0 300px;
-      max-width: 300px;
-      border-left: 1px solid $mainBorderColor;
+      //flex: 0 0 300px;
     }
   }
 }

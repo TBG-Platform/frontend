@@ -59,8 +59,8 @@ export class PageItemWidget extends React.Component<Props> {
     this.dragOffset = mousePos;
 
     // Setup drag listeners
-    document.addEventListener('mousemove', this.onDragItem);
     document.addEventListener('mouseup', this.onDragEnd);
+    document.addEventListener('mousemove', this.onDragItem);
   };
 
   private onDragItem = (e: MouseEvent) => {
@@ -92,8 +92,8 @@ export class PageItemWidget extends React.Component<Props> {
     e.stopPropagation();
 
     // Setup resize listeners
-    document.addEventListener('mousemove', this.onResize);
     document.addEventListener('mouseup', this.onResizeEnd);
+    document.addEventListener('mousemove', this.onResize);
   };
 
   private onResize = (e: MouseEvent) => {

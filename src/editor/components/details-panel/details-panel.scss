@@ -1,6 +1,29 @@
+@import '../../../common/tbg-palette.scss';
+
 .details-panel {
   width: 100%;
   height: 100%;
 
-  overflow-y: auto;
+  display: flex;
+
+  .resize-bar {
+    flex: 0 0 16px;
+    border-left: 1px solid $mainBorderColor;
+    border-right: 1px solid $mainBorderColor;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .resize-handle {
+      cursor: ew-resize;
+    }
+  }
+
+  .details-panel-content {
+    flex: 1 1 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
 }

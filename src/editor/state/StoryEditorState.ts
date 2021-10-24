@@ -12,6 +12,7 @@ export enum DetailsPanelFocus {
 export class StoryEditorState {
   @observable.ref public story?: Story;
   @observable public detailsPanelFocus = DetailsPanelFocus.NONE;
+  @observable public detailsPanelWidth = 300;
   @observable public addingTextBlock = false;
 
   public pageDisplay?: HTMLDivElement;
@@ -34,6 +35,10 @@ export class StoryEditorState {
   @action public setDetailsPanelFocus(focus: DetailsPanelFocus) {
     this.detailsPanelFocus = focus;
   }
+
+  @action public setDetailsPanelWidth = (width: number) => {
+    this.detailsPanelWidth = width;
+  };
 
   @action public toggleAddTextBlock = () => {
     this.addingTextBlock = !this.addingTextBlock;
