@@ -29,7 +29,10 @@ export class PageItemWidget extends React.Component<Props> {
         onMouseDown={this.onMouseDown}
         style={{ ...pageItem.style }}
       >
-        <div className={'page-item-content'}>{pageItem.text}</div>
+        <div className={'page-item-content'}>
+          {pageItem.text}
+          <div className={'resize-handle'}></div>
+        </div>
       </div>
     );
   }
