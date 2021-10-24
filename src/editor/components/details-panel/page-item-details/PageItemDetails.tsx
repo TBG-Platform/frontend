@@ -94,7 +94,11 @@ export class PageItemDetails extends React.Component<Props> {
                 outlined={pageItem.textSettings.isXAlignSelected(TextAlign.END)}
                 onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.END)}
               />
-              <Divider />
+            </ButtonGroup>
+
+            <Divider className={'divider'} />
+
+            <ButtonGroup minimal>
               <Button
                 icon={'alignment-top'}
                 outlined={pageItem.textSettings.isYAlignSelected(TextAlign.START)}
@@ -134,13 +138,21 @@ export class PageItemDetails extends React.Component<Props> {
                 outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.STRIKETHROUGH)}
                 onClick={() => pageItem.textSettings.setDecoration(TextDecoration.STRIKETHROUGH)}
               />
-              <Divider />
-
-              <ColorPicker
-                color={pageItem.textSettings.color}
-                setColor={pageItem.textSettings.setColor}
-              />
             </ButtonGroup>
+
+            <Divider className={'divider'} />
+
+            <ColorPicker
+              color={pageItem.textSettings.color}
+              setColor={pageItem.textSettings.setColor}
+            />
+
+            <NumberInput
+              label={'Size'}
+              value={pageItem.textSettings.size}
+              onChange={pageItem.textSettings.setSize}
+              size={NumberInputSize.SMALL}
+            />
           </div>
         </div>
       </div>
