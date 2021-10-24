@@ -39,12 +39,12 @@ export class PageItem {
 
   @action public setWidth = (width: number) => {
     this.width = width;
-    this.settings.width = width + 'px';
+    this.settings.width = width + '%';
   };
 
   @action public setHeight = (height: number) => {
     this.height = height;
-    this.settings.height = height + 'px';
+    this.settings.height = height + '%';
   };
 
   @action public setBackgroundColor = (color: ColorResult) => {

@@ -102,7 +102,7 @@ export class PageItemWidget extends React.Component<Props> {
   };
 
   private onResize = (e: MouseEvent) => {
-    const { pageItem } = this.props;
+    const { pageItem, pageDisplayElement } = this.props;
 
     // Mouse pos - item left is new width
     const itemRect = this.pageItemRef.current.getBoundingClientRect();
@@ -111,8 +111,13 @@ export class PageItemWidget extends React.Component<Props> {
     const mousePos = new Vector(e.clientX, e.clientY);
     mousePos.sub(itemPos);
 
-    pageItem.setWidth(mousePos.x);
-    pageItem.setHeight(mousePos.y);
+    // Get size as percentage
+    const pageRect = pageDisplayElement.getBoundingClientRect();
+    const widthPercent = (mousePos.x / pageRect.width) * 100;
+    const heightPercent = (mousePos.y / pageRect.height) * 100;
+
+    pageItem.setWidth(widthPercent);
+    pageItem.setHeight(heightPercent);
   };
 
   private onResizeEnd = () => {
