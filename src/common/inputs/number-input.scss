@@ -1,0 +1,17 @@
+.number-input {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &.small {
+    .bp3-input-group {
+      width: 35px;
+    }
+  }
+
+  &.medium {
+    .bp3-input-group {
+      width: 50px;
+    }
+  }
+}

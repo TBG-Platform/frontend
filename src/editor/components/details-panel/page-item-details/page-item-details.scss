@@ -1,0 +1,34 @@
+@import '../../../../common/tbg-palette.scss';
+
+.page-item-details {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  .section {
+    padding: 10px;
+    border-bottom: 1px solid $mainBorderColor;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .section-title {
+      font-weight: bold;
+    }
+
+    .section-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+
+  .transform .section-content {
+    display: flex;
+    gap: 20px;
+  }
+}

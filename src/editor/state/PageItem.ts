@@ -7,8 +7,10 @@ export class PageItem {
   public id = RandomUtils.createId();
   @observable public style: CSSProperties = {};
   @observable public text = 'text block';
-  public position = new Vector();
-  public scale = new Vector();
+  @observable public left: number;
+  @observable public top: number;
+  @observable public width: number;
+  @observable public height: number;
 
   constructor(pos: Vector, width = 0, height = 0) {
     this.setPosition(pos);
@@ -17,18 +19,29 @@ export class PageItem {
   }
 
   @action public setPosition(pos: Vector) {
-    this.position = pos;
+    this.left = pos.x;
+    this.top = pos.y;
     this.style.left = pos.x + 'px';
     this.style.top = pos.y + 'px';
   }
 
-  @action public setWidth(width: number) {
-    this.style.width = width + 'px';
-    this.scale.x = width;
-  }
+  @action public setLeft = (left: number) => {
+    this.left = left;
+    this.style.left = left + 'px';
+  };
 
-  @action public setHeight(height: number) {
+  @action public setTop = (top: number) => {
+    this.top = top;
+    this.style.top = top + 'px';
+  };
+
+  @action public setWidth = (width: number) => {
+    this.width = width;
+    this.style.width = width + 'px';
+  };
+
+  @action public setHeight = (height: number) => {
+    this.height = height;
     this.style.height = height + 'px';
-    this.scale.y = height;
-  }
+  };
 }
