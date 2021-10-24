@@ -15,11 +15,8 @@ export class PageItem {
   }
 
   @action public setPosition(pos: Vector) {
-    if (!pos.hasNegativeValues()) {
-      this.style.left = pos.x + 'px';
-      this.style.top = pos.y + 'px';
-      console.log('pos', pos);
-    }
+    this.style.left = pos.x + 'px';
+    this.style.top = pos.y + 'px';
   }
 
   @action public setWidth(width: number) {
