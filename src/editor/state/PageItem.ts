@@ -17,8 +17,6 @@ export class PageItem {
   @action public setPosition(pos: Vector) {
     this.style.left = pos.x + 'px';
     this.style.top = pos.y + 'px';
-
-    console.log('setPos', pos);
   }
 
   @action public setWidth(width: number) {
