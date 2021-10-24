@@ -52,26 +52,21 @@ export class PageItemWidget extends React.Component<Props> {
     const itemPos = new Vector(itemRect.left, itemRect.top);
 
     const mousePos = new Vector(e.clientX, e.clientY);
+    mousePos.print('mousePos: ');
     mousePos.sub(itemPos);
 
     this.dragOffset = mousePos;
-
-    this.updateItemPos(new Vector(e.clientX, e.clientY));
+    // this.updateItemPos(new Vector(e.clientX, e.clientY));
   };
 
   public onDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    const { pageItem, pageDisplayElement } = this.props;
-
-    // Get mouse pos relative to page pos
     const mousePos = new Vector(e.clientX, e.clientY);
+    mousePos.print('drag mousePos: ');
     this.updateItemPos(mousePos);
   };
 
   public onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    const { pageItem, pageDisplayElement } = this.props;
-
     console.log('drag end');
-
     // Set position one last time (ends up at 0,0 otherwise)
     this.updateItemPos(new Vector(e.clientX, e.clientY));
   };
@@ -82,6 +77,7 @@ export class PageItemWidget extends React.Component<Props> {
     // Get mouse pos relative to page pos
     const pageRect = pageDisplayElement.getBoundingClientRect();
     const pagePos = new Vector(pageRect.left, pageRect.top);
+
     mousePos.sub(pagePos);
 
     // Adjust by drag offset
