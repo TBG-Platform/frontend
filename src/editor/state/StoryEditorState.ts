@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 import { keyboardObserver } from '../../utils/KeyboardObserver';
+import { NumberUtils } from '../../utils/NumberUtils';
 import { Vector } from '../../utils/Vector';
 import { Page } from './Page';
 import { Story } from './Story';
@@ -65,8 +66,8 @@ export class StoryEditorState {
     // Position as percentage value
     const leftPercent = (mousePos.x / pageRect.width) * 100;
     const topPercent = (mousePos.y / pageRect.height) * 100;
-    const pos = new Vector(leftPercent, topPercent);
 
+    const pos = new Vector(NumberUtils.roundTo3dp(leftPercent), NumberUtils.roundTo3dp(topPercent));
     this.story.selectedPage.addTextBlock(pos);
     this.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
 

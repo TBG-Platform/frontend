@@ -32,8 +32,11 @@ export class NumberInput extends React.Component<Props> {
         <NumericInput
           id={id}
           buttonPosition={'none'}
-          min={0}
+          min={undefined}
+          max={undefined}
           minorStepSize={0.001}
+          majorStepSize={0.1}
+          stepSize={0.01}
           value={value}
           onValueChange={this.onChange}
           onBlur={

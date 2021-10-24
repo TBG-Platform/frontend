@@ -2,6 +2,7 @@ import { Menu, MenuItem } from '@blueprintjs/core';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { NumberUtils } from '../../../utils/NumberUtils';
 import { Vector } from '../../../utils/Vector';
 import { PageItem } from '../../state/PageItem';
 
@@ -88,8 +89,10 @@ export class PageItemWidget extends React.Component<Props> {
     // Get position as percentage values
     const leftPercent = (mousePos.x / pageRect.width) * 100;
     const topPercent = (mousePos.y / pageRect.height) * 100;
-    const pos = new Vector(leftPercent, topPercent);
 
+    // Round to 3dp
+
+    const pos = new Vector(NumberUtils.roundTo2dp(leftPercent), NumberUtils.roundTo2dp(topPercent));
     pageItem.setPosition(pos);
   }
 
