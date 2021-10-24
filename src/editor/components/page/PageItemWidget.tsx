@@ -1,3 +1,5 @@
+import { Menu, MenuItem } from '@blueprintjs/core';
+import { ContextMenu2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Vector } from '../../../utils/Vector';
@@ -10,6 +12,7 @@ interface Props {
   selected: boolean;
   onClick: () => void;
   pageDisplayElement: HTMLDivElement;
+  onDelete: () => void;
 }
 
 @observer
@@ -18,28 +21,30 @@ export class PageItemWidget extends React.Component<Props> {
   private dragOffset = new Vector();
 
   public render() {
-    const { pageItem, selected } = this.props;
+    const { pageItem, selected, onDelete } = this.props;
 
     const selectedClass = selected ? 'selected' : 'unselected';
     const classNames = ['page-item-widget', selectedClass];
 
     return (
-      <div
-        ref={this.pageItemRef}
-        id={pageItem.id}
-        className={classNames.join(' ')}
-        draggable={'false'}
-        onMouseDown={this.onItemMouseDown}
-        style={{ ...pageItem.settings }}
-      >
-        <div className={'page-item-content'} draggable={'false'}>
-          <div className={'page-item-text'} style={{ ...pageItem.textSettings.settings }}>
-            {pageItem.textSettings.text}
-          </div>
+      <WidgetContextMenu onDelete={onDelete}>
+        <div
+          ref={this.pageItemRef}
+          id={pageItem.id}
+          className={classNames.join(' ')}
+          draggable={'false'}
+          onMouseDown={this.onItemMouseDown}
+          style={{ ...pageItem.settings }}
+        >
+          <div className={'page-item-content'} draggable={'false'}>
+            <div className={'page-item-text'} style={{ ...pageItem.textSettings.settings }}>
+              {pageItem.textSettings.text}
+            </div>
 
-          <div className={'resize-handle'} onMouseDown={this.onResizeMouseDown}></div>
+            <div className={'resize-handle'} onMouseDown={this.onResizeMouseDown}></div>
+          </div>
         </div>
-      </div>
+      </WidgetContextMenu>
     );
   }
 
@@ -111,3 +116,21 @@ export class PageItemWidget extends React.Component<Props> {
     document.removeEventListener('mouseup', this.onResizeEnd);
   };
 }
+
+interface WidgetContextMenuProps {
+  onDelete: () => void;
+}
+
+const WidgetContextMenu: React.FC<WidgetContextMenuProps> = ({ onDelete, children }) => {
+  return (
+    <ContextMenu2
+      content={
+        <Menu>
+          <MenuItem icon={'trash'} text={'Delete'} onClick={onDelete} />
+        </Menu>
+      }
+    >
+      {children}
+    </ContextMenu2>
+  );
+};

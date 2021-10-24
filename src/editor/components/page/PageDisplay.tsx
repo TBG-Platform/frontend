@@ -36,6 +36,7 @@ export class PageDisplay extends React.Component<Props> {
               storyEditorState.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
             }}
             pageDisplayElement={storyEditorState.pageDisplay}
+            onDelete={page.deleteSelectedItem}
           />
         ))}
       </div>

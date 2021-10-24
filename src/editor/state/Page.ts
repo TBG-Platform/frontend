@@ -11,7 +11,7 @@ export class Page {
   @observable.ref public selectedItem?: PageItem;
 
   constructor() {
-    keyboardObserver.addSpecificKeyListener(this.onDeleteKey, ['Delete']);
+    keyboardObserver.addSpecificKeyListener(this.deleteSelectedItem, ['Delete']);
   }
 
   @action public setName = (name: string) => {
@@ -34,7 +34,7 @@ export class Page {
     this.selectedItem = textBlock;
   }
 
-  @action private onDeleteKey = () => {
+  @action public deleteSelectedItem = () => {
     if (this.selectedItem) {
       this.items = this.items.filter((item) => item.id !== this.selectedItem.id);
       this.selectedItem = undefined;
