@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 import { CSSProperties } from 'react';
+import { ColorResult } from 'react-color';
 import { RandomUtils } from '../../utils/RandomUtils';
 import { Vector } from '../../utils/Vector';
 import { TextSettings } from './TextSettings';
@@ -44,5 +45,10 @@ export class PageItem {
   @action public setHeight = (height: number) => {
     this.height = height;
     this.settings.height = height + 'px';
+  };
+
+  @action public setBackgroundColor = (color: ColorResult) => {
+    const rgba = color.rgb;
+    this.settings.backgroundColor = `rgba( ${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
   };
 }

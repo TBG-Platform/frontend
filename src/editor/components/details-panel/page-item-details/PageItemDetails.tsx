@@ -20,6 +20,7 @@ export class PageItemDetails extends React.Component<Props> {
     return (
       <div className={'page-item-details'}>
         {this.renderTransformSettings()}
+        {this.renderBackgroundSettings()}
         {this.renderContentSettings()}
       </div>
     );
@@ -60,6 +61,23 @@ export class PageItemDetails extends React.Component<Props> {
               size={NumberInputSize.MEDIUM}
             />
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  private renderBackgroundSettings() {
+    const { pageItem } = this.props;
+
+    return (
+      <div className={'section background'}>
+        <div className={'section-title'}>Background</div>
+        <div className={'section-content'}>
+          <ColorPicker
+            label={'Fill'}
+            color={pageItem.settings.backgroundColor}
+            setColor={pageItem.setBackgroundColor}
+          />
         </div>
       </div>
     );
