@@ -2,8 +2,8 @@
 
 .page-item-widget {
   position: absolute;
-  cursor: pointer;
   padding: 1px;
+  cursor: move;
 
   &.selected {
     border: 1px solid blue;

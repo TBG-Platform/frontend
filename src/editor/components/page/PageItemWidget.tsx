@@ -15,10 +15,9 @@ interface Props {
 @observer
 export class PageItemWidget extends React.Component<Props> {
   private dragOffset = new Vector();
-  private dragging = false;
 
   public render() {
-    const { pageItem, selected, onClick } = this.props;
+    const { pageItem, selected } = this.props;
 
     const selectedClass = selected ? 'selected' : 'unselected';
     const classNames = ['page-item-widget', selectedClass];
@@ -27,10 +26,6 @@ export class PageItemWidget extends React.Component<Props> {
       <div
         id={pageItem.id}
         className={classNames.join(' ')}
-        //onDragStart={this.onDragStart}
-        // onDrag={this.onDrag}
-        // onDragEnd={this.onDragEnd}
-        //draggable={'true'}
         onMouseDown={this.onMouseDown}
         style={{ ...pageItem.style }}
       >
@@ -46,7 +41,6 @@ export class PageItemWidget extends React.Component<Props> {
     const itemPos = new Vector(itemRect.left, itemRect.top);
 
     const mousePos = new Vector(e.clientX, e.clientY);
-    mousePos.print('mousePos: ');
     mousePos.sub(itemPos);
 
     this.dragOffset = mousePos;
@@ -56,49 +50,17 @@ export class PageItemWidget extends React.Component<Props> {
     document.addEventListener('mouseup', this.onMouseUp);
   };
 
-  public onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('drag start');
-
-    // Hide the default drag ghost image
-    const dragImage = document.createElement('div');
-    dragImage.style.visibility = 'hidden';
-    e.dataTransfer.setDragImage(dragImage, 0, 0);
-
-    // Work out the drag offset; mouse pos relative to item pos
-    const item = e.target as HTMLDivElement;
-    const itemRect = item.getBoundingClientRect();
-    const itemPos = new Vector(itemRect.left, itemRect.top);
-
-    const mousePos = new Vector(e.clientX, e.clientY);
-    mousePos.print('mousePos: ');
-    mousePos.sub(itemPos);
-
-    this.dragOffset = mousePos;
-    this.updateItemPos(new Vector(e.clientX, e.clientY));
-  };
-
-  public onDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    const mousePos = new Vector(e.clientX, e.clientY);
-    mousePos.print('drag mousePos: ');
-    this.updateItemPos(mousePos);
-  };
-
-  public onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('drag end');
-    // Set position one last time (ends up at 0,0 otherwise)
-    this.updateItemPos(new Vector(e.clientX, e.clientY));
-  };
-
   private onMouseMove = (e: MouseEvent) => {
     this.updateItemPos(new Vector(e.clientX, e.clientY));
   };
 
   private onMouseUp = (e: MouseEvent) => {
     this.updateItemPos(new Vector(e.clientX, e.clientY));
-    this.props.onClick();
 
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mouseup', this.onMouseUp);
+
+    this.props.onClick();
   };
 
   private updateItemPos(mousePos: Vector) {
