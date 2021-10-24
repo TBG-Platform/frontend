@@ -22,9 +22,10 @@ export class PageItemWidget extends React.Component<Props> {
 
     return (
       <div
+        id={pageItem.id}
         className={classNames.join(' ')}
         onDragStart={this.onDragStart}
-        //onDrag={this.onDrag}
+        onDrag={this.onDrag}
         onDragEnd={this.onDragEnd}
         draggable={'true'}
         onClick={onClick}
@@ -38,28 +39,33 @@ export class PageItemWidget extends React.Component<Props> {
   public onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     console.log('drag start');
 
-    e.currentTarget.style.cursor = 'grabbing';
-    e.currentTarget.style.backgroundColor = 'yellow';
-    e.currentTarget.style.opacity = '1';
+    // Hide the default drag ghost image
+    const dragImage = document.createElement('div');
+    dragImage.style.visibility = 'hidden';
+    e.dataTransfer.setDragImage(dragImage, 0, 0);
   };
 
   public onDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('dragging');
-
     const { pageItem, pageDisplayElement } = this.props;
 
+    // Update item's position with mouse
     const mousePos = new Vector(e.clientX, e.clientY);
-
     const pageRect = pageDisplayElement.getBoundingClientRect();
     const pagePos = new Vector(pageRect.left, pageRect.top);
     mousePos.sub(pagePos);
-
     pageItem.setPosition(mousePos);
   };
 
   public onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    const { pageItem, pageDisplayElement } = this.props;
+
     console.log('drag end');
-    const target = e.target as HTMLDivElement;
-    target.style.cursor = 'pointer';
+
+    // Set position one last time (ends up at 0,0 otherwise)
+    const mousePos = new Vector(e.clientX, e.clientY);
+    const pageRect = pageDisplayElement.getBoundingClientRect();
+    const pagePos = new Vector(pageRect.left, pageRect.top);
+    mousePos.sub(pagePos);
+    pageItem.setPosition(mousePos);
   };
 }
