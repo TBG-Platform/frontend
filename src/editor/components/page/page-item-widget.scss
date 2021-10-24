@@ -4,6 +4,8 @@
   position: absolute;
   padding: 1px;
   cursor: move;
+  min-width: 20px;
+  min-height: 20px;
 
   &.selected {
     border: 1px solid blue;
@@ -21,6 +23,13 @@
     width: 100%;
     height: 100%;
     position: relative;
+
+    .page-item-text {
+      width: 100%;
+      height: 100%;
+      user-select: none;
+      overflow: auto;
+    }
 
     &:hover {
       .resize-handle {
