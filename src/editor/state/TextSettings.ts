@@ -24,12 +24,9 @@ export class TextSettings {
   @observable public decoration: TextDecoration;
   @observable public color: string;
   @observable public size: number;
-  @observable public settings: CSSProperties;
+  @observable public settings: CSSProperties = {};
 
-  constructor(settings: CSSProperties) {
-    this.settings = settings;
-
-    // Apply default settings
+  constructor() {
     this.setDefaultValues();
   }
 

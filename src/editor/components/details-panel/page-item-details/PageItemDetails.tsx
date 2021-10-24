@@ -5,6 +5,7 @@ import { NumberInput, NumberInputSize } from '../../../../common/inputs/number-i
 import { TextAreaInput } from '../../../../common/inputs/text-area-input/TextAreaInput';
 
 import { PageItem } from '../../../state/PageItem';
+import { TextAlign } from '../../../state/TextSettings';
 
 import './page-item-details.scss';
 
@@ -70,11 +71,23 @@ export class PageItemDetails extends React.Component<Props> {
       <div className={'section content'}>
         <div className={'section-title'}>Content</div>
         <div className={'section-content'}>
-          <TextAreaInput label={'Text'} text={pageItem.text} onChange={pageItem.setText} />
+          <TextAreaInput
+            label={'Text'}
+            text={pageItem.textSettings.text}
+            onChange={pageItem.textSettings.setText}
+          />
           <div className={'text-settings-row'}>
             <ButtonGroup minimal>
-              <Button icon={'alignment-left'} />
-              <Button icon={'alignment-horizontal-center'} />
+              <Button
+                icon={'alignment-left'}
+                outlined={pageItem.textSettings.isXAlignSelected(TextAlign.START)}
+                onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.START)}
+              />
+              <Button
+                icon={'alignment-horizontal-center'}
+                outlined={pageItem.textSettings.isXAlignSelected(TextAlign.CENTER)}
+                onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.CENTER)}
+              />
               <Button icon={'alignment-right'} />
               <Button icon={'alignment-top'} />
               <Button icon={'alignment-vertical-center'} />
