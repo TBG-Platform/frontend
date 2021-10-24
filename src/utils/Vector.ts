@@ -11,10 +11,6 @@ export class Vector {
     this.y -= vector.y;
   }
 
-  public hasNegativeValues() {
-    return this.x < 0 || this.y < 0;
-  }
-
   public print(msg = '') {
     console.log(msg + `(${this.x}, ${this.y})`);
   }

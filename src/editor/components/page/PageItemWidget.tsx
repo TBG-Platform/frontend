@@ -29,7 +29,7 @@ export class PageItemWidget extends React.Component<Props> {
         onMouseDown={this.onMouseDown}
         style={{ ...pageItem.style }}
       >
-        {pageItem.text}
+        <div className={'page-item-content'}>{pageItem.text}</div>
       </div>
     );
   }
@@ -54,9 +54,7 @@ export class PageItemWidget extends React.Component<Props> {
     this.updateItemPos(new Vector(e.clientX, e.clientY));
   };
 
-  private onMouseUp = (e: MouseEvent) => {
-    this.updateItemPos(new Vector(e.clientX, e.clientY));
-
+  private onMouseUp = (_e: MouseEvent) => {
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mouseup', this.onMouseUp);
 
@@ -69,7 +67,6 @@ export class PageItemWidget extends React.Component<Props> {
     // Get mouse pos relative to page pos
     const pageRect = pageDisplayElement.getBoundingClientRect();
     const pagePos = new Vector(pageRect.left, pageRect.top);
-
     mousePos.sub(pagePos);
 
     // Adjust by drag offset

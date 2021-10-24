@@ -7,6 +7,7 @@ export class PageItem {
   public id = RandomUtils.createId();
   @observable public style: CSSProperties = {};
   @observable public text = 'text block';
+  public position: Vector;
 
   constructor(pos: Vector, width = 0, height = 0) {
     this.setPosition(pos);
@@ -15,6 +16,7 @@ export class PageItem {
   }
 
   @action public setPosition(pos: Vector) {
+    this.position = pos;
     this.style.left = pos.x + 'px';
     this.style.top = pos.y + 'px';
   }
