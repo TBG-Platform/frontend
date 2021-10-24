@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { ColorPicker } from '../../../../common/inputs/color-picker/ColorPicker';
 import { NumberInput, NumberInputSize } from '../../../../common/inputs/number-input/NumberInput';
 import { TextAreaInput } from '../../../../common/inputs/text-area-input/TextAreaInput';
 
@@ -132,6 +133,12 @@ export class PageItemDetails extends React.Component<Props> {
                 icon={'strikethrough'}
                 outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.STRIKETHROUGH)}
                 onClick={() => pageItem.textSettings.setDecoration(TextDecoration.STRIKETHROUGH)}
+              />
+              <Divider />
+
+              <ColorPicker
+                color={pageItem.textSettings.color}
+                setColor={pageItem.textSettings.setColor}
               />
             </ButtonGroup>
           </div>
