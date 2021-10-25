@@ -41,7 +41,10 @@ export class StoryEditor extends React.Component<Props> {
           </div>
 
           <div className={'details-panel-area'}>
-            <DetailsPanel storyEditorState={storyEditorState} />
+            <DetailsPanel
+              storyEditorState={storyEditorState}
+              detailsPanelState={storyEditorState.detailsPanelState}
+            />
           </div>
         </div>
       </div>

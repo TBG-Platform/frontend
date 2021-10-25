@@ -2,18 +2,13 @@ import { action, observable } from 'mobx';
 import { keyboardObserver } from '../../utils/KeyboardObserver';
 import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
 import { Vector } from '../../utils/Vector';
+import { DetailsPanelFocus, DetailsPanelState } from './DetailsPanelState';
 import { Page } from './Page';
 import { Story } from './Story';
 
-export enum DetailsPanelFocus {
-  NONE = 'none',
-  PAGE_ITEM = 'page-item',
-}
-
 export class StoryEditorState {
   @observable.ref public story?: Story;
-  @observable public detailsPanelFocus = DetailsPanelFocus.NONE;
-  @observable public detailsPanelWidth = 300;
+  public detailsPanelState = new DetailsPanelState();
   @observable public addingTextBlock = false;
 
   @action public createNewStory = () => {
@@ -25,14 +20,6 @@ export class StoryEditorState {
     story.selectPage(startPage.id);
 
     this.story = story;
-  };
-
-  @action public setDetailsPanelFocus(focus: DetailsPanelFocus) {
-    this.detailsPanelFocus = focus;
-  }
-
-  @action public setDetailsPanelWidth = (width: number) => {
-    this.detailsPanelWidth = width;
   };
 
   @action public toggleAddTextBlock = () => {
@@ -64,7 +51,7 @@ export class StoryEditorState {
 
     const pos = new Vector(leftPercent, topPercent);
     this.story.selectedPage.addTextBlock(pos);
-    this.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
+    this.detailsPanelState.setFocus(DetailsPanelFocus.PAGE_ITEM);
 
     // No longer adding text block
     this.toggleAddTextBlock();

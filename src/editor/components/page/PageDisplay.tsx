@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { DetailsPanelFocus, StoryEditorState } from '../../state/StoryEditorState';
+import { StoryEditorState } from '../../state/StoryEditorState';
 import { PageItemWidget } from './PageItemWidget';
 import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
+import { DetailsPanelFocus } from '../../state/DetailsPanelState';
 
 import './page-display.scss';
 
@@ -45,7 +46,7 @@ export class PageDisplay extends React.Component<Props> {
             selected={page.isItemSelected(item.id)}
             onClick={() => {
               page.selectItem(item.id);
-              storyEditorState.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
+              storyEditorState.detailsPanelState.setFocus(DetailsPanelFocus.PAGE_ITEM);
             }}
             onDelete={page.deleteSelectedItem}
           />

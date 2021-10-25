@@ -2,23 +2,26 @@ import { Icon } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { DetailsPanelFocus, StoryEditorState } from '../../state/StoryEditorState';
 import { PageItemDetails } from './page-item-details/PageItemDetails';
+import { DetailsPanelNavbar } from './DetailsPanelNavbar';
+import { DetailsPanelFocus, DetailsPanelState } from '../../state/DetailsPanelState';
+import { StoryEditorState } from '../../state/StoryEditorState';
 
 import './details-panel.scss';
 
 interface Props {
   storyEditorState: StoryEditorState;
+  detailsPanelState: DetailsPanelState;
 }
 
 @observer
 export class DetailsPanel extends React.Component<Props> {
   public render() {
-    const { storyEditorState } = this.props;
+    const { storyEditorState, detailsPanelState } = this.props;
 
     let panelContent: JSX.Element = undefined;
 
-    switch (storyEditorState.detailsPanelFocus) {
+    switch (detailsPanelState.focus) {
       case DetailsPanelFocus.PAGE_ITEM:
         const pageItem = storyEditorState.story?.selectedPage?.selectedItem;
         if (pageItem) {
@@ -29,7 +32,7 @@ export class DetailsPanel extends React.Component<Props> {
     }
 
     return (
-      <div className={'details-panel'} style={{ width: `${storyEditorState.detailsPanelWidth}px` }}>
+      <div className={'details-panel'} style={{ width: `${detailsPanelState.width}px` }}>
         <div className={'resize-bar'}>
           <Icon
             className={'resize-handle'}
@@ -38,7 +41,13 @@ export class DetailsPanel extends React.Component<Props> {
             draggable={'false'}
           />
         </div>
-        <div className={'details-panel-content'}>{panelContent}</div>
+        <div className={'details-panel-main'}>
+          <div className={'details-panel-navbar-area'}>
+            <DetailsPanelNavbar storyEditorState={storyEditorState} />
+          </div>
+
+          <div className={'details-panel-content'}>{panelContent}</div>
+        </div>
       </div>
     );
   }
@@ -53,7 +62,7 @@ export class DetailsPanel extends React.Component<Props> {
   private onMouseMove = (e: MouseEvent) => {
     // Window size - mousePos is new width
     const width = window.screen.width - e.clientX;
-    this.props.storyEditorState.setDetailsPanelWidth(width);
+    this.props.detailsPanelState.setWidth(width);
   };
 
   private onMouseUp = (e: MouseEvent) => {
