@@ -6,7 +6,7 @@ export enum DetailsPanelFocus {
 }
 
 export class DetailsPanelState {
-  @observable public focus = DetailsPanelFocus.NONE;
+  @observable public focus = DetailsPanelFocus.PAGE_ITEM;
   @observable public width = 300;
 
   public isFocusSelected(focus: DetailsPanelFocus) {

@@ -24,10 +24,7 @@ export class DetailsPanel extends React.Component<Props> {
     switch (detailsPanelState.focus) {
       case DetailsPanelFocus.PAGE_ITEM:
         const pageItem = storyEditorState.story?.selectedPage?.selectedItem;
-        if (pageItem) {
-          panelContent = <PageItemDetails pageItem={pageItem} />;
-        }
-
+        panelContent = <PageItemDetails pageItem={pageItem} />;
         break;
     }
 

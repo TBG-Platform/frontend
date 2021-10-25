@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
+import { Button, ButtonGroup, Divider, NonIdealState } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 
@@ -11,18 +11,34 @@ import { TextAlign, TextDecoration } from '../../../state/TextSettings';
 import './page-item-details.scss';
 
 interface Props {
-  pageItem: PageItem;
+  pageItem: PageItem | undefined;
 }
 
 @observer
 export class PageItemDetails extends React.Component<Props> {
   public render() {
+    const { pageItem } = this.props;
+
+    if (!pageItem) {
+      return <div className={'page-item-details'}>{this.renderNoItemSelected()}</div>;
+    }
+
     return (
       <div className={'page-item-details'}>
         {this.renderTransformSettings()}
         {this.renderBackgroundSettings()}
         {this.renderContentSettings()}
       </div>
+    );
+  }
+
+  private renderNoItemSelected() {
+    return (
+      <NonIdealState
+        icon={'new-text-box'}
+        title={'No item selected'}
+        description={'Select an item on the page, or create a new one'}
+      />
     );
   }
 
