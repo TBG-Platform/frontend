@@ -157,9 +157,8 @@ export class PageItemDetails extends React.Component<Props> {
                 onClick={() => pageItem.textSettings.setDecoration(TextDecoration.STRIKETHROUGH)}
               />
             </ButtonGroup>
-
-            <Divider className={'divider'} />
-
+          </div>
+          <div className='text-settings-row'>
             <ColorPicker
               color={pageItem.textSettings.color}
               setColor={pageItem.textSettings.setColor}
@@ -169,7 +168,7 @@ export class PageItemDetails extends React.Component<Props> {
               label={'Size %'}
               value={pageItem.textSettings.size}
               onChange={pageItem.textSettings.setSize}
-              size={NumberInputSize.SMALL}
+              size={NumberInputSize.MEDIUM}
             />
           </div>
         </div>

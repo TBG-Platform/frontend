@@ -14,15 +14,22 @@ interface Props {
 @observer
 export class PageDisplay extends React.Component<Props> {
   private pageRef = React.createRef<HTMLDivElement>();
+  private resizeObserver: ResizeObserver;
 
   componentDidMount() {
     if (this.pageRef.current) {
       pageDisplayUtil.setPageDisplay(this.pageRef.current);
+
+      this.resizeObserver = new ResizeObserver((_entries: ResizeObserverEntry[]) => {
+        pageDisplayUtil.onPageDisplayResize();
+      });
+
+      this.resizeObserver.observe(this.pageRef.current);
     }
   }
 
   componentWillUnmount() {
-    pageDisplayUtil.setPageDisplay(undefined);
+    pageDisplayUtil.clearPageDisplay();
   }
 
   public render() {

@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
 import { CSSProperties } from 'react';
 import { ColorResult } from 'react-color';
+import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
 import { RandomUtils } from '../../utils/RandomUtils';
 import { Vector } from '../../utils/Vector';
 import { TextSettings } from './TextSettings';
@@ -44,14 +45,6 @@ export class PageItem {
   @action public setHeight = (height: string) => {
     this.height = height;
     this.settings.height = height + '%';
-  };
-
-  public setFontSize = (size: string) => {
-    // Cast values into numbers
-    const w = parseFloat(this.width);
-    const s = parseFloat(size);
-
-    // Get size as percentage of width of overall page display
   };
 
   @action public setBackgroundColor = (color: ColorResult) => {

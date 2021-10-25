@@ -39,6 +39,7 @@
     "@types/react": "^16.9.49",
     "@types/react-color": "^3.0.5",
     "@types/react-dom": "^16.9.8",
+    "@types/resize-observer-browser": "^0.1.6",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^3.6.0",
     "html-webpack-plugin": "^3.2.0",

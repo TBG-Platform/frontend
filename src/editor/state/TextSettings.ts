@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 import { CSSProperties } from 'react';
 import { ColorResult } from 'react-color';
 import { EnumUtils } from '../../utils/EnumUtils';
+import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
 
 export enum TextAlign {
   START = 'start',
@@ -29,6 +30,8 @@ export class TextSettings {
 
   constructor() {
     this.setDefaultValues();
+
+    pageDisplayUtil.addResizeListener(this.onPageResize);
   }
 
   public updateSettings(settings: CSSProperties, text: string) {
@@ -105,8 +108,15 @@ export class TextSettings {
   };
 
   @action public setSize = (size: string) => {
+    // Size is relative to page width
+    const pageBounds = pageDisplayUtil.getPageDisplayBounds();
+    const w = pageBounds.width;
+    const s = parseFloat(size);
+
+    const fontSizePx = (w / 100) * s;
+
     this.size = size;
-    this.settings.fontSize = `${this.size}${this.sizeUnit}`;
+    this.settings.fontSize = fontSizePx + 'px';
   };
 
   @action public setDefaultValues() {
@@ -114,7 +124,7 @@ export class TextSettings {
     this.setTextAlignX(TextAlign.START);
     this.setTextAlignY(TextAlign.START);
     this.setDecoration(TextDecoration.NONE);
-    this.setSize('1');
+    this.setSize('0.5');
 
     this.color = 'rgba(24, 32, 38, 1)';
     this.settings.color = 'rgba(24, 32, 38, 1)';
@@ -137,4 +147,9 @@ export class TextSettings {
     const size = settings.fontSize as string;
     this.size = size.split(this.sizeUnit)[0];
   }
+
+  private onPageResize = () => {
+    // Adjust text size
+    this.setSize(this.size);
+  };
 }
