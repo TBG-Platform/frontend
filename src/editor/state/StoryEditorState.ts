@@ -39,19 +39,16 @@ export class StoryEditorState {
     const pageDisplay = pageDisplayUtil.getPageDisplay();
     if (this.addingTextBlock) {
       keyboardObserver.addSpecificKeyListener(this.handleKeyPress, ['Escape']);
-      pageDisplay.addEventListener('click', this.addTextBlock);
+      pageDisplay.addEventListener('click', this.onClick);
       pageDisplay.style.cursor = 'pointer';
     } else {
       keyboardObserver.removeSpecificKeyListener(this.handleKeyPress, ['Escape']);
-      pageDisplay.removeEventListener('click', this.addTextBlock);
+      pageDisplay.removeEventListener('click', this.onClick);
       pageDisplay.style.cursor = 'default';
     }
   };
 
-  @action private addTextBlock = (e: MouseEvent) => {
-    // Get position to add text block
-    const mousePos = new Vector(e.clientX, e.clientY);
-
+  @action public addPageItem = (mousePos: Vector) => {
     const pageRect = pageDisplayUtil.getPageDisplayBounds();
     const pagePos = new Vector(pageRect.left, pageRect.top);
     mousePos.sub(pagePos);
@@ -63,6 +60,10 @@ export class StoryEditorState {
     const pos = new Vector(leftPercent, topPercent);
     this.story.selectedPage.addTextBlock(pos);
     this.detailsPanelState.setFocus(DetailsPanelFocus.PAGE_ITEM);
+  };
+
+  private onClick = (e: MouseEvent) => {
+    this.addPageItem(new Vector(e.clientX, e.clientY));
 
     // No longer adding text block
     this.toggleAddTextBlock();
