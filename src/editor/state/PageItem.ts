@@ -22,11 +22,6 @@ export class PageItem {
     this.setHeight(height);
   }
 
-  @action public setPosition(pos: Vector) {
-    this.setLeft(pos.x.toFixed(3));
-    this.setTop(pos.y.toFixed(3));
-  }
-
   @action public setLeft = (left: string) => {
     this.left = left;
     this.settings.left = left + '%';

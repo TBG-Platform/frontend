@@ -89,8 +89,8 @@ export class PageItemWidget extends React.Component<Props> {
     const leftPercent = (mousePos.x / pageRect.width) * 100;
     const topPercent = (mousePos.y / pageRect.height) * 100;
 
-    const pos = new Vector(leftPercent, topPercent);
-    pageItem.setPosition(pos);
+    pageItem.setLeft(leftPercent.toFixed(3));
+    pageItem.setTop(topPercent.toFixed(3));
   }
 
   private onResizeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
