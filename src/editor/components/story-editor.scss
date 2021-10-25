@@ -33,24 +33,34 @@
     border-bottom: 1px solid $mainBorderColor;
   }
 
-  .page-navbar-area {
-    flex: 0 0 50px;
-    border-bottom: 1px solid $mainBorderColor;
-  }
-
-  .page-area {
+  .editor-main-area {
     flex: 1 1 100%;
+    width: 100%;
 
     overflow: hidden;
     display: flex;
 
-    .page-edit-area {
+    .page-area {
       flex: 1 1 100%;
       min-width: 300px;
-      padding: 20px;
-      background-color: $mainBackgroundColor;
 
-      overflow-y: scroll;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      .page-navbar-area {
+        flex: 0 0 50px;
+        width: 100%;
+        border-bottom: 1px solid $mainBorderColor;
+      }
+
+      .page-edit-area {
+        flex: 1 1 100%;
+        padding: 20px;
+        background-color: $mainBackgroundColor;
+
+        overflow-y: scroll;
+      }
     }
   }
 }
