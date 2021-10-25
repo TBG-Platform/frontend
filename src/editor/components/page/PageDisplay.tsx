@@ -3,6 +3,7 @@ import React from 'react';
 
 import { DetailsPanelFocus, StoryEditorState } from '../../state/StoryEditorState';
 import { PageItemWidget } from './PageItemWidget';
+import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
 
 import './page-display.scss';
 
@@ -16,8 +17,12 @@ export class PageDisplay extends React.Component<Props> {
 
   componentDidMount() {
     if (this.pageRef.current) {
-      this.props.storyEditorState.setPageDisplay(this.pageRef.current);
+      pageDisplayUtil.setPageDisplay(this.pageRef.current);
     }
+  }
+
+  componentWillUnmount() {
+    pageDisplayUtil.setPageDisplay(undefined);
   }
 
   public render() {
@@ -35,7 +40,6 @@ export class PageDisplay extends React.Component<Props> {
               page.selectItem(item.id);
               storyEditorState.setDetailsPanelFocus(DetailsPanelFocus.PAGE_ITEM);
             }}
-            pageDisplayElement={storyEditorState.pageDisplay}
             onDelete={page.deleteSelectedItem}
           />
         ))}

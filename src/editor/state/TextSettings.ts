@@ -23,7 +23,8 @@ export class TextSettings {
   @observable public italic: boolean;
   @observable public decoration: TextDecoration;
   @observable public color: string;
-  @observable public size: number;
+  @observable public size: string;
+  private sizeUnit = '%';
   @observable public settings: CSSProperties = {};
 
   constructor() {
@@ -103,13 +104,9 @@ export class TextSettings {
     this.settings.color = this.color;
   };
 
-  @action public setSize = (size: number) => {
-    if (isNaN(size) || size < 0) {
-      return;
-    }
-
+  @action public setSize = (size: string) => {
     this.size = size;
-    this.settings.fontSize = `${this.size}px`;
+    this.settings.fontSize = `${this.size}${this.sizeUnit}`;
   };
 
   @action public setDefaultValues() {
@@ -117,7 +114,7 @@ export class TextSettings {
     this.setTextAlignX(TextAlign.START);
     this.setTextAlignY(TextAlign.START);
     this.setDecoration(TextDecoration.NONE);
-    this.setSize(14);
+    this.setSize('1');
 
     this.color = 'rgba(24, 32, 38, 1)';
     this.settings.color = 'rgba(24, 32, 38, 1)';
@@ -138,6 +135,6 @@ export class TextSettings {
     this.decoration = EnumUtils.getEnumKey(TextDecoration, settings.textDecoration as string);
     this.color = settings.color;
     const size = settings.fontSize as string;
-    this.size = parseInt(size.split('px')[0]);
+    this.size = size.split(this.sizeUnit)[0];
   }
 }

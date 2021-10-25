@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 import { keyboardObserver } from '../../utils/KeyboardObserver';
+import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
 import { Vector } from '../../utils/Vector';
 import { Page } from './Page';
 import { Story } from './Story';
@@ -15,8 +16,6 @@ export class StoryEditorState {
   @observable public detailsPanelWidth = 300;
   @observable public addingTextBlock = false;
 
-  public pageDisplay?: HTMLDivElement;
-
   @action public createNewStory = () => {
     const story = new Story();
 
@@ -27,10 +26,6 @@ export class StoryEditorState {
 
     this.story = story;
   };
-
-  public setPageDisplay(pageDisplayDiv: HTMLDivElement) {
-    this.pageDisplay = pageDisplayDiv;
-  }
 
   @action public setDetailsPanelFocus(focus: DetailsPanelFocus) {
     this.detailsPanelFocus = focus;
@@ -43,14 +38,15 @@ export class StoryEditorState {
   @action public toggleAddTextBlock = () => {
     this.addingTextBlock = !this.addingTextBlock;
 
+    const pageDisplay = pageDisplayUtil.getPageDisplay();
     if (this.addingTextBlock) {
       keyboardObserver.addSpecificKeyListener(this.handleKeyPress, ['Escape']);
-      this.pageDisplay.addEventListener('click', this.addTextBlock);
-      this.pageDisplay.style.cursor = 'pointer';
+      pageDisplay.addEventListener('click', this.addTextBlock);
+      pageDisplay.style.cursor = 'pointer';
     } else {
       keyboardObserver.removeSpecificKeyListener(this.handleKeyPress, ['Escape']);
-      this.pageDisplay.removeEventListener('click', this.addTextBlock);
-      this.pageDisplay.style.cursor = 'default';
+      pageDisplay.removeEventListener('click', this.addTextBlock);
+      pageDisplay.style.cursor = 'default';
     }
   };
 
@@ -58,7 +54,7 @@ export class StoryEditorState {
     // Get position to add text block
     const mousePos = new Vector(e.clientX, e.clientY);
 
-    const pageRect = this.pageDisplay.getBoundingClientRect();
+    const pageRect = pageDisplayUtil.getPageDisplayBounds();
     const pagePos = new Vector(pageRect.left, pageRect.top);
     mousePos.sub(pagePos);
 

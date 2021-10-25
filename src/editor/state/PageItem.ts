@@ -46,6 +46,14 @@ export class PageItem {
     this.settings.height = height + '%';
   };
 
+  public setFontSize = (size: string) => {
+    // Cast values into numbers
+    const w = parseFloat(this.width);
+    const s = parseFloat(size);
+
+    // Get size as percentage of width of overall page display
+  };
+
   @action public setBackgroundColor = (color: ColorResult) => {
     const rgba = color.rgb;
     this.settings.backgroundColor = `rgba( ${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;

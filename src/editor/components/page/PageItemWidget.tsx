@@ -2,6 +2,7 @@ import { Menu, MenuItem } from '@blueprintjs/core';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
 import { Vector } from '../../../utils/Vector';
 import { PageItem } from '../../state/PageItem';
 
@@ -11,7 +12,6 @@ interface Props {
   pageItem: PageItem;
   selected: boolean;
   onClick: () => void;
-  pageDisplayElement: HTMLDivElement;
   onDelete: () => void;
 }
 
@@ -75,10 +75,10 @@ export class PageItemWidget extends React.Component<Props> {
   };
 
   private updateItemPos(mousePos: Vector) {
-    const { pageItem, pageDisplayElement } = this.props;
+    const { pageItem } = this.props;
 
     // Get mouse pos relative to page pos
-    const pageRect = pageDisplayElement.getBoundingClientRect();
+    const pageRect = pageDisplayUtil.getPageDisplayBounds();
     const pagePos = new Vector(pageRect.left, pageRect.top);
     mousePos.sub(pagePos);
 
@@ -102,7 +102,7 @@ export class PageItemWidget extends React.Component<Props> {
   };
 
   private onResize = (e: MouseEvent) => {
-    const { pageItem, pageDisplayElement } = this.props;
+    const { pageItem } = this.props;
 
     // Mouse pos - item left is new width
     const itemRect = this.pageItemRef.current.getBoundingClientRect();
@@ -112,7 +112,7 @@ export class PageItemWidget extends React.Component<Props> {
     mousePos.sub(itemPos);
 
     // Get size as percentage
-    const pageRect = pageDisplayElement.getBoundingClientRect();
+    const pageRect = pageDisplayUtil.getPageDisplayBounds();
     const widthPercent = (mousePos.x / pageRect.width) * 100;
     const heightPercent = (mousePos.y / pageRect.height) * 100;
 

@@ -31,7 +31,7 @@ export class PageItemDetails extends React.Component<Props> {
 
     return (
       <div className={'section transform'}>
-        <div className={'section-title'}>Transform</div>
+        <div className={'section-title'}>Transform (%)</div>
         <div className={'section-content'}>
           <div className={'section-column'}>
             <NumberInput
@@ -165,12 +165,12 @@ export class PageItemDetails extends React.Component<Props> {
               setColor={pageItem.textSettings.setColor}
             />
 
-            {/* <NumberInput
-              label={'Size'}
+            <NumberInput
+              label={'Size %'}
               value={pageItem.textSettings.size}
               onChange={pageItem.textSettings.setSize}
               size={NumberInputSize.SMALL}
-            /> */}
+            />
           </div>
         </div>
       </div>
