@@ -28,7 +28,7 @@ export class Page {
 
   @action public addTextBlock(pos: Vector) {
     // Sizing is in percent
-    const textBlock = new PageItem(pos, 40, 20);
+    const textBlock = new PageItem(pos.x.toFixed(3), pos.y.toFixed(3), '40', '20');
 
     this.items.push(textBlock);
 

@@ -9,40 +9,39 @@ export class PageItem {
   public id = RandomUtils.createId();
   @observable public settings: CSSProperties = {};
   @observable public textSettings = new TextSettings();
-  @observable public left: number;
-  @observable public top: number;
-  @observable public width: number;
-  @observable public height: number;
+  @observable public left: string;
+  @observable public top: string;
+  @observable public width: string;
+  @observable public height: string;
 
-  constructor(pos: Vector, width = 0, height = 0) {
-    this.setPosition(pos);
+  constructor(left = '0', top = '0', width = '0', height = '0') {
+    this.setLeft(left);
+    this.setTop(top);
     this.setWidth(width);
     this.setHeight(height);
   }
 
   @action public setPosition(pos: Vector) {
-    this.left = pos.x;
-    this.top = pos.y;
-    this.settings.left = pos.x + '%';
-    this.settings.top = pos.y + '%';
+    this.setLeft(pos.x.toFixed(3));
+    this.setTop(pos.y.toFixed(3));
   }
 
-  @action public setLeft = (left: number) => {
+  @action public setLeft = (left: string) => {
     this.left = left;
     this.settings.left = left + '%';
   };
 
-  @action public setTop = (top: number) => {
+  @action public setTop = (top: string) => {
     this.top = top;
     this.settings.top = top + '%';
   };
 
-  @action public setWidth = (width: number) => {
+  @action public setWidth = (width: string) => {
     this.width = width;
     this.settings.width = width + '%';
   };
 
-  @action public setHeight = (height: number) => {
+  @action public setHeight = (height: string) => {
     this.height = height;
     this.settings.height = height + '%';
   };

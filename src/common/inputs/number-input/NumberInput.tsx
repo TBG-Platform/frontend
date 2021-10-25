@@ -12,11 +12,11 @@ export enum NumberInputSize {
 
 interface Props {
   label: string;
-  value: number;
-  onChange: (value: number) => void;
+  value: string;
+  onChange: (value: string) => void;
   id?: string;
   size?: NumberInputSize;
-  onBlur?: (value: number) => void;
+  onBlur?: (value: string) => void;
 }
 
 @observer
@@ -32,26 +32,21 @@ export class NumberInput extends React.Component<Props> {
         <NumericInput
           id={id}
           buttonPosition={'none'}
-          min={undefined}
-          max={undefined}
           minorStepSize={0.001}
           majorStepSize={0.1}
           stepSize={0.01}
+          clampValueOnBlur
           value={value}
           onValueChange={this.onChange}
           onBlur={
-            onBlur
-              ? (e: React.ChangeEvent<HTMLInputElement>) => onBlur(parseInt(e.target.value, 10))
-              : undefined
+            onBlur ? (e: React.ChangeEvent<HTMLInputElement>) => onBlur(e.target.value) : undefined
           }
         />
       </div>
     );
   }
 
-  private onChange = (val: number) => {
-    if (!isNaN(val)) {
-      this.props.onChange(val);
-    }
+  private onChange = (_val: number, valStr: string) => {
+    this.props.onChange(valStr);
   };
 }

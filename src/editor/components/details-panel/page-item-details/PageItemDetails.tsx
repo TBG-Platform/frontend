@@ -165,12 +165,12 @@ export class PageItemDetails extends React.Component<Props> {
               setColor={pageItem.textSettings.setColor}
             />
 
-            <NumberInput
+            {/* <NumberInput
               label={'Size'}
               value={pageItem.textSettings.size}
               onChange={pageItem.textSettings.setSize}
               size={NumberInputSize.SMALL}
-            />
+            /> */}
           </div>
         </div>
       </div>
