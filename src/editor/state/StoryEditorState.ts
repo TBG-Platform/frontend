@@ -5,19 +5,25 @@ import { Vector } from '../../utils/Vector';
 import { DetailsPanelFocus, DetailsPanelState } from './DetailsPanelState';
 import { Page } from './Page';
 import { Story } from './Story';
+import { StoryGraphState } from './StoryGraphState';
 
 export class StoryEditorState {
   @observable.ref public story?: Story;
-  public detailsPanelState = new DetailsPanelState();
   @observable public addingTextBlock = false;
+  public detailsPanelState = new DetailsPanelState();
+  public storyGraphState = new StoryGraphState();
 
   @action public createNewStory = () => {
     const story = new Story();
 
+    // Create the first page for this story
     const startPage = new Page();
     startPage.setName('First page');
     story.addPage(startPage);
     story.selectPage(startPage.id);
+
+    // Update story graph with new page
+    this.storyGraphState.addPageNode(startPage.id, startPage.name);
 
     this.story = story;
   };

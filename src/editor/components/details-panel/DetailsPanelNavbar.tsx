@@ -19,8 +19,18 @@ export class DetailsPanelNavbar extends React.Component<Props> {
 
     return (
       <div className={'details-panel-navbar'}>
-        <div className={'nav-item ' + this.getNavItemSelectedClass(DetailsPanelFocus.PAGE_ITEM)}>
+        <div
+          className={'nav-item ' + this.getNavItemSelectedClass(DetailsPanelFocus.PAGE_ITEM)}
+          onClick={() => detailsPanelState.setFocus(DetailsPanelFocus.PAGE_ITEM)}
+        >
           <Icon icon={'widget'} />
+        </div>
+
+        <div
+          className={'nav-item ' + this.getNavItemSelectedClass(DetailsPanelFocus.STORY_GRAPH)}
+          onClick={() => detailsPanelState.setFocus(DetailsPanelFocus.STORY_GRAPH)}
+        >
+          <Icon icon={'diagram-tree'} />
         </div>
       </div>
     );

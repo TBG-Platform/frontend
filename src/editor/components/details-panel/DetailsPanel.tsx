@@ -8,6 +8,7 @@ import { DetailsPanelFocus, DetailsPanelState } from '../../state/DetailsPanelSt
 import { StoryEditorState } from '../../state/StoryEditorState';
 
 import './details-panel.scss';
+import { StoryGraphDetails } from './story-graph-details/StoryGraphDetails';
 
 interface Props {
   storyEditorState: StoryEditorState;
@@ -25,6 +26,9 @@ export class DetailsPanel extends React.Component<Props> {
       case DetailsPanelFocus.PAGE_ITEM:
         const pageItem = storyEditorState.story?.selectedPage?.selectedItem;
         panelContent = <PageItemDetails pageItem={pageItem} />;
+        break;
+      case DetailsPanelFocus.STORY_GRAPH:
+        panelContent = <StoryGraphDetails storyGraphState={storyEditorState.storyGraphState} />;
         break;
     }
 

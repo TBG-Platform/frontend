@@ -1,8 +1,8 @@
 import { action, observable } from 'mobx';
 
 export enum DetailsPanelFocus {
-  NONE = 'none',
   PAGE_ITEM = 'page-item',
+  STORY_GRAPH = 'story-graph',
 }
 
 export class DetailsPanelState {
