@@ -1,3 +1,5 @@
+import { Icon } from '@blueprintjs/core';
+import { IconName } from '@blueprintjs/icons';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -10,6 +12,7 @@ interface Props {
   onChange: (text: string) => void;
   className?: string;
   label?: string;
+  labelIcon?: IconName;
   onBlur?: () => void;
 }
 
@@ -18,7 +21,7 @@ export class EditableText extends React.Component<Props> {
   @observable private isEditing = false;
 
   public render() {
-    const { text, onChange, className, label, onBlur } = this.props;
+    const { text, onChange, className, label, labelIcon, onBlur } = this.props;
 
     let content: JSX.Element = (
       <div className={'editable-text-content'} onClick={this.onClickText}>
@@ -35,6 +38,7 @@ export class EditableText extends React.Component<Props> {
     return (
       <div className={'editable-text-container ' + className}>
         {label && <span className={'editable-text-label'}>{label}</span>}
+        {labelIcon && <Icon icon={labelIcon} />}
         {content}
       </div>
     );

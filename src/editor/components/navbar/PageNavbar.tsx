@@ -23,7 +23,7 @@ export class PageNavbar extends React.Component<Props> {
         <EditableText
           text={page.name}
           onChange={page.setName}
-          label={'Page'}
+          labelIcon={'document'}
           onBlur={storyEditorState.onRenamedPage}
         />
 
