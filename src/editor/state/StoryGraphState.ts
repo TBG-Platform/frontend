@@ -12,7 +12,7 @@ export class StoryGraphState {
       id,
       type,
       data: { label: name },
-      position: { x: 0, y: 0 },
+      position: { x: 70, y: 30 },
     };
 
     this.elements.push(node);

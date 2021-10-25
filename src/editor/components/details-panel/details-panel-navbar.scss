@@ -7,17 +7,24 @@
 
   display: flex;
 
-  .nav-item {
+  .nav-item-container {
     flex: 1 1 100%;
-    height: 100%;
-    cursor: pointer;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .nav-item {
+      height: 100%;
+      cursor: pointer;
 
-    &.selected {
-      border-bottom: 2px solid $accentBorderColor;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:focus {
+        outline: none;
+      }
+
+      &.selected {
+        border-bottom: 2px solid $accentBorderColor;
+      }
     }
   }
 }
