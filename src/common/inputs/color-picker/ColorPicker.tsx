@@ -19,7 +19,7 @@ export class ColorPicker extends React.Component<Props> {
 
     return (
       <div className={'color-picker'}>
-        {label && label}
+        {label && <span className={'label'}>{label}</span>}
         <Popover2 content={<SketchPicker color={color} onChange={setColor} />}>
           <Button outlined style={{ backgroundColor: color }} />
         </Popover2>

@@ -3,6 +3,10 @@
   align-items: center;
   gap: 5px;
 
+  .label {
+    user-select: none;
+  }
+
   &.small {
     .bp3-input-group {
       width: 35px;

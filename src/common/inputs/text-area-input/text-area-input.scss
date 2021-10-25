@@ -5,6 +5,10 @@
   align-items: center;
   gap: 5px;
 
+  .label {
+    user-select: none;
+  }
+
   .bp3-input {
     flex: 1 1 100%;
   }

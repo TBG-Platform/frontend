@@ -17,7 +17,7 @@ export class TextAreaInput extends React.Component<Props> {
 
     return (
       <div className={'text-area-input'}>
-        <Text>{label}</Text>
+        <Text className={'label'}>{label}</Text>
         <TextArea
           growVertically
           value={text}

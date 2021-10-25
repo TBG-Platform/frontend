@@ -20,7 +20,11 @@ export class DetailsPanelNavbar extends React.Component<Props> {
 
     return (
       <div className={'details-panel-navbar'}>
-        <Tooltip2 className={'nav-item-container'} content={'Page item details'}>
+        <Tooltip2
+          hoverOpenDelay={500}
+          className={'nav-item-container'}
+          content={'Page item details'}
+        >
           <div
             className={'nav-item ' + this.getNavItemSelectedClass(DetailsPanelFocus.PAGE_ITEM)}
             onClick={() => detailsPanelState.setFocus(DetailsPanelFocus.PAGE_ITEM)}
@@ -29,7 +33,7 @@ export class DetailsPanelNavbar extends React.Component<Props> {
           </div>
         </Tooltip2>
 
-        <Tooltip2 className={'nav-item-container'} content={'Story graph'}>
+        <Tooltip2 hoverOpenDelay={500} className={'nav-item-container'} content={'Story graph'}>
           <div
             className={'nav-item ' + this.getNavItemSelectedClass(DetailsPanelFocus.STORY_GRAPH)}
             onClick={() => detailsPanelState.setFocus(DetailsPanelFocus.STORY_GRAPH)}

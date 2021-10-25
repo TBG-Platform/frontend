@@ -28,7 +28,7 @@ export class NumberInput extends React.Component<Props> {
 
     return (
       <div className={'number-input ' + inputSize}>
-        {label}
+        <span className={'label'}>{label}</span>
         <NumericInput
           id={id}
           buttonPosition={'none'}
