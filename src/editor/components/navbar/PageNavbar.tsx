@@ -25,7 +25,7 @@ export class PageNavbar extends React.Component<Props> {
         <Divider className={'divider'} />
 
         <ButtonGroup minimal>
-          <Button icon={'new-text-box'} outlined onClick={storyEditorState.toggleAddTextBlock} />
+          <Button icon={'widget'} outlined onClick={storyEditorState.toggleAddTextBlock} />
         </ButtonGroup>
       </div>
     );

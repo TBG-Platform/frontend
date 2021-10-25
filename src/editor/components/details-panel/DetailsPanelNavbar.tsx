@@ -20,7 +20,7 @@ export class DetailsPanelNavbar extends React.Component<Props> {
     return (
       <div className={'details-panel-navbar'}>
         <div className={'nav-item ' + this.getNavItemSelectedClass(DetailsPanelFocus.PAGE_ITEM)}>
-          <Icon icon={'search-text'} />
+          <Icon icon={'widget'} />
         </div>
       </div>
     );

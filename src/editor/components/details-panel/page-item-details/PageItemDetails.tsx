@@ -35,7 +35,7 @@ export class PageItemDetails extends React.Component<Props> {
   private renderNoItemSelected() {
     return (
       <NonIdealState
-        icon={'new-text-box'}
+        icon={'widget'}
         title={'No item selected'}
         description={'Select an item on the page, or create a new one'}
       />
