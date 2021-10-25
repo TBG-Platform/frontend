@@ -20,7 +20,12 @@ export class PageNavbar extends React.Component<Props> {
 
     return (
       <div className={'page-navbar'}>
-        <EditableText text={page.name} onChange={page.setName} label={'Page'} />
+        <EditableText
+          text={page.name}
+          onChange={page.setName}
+          label={'Page'}
+          onBlur={storyEditorState.onRenamedPage}
+        />
 
         <Divider className={'divider'} />
 

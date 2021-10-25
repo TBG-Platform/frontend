@@ -10,6 +10,7 @@ interface Props {
   onChange: (text: string) => void;
   className?: string;
   label?: string;
+  onBlur?: () => void;
 }
 
 @observer
@@ -17,7 +18,7 @@ export class EditableText extends React.Component<Props> {
   @observable private isEditing = false;
 
   public render() {
-    const { text, onChange, className, label } = this.props;
+    const { text, onChange, className, label, onBlur } = this.props;
 
     let content: JSX.Element = (
       <div className={'editable-text-content'} onClick={this.onClickText}>
@@ -26,7 +27,9 @@ export class EditableText extends React.Component<Props> {
     );
 
     if (this.isEditing) {
-      content = <FitTextInput text={text} onChange={onChange} inputFieldPadding={10} />;
+      content = (
+        <FitTextInput text={text} onChange={onChange} inputFieldPadding={10} onBlur={onBlur} />
+      );
     }
 
     return (

@@ -20,4 +20,17 @@ export class StoryGraphState {
     // Must overwrite elements to update renderer
     this.elements = this.elements.map((el) => el);
   }
+
+  @action public updatePageNodeName(id: string, name: string) {
+    this.elements = this.elements.map((el) => {
+      if (el.id === id) {
+        el.data = {
+          ...el.data,
+          label: name,
+        };
+      }
+
+      return el;
+    });
+  }
 }

@@ -28,6 +28,11 @@ export class StoryEditorState {
     this.story = story;
   };
 
+  @action public onRenamedPage = () => {
+    const page = this.story.selectedPage;
+    this.storyGraphState.updatePageNodeName(page.id, page.name);
+  };
+
   @action public toggleAddTextBlock = () => {
     this.addingTextBlock = !this.addingTextBlock;
 

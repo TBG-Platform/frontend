@@ -8,6 +8,7 @@ interface Props {
   text: string;
   onChange: (text: string) => void;
   inputFieldPadding: number;
+  onBlur?: () => void;
 }
 
 @observer
@@ -20,7 +21,7 @@ export class FitTextInput extends React.Component<Props> {
   }
 
   public render() {
-    const { text } = this.props;
+    const { text, onBlur } = this.props;
 
     return (
       <div className={'fit-text-input'}>
@@ -33,6 +34,7 @@ export class FitTextInput extends React.Component<Props> {
           autoFocus
           value={text}
           onChange={this.onInputChange}
+          onBlur={onBlur ? onBlur : undefined}
         />
       </div>
     );
