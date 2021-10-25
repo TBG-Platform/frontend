@@ -124,7 +124,7 @@ export class TextSettings {
     this.setTextAlignX(TextAlign.START);
     this.setTextAlignY(TextAlign.START);
     this.setDecoration(TextDecoration.NONE);
-    this.setSize('0.5');
+    this.setSize('1.5');
 
     this.color = 'rgba(24, 32, 38, 1)';
     this.settings.color = 'rgba(24, 32, 38, 1)';

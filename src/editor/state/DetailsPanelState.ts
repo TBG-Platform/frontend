@@ -9,6 +9,10 @@ export class DetailsPanelState {
   @observable public focus = DetailsPanelFocus.NONE;
   @observable public width = 300;
 
+  public isFocusSelected(focus: DetailsPanelFocus) {
+    return this.focus === focus;
+  }
+
   @action public setFocus(focus: DetailsPanelFocus) {
     this.focus = focus;
   }

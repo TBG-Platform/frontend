@@ -43,7 +43,10 @@ export class DetailsPanel extends React.Component<Props> {
         </div>
         <div className={'details-panel-main'}>
           <div className={'details-panel-navbar-area'}>
-            <DetailsPanelNavbar storyEditorState={storyEditorState} />
+            <DetailsPanelNavbar
+              storyEditorState={storyEditorState}
+              detailsPanelState={detailsPanelState}
+            />
           </div>
 
           <div className={'details-panel-content'}>{panelContent}</div>
