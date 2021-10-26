@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Panel } from '../../state/PanelViewState';
 
 import './panel-display.scss';
@@ -13,8 +13,12 @@ export class PanelDisplay extends React.Component<Props> {
   public render() {
     const { panel } = this.props;
 
+    const panelStyle: CSSProperties = {
+      flexBasis: panel.basis + '%',
+    };
+
     return (
-      <div className={'panel'}>
+      <div className={'panel'} style={panelStyle}>
         <div className={'panel-tab-list'}>
           {panel.tabs.map((tab, idx) => this.renderPanelTab(tab, idx))}
         </div>

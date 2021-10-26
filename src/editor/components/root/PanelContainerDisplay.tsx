@@ -3,6 +3,7 @@ import { Panel, PanelContainer, PanelFlow } from '../../state/PanelViewState';
 import { PanelDisplay } from './PanelDisplay';
 
 import './panel-container-display.scss';
+import { PanelResizer } from './PanelResizer';
 
 interface Props {
   panelContainer: PanelContainer;
@@ -34,7 +35,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
     if (panelContainer.a && panelContainer.b) {
       const resizeClass = panelContainer.flow === PanelFlow.ROW ? 'vertical' : 'horizontal';
       const resizer = (
-        <div key={`pc-${panelContainer.id}-resizer`} className={'resize-bar ' + resizeClass}></div>
+        <PanelResizer key={`pc-${panelContainer.id}-resizer`} panelContainer={panelContainer} />
       );
 
       content.splice(1, 0, resizer);
@@ -42,6 +43,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
 
     const panelContainerStyle: CSSProperties = {
       flexDirection: panelContainer.flow,
+      flexBasis: panelContainer.basis + '%',
     };
 
     return (
@@ -60,19 +62,4 @@ export class PanelContainerDisplay extends React.Component<Props> {
       return undefined;
     }
   }
-
-  private onResizeMouseDown = () => {
-    document.addEventListener('mouseup', this.onResizeMouseUp);
-    document.addEventListener('mousemove', this.onResizeMouseMove);
-  };
-
-  private onResizeMouseMove = (e: MouseEvent) => {
-    // Find out which axis we care about; horizontal or vertical resize?
-    // Use that axis to find out how far the mouse has moved from the resize bar's last position (mousePos - resizePos)
-  };
-
-  private onResizeMouseUp = () => {
-    document.removeEventListener('mousemove', this.onResizeMouseMove);
-    document.removeEventListener('mouseup', this.onResizeMouseUp);
-  };
 }

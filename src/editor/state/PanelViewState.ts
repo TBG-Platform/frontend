@@ -1,9 +1,10 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { RandomUtils } from '../../utils/RandomUtils';
 
 export class Panel {
   id = RandomUtils.createId();
   tabs: string[] = []; // docked tabs with a panel
+  @observable basis: number = 50;
 }
 
 export enum PanelFlow {
@@ -17,9 +18,22 @@ export class PanelContainer {
   a?: Panel | PanelContainer;
   b?: Panel | PanelContainer;
   flow = PanelFlow.ROW;
+  @observable split = 50;
+  @observable basis: number = 50;
 
   public setDiv(div: HTMLDivElement) {
     this.div = div;
+  }
+
+  @action public setSplit(split: number) {
+    this.split = split;
+
+    if (this.a) {
+      this.a.basis = split;
+    }
+    if (this.b) {
+      this.b.basis = 1 - split;
+    }
   }
 
   public static isPanelContainer(item: Panel | PanelContainer): item is PanelContainer {

@@ -1,7 +1,8 @@
 @import '../../../common/tbg-palette.scss';
 
 .panel-container {
-  flex: 1 1 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
   display: flex;
 
   .resize-bar {
