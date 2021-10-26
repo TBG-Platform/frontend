@@ -15,13 +15,21 @@ export class PanelDisplay extends React.Component<Props> {
 
     return (
       <div className={'panel'}>
-        <div className={'panel-tab-list'}>{panel.tabs.map((tab) => this.renderPanelTab(tab))}</div>
+        <div className={'panel-tab-list'}>
+          {panel.tabs.map((tab, idx) => this.renderPanelTab(tab, idx))}
+        </div>
         <div className={'panel-body'}></div>
       </div>
     );
   }
 
-  private renderPanelTab(name: string) {
-    return <div className={'panel-tab'}>{name}</div>;
+  private renderPanelTab(tabName: string, tabIndex: number) {
+    const { panel } = this.props;
+
+    return (
+      <div key={`panel-${panel.id}-tab-${tabIndex}`} className={'panel-tab'}>
+        {tabName}
+      </div>
+    );
   }
 }

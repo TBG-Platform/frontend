@@ -35,7 +35,7 @@ export class PanelViewState {
   @observable public panelTree: PanelContainer;
 
   constructor() {
-    this.panelTree = this.twoPanelTestLR();
+    this.panelTree = this.nestedPanelTest();
   }
 
   // Passes

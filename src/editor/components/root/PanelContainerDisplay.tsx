@@ -33,7 +33,9 @@ export class PanelContainerDisplay extends React.Component<Props> {
     // If the container has an a and a b, add a resize bar between them
     if (panelContainer.a && panelContainer.b) {
       const resizeClass = panelContainer.flow === PanelFlow.ROW ? 'vertical' : 'horizontal';
-      const resizer = <div className={'resize-bar ' + resizeClass}></div>;
+      const resizer = (
+        <div key={`pc-${panelContainer.id}-resizer`} className={'resize-bar ' + resizeClass}></div>
+      );
 
       content.splice(1, 0, resizer);
     }
@@ -58,4 +60,19 @@ export class PanelContainerDisplay extends React.Component<Props> {
       return undefined;
     }
   }
+
+  private onResizeMouseDown = () => {
+    document.addEventListener('mouseup', this.onResizeMouseUp);
+    document.addEventListener('mousemove', this.onResizeMouseMove);
+  };
+
+  private onResizeMouseMove = (e: MouseEvent) => {
+    // Find out which axis we care about; horizontal or vertical resize?
+    // Use that axis to find out how far the mouse has moved from the resize bar's last position (mousePos - resizePos)
+  };
+
+  private onResizeMouseUp = () => {
+    document.removeEventListener('mousemove', this.onResizeMouseMove);
+    document.removeEventListener('mouseup', this.onResizeMouseUp);
+  };
 }
