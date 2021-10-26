@@ -15,10 +15,9 @@ export enum PanelFlow {
 export class PanelContainer {
   id = RandomUtils.createId();
   div?: HTMLDivElement;
-  a?: Panel | PanelContainer;
-  b?: Panel | PanelContainer;
+  @observable a?: Panel | PanelContainer;
+  @observable b?: Panel | PanelContainer;
   flow = PanelFlow.ROW;
-  @observable split = 50;
   @observable basis: number = 50;
 
   public setDiv(div: HTMLDivElement) {
@@ -26,13 +25,13 @@ export class PanelContainer {
   }
 
   @action public setSplit(split: number) {
-    this.split = split;
-
     if (this.a) {
       this.a.basis = split;
+      console.log('a split:', split);
     }
     if (this.b) {
-      this.b.basis = 1 - split;
+      this.b.basis = Math.abs(100 - split);
+      console.log('b split:', this.b.basis);
     }
   }
 
@@ -50,12 +49,14 @@ export class PanelViewState {
 
   constructor() {
     this.panelTree = this.nestedPanelTest();
+    this.panelTree.basis = 100;
   }
 
   // Passes
   // One panel only
   private onePanelTest() {
     const rootContainer = new PanelContainer();
+
     const panel = new Panel();
     panel.tabs = ['First_Tab', 'SecondTab', 'Third'];
     rootContainer.a = panel;

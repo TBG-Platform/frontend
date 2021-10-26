@@ -2,6 +2,8 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { PanelContainer, PanelFlow } from '../../state/PanelViewState';
 
+import './panel-resizer.scss';
+
 interface Props {
   panelContainer: PanelContainer;
 }

@@ -1,8 +1,8 @@
 @import '../../../common/tbg-palette.scss';
 
 .panel {
-  flex-grow: 1;
-  flex-shrink: 1;
+  flex-grow: 0;
+  flex-shrink: 0;
   border: 1px solid $mainBorderColor;
 
   display: flex;

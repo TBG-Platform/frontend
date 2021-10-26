@@ -4,11 +4,13 @@ import { PanelDisplay } from './PanelDisplay';
 
 import './panel-container-display.scss';
 import { PanelResizer } from './PanelResizer';
+import { observer } from 'mobx-react';
 
 interface Props {
   panelContainer: PanelContainer;
 }
 
+@observer
 export class PanelContainerDisplay extends React.Component<Props> {
   private panelContRef = React.createRef<HTMLDivElement>();
 
@@ -33,7 +35,6 @@ export class PanelContainerDisplay extends React.Component<Props> {
 
     // If the container has an a and a b, add a resize bar between them
     if (panelContainer.a && panelContainer.b) {
-      const resizeClass = panelContainer.flow === PanelFlow.ROW ? 'vertical' : 'horizontal';
       const resizer = (
         <PanelResizer key={`pc-${panelContainer.id}-resizer`} panelContainer={panelContainer} />
       );
