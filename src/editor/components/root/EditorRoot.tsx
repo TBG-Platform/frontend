@@ -1,4 +1,4 @@
-import { Panel } from '../../state/PanelViewState';
+import { Panel, PanelFlow } from '../../state/PanelViewState';
 import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
 import { PanelContainer, PanelViewState } from '../../state/PanelViewState';
@@ -41,6 +41,14 @@ export class EditorRoot extends React.Component<Props> {
           ? this.renderPanel(panelContainer.b)
           : this.renderPanelContainer(panelContainer.b)
       );
+    }
+
+    // If the container has an a and a b, add a resize bar between them
+    if (panelContainer.a && panelContainer.b) {
+      const resizeClass = panelContainer.flow === PanelFlow.ROW ? 'vertical' : 'horizontal';
+      const resizer = <div className={'resize-bar ' + resizeClass}></div>;
+
+      content.splice(1, 0, resizer);
     }
 
     const panelContainerStyle: CSSProperties = {
