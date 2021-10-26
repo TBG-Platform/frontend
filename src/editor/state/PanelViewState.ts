@@ -1,6 +1,8 @@
 import { observable } from 'mobx';
+import { RandomUtils } from '../../utils/RandomUtils';
 
 export class Panel {
+  id = RandomUtils.createId();
   tabs: string[] = []; // docked tabs with a panel
 }
 
@@ -10,6 +12,7 @@ export enum PanelFlow {
 }
 
 export class PanelContainer {
+  id = RandomUtils.createId();
   div?: HTMLDivElement;
   a?: Panel | PanelContainer;
   b?: Panel | PanelContainer;

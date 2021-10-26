@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import React from 'react';
 import { Panel } from '../../state/PanelViewState';
 
@@ -7,6 +8,7 @@ interface Props {
   panel: Panel;
 }
 
+@observer
 export class PanelDisplay extends React.Component<Props> {
   public render() {
     const { panel } = this.props;

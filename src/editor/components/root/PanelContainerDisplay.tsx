@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { PanelContainer, PanelFlow } from '../../state/PanelViewState';
+import { Panel, PanelContainer, PanelFlow } from '../../state/PanelViewState';
 import { PanelDisplay } from './PanelDisplay';
 
 import './panel-container-display.scss';
@@ -9,25 +9,25 @@ interface Props {
 }
 
 export class PanelContainerDisplay extends React.Component<Props> {
+  private panelContRef = React.createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    if (this.panelContRef.current) {
+      this.props.panelContainer.setDiv(this.panelContRef.current);
+    }
+  }
+
   public render() {
     const { panelContainer } = this.props;
 
     const content: JSX.Element[] = [];
 
     if (panelContainer.a) {
-      if (PanelContainer.isPanel(panelContainer.a)) {
-        content.push(<PanelDisplay panel={panelContainer.a} />);
-      } else if (PanelContainer.isPanelContainer(panelContainer.a)) {
-        content.push(<PanelContainerDisplay panelContainer={panelContainer.a} />);
-      }
+      content.push(this.getPanelOrContainer(panelContainer.a));
     }
 
     if (panelContainer.b) {
-      if (PanelContainer.isPanel(panelContainer.b)) {
-        content.push(<PanelDisplay panel={panelContainer.b} />);
-      } else if (PanelContainer.isPanelContainer(panelContainer.b)) {
-        content.push(<PanelContainerDisplay panelContainer={panelContainer.b} />);
-      }
+      content.push(this.getPanelOrContainer(panelContainer.b));
     }
 
     // If the container has an a and a b, add a resize bar between them
@@ -42,12 +42,20 @@ export class PanelContainerDisplay extends React.Component<Props> {
       flexDirection: panelContainer.flow,
     };
 
-    const panelContRef = React.createRef<HTMLDivElement>();
-
     return (
-      <div ref={panelContRef} className={'panel-container'} style={panelContainerStyle}>
+      <div ref={this.panelContRef} className={'panel-container'} style={panelContainerStyle}>
         {content}
       </div>
     );
+  }
+
+  private getPanelOrContainer(item: Panel | PanelContainer) {
+    if (PanelContainer.isPanel(item)) {
+      return <PanelDisplay key={'panel-' + item.id} panel={item} />;
+    } else if (PanelContainer.isPanelContainer(item)) {
+      return <PanelContainerDisplay key={'pc-' + item.id} panelContainer={item} />;
+    } else {
+      return undefined;
+    }
   }
 }

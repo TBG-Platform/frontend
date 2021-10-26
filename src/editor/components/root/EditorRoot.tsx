@@ -18,7 +18,10 @@ export class EditorRoot extends React.Component<Props> {
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>navbar here</div>
         <div className={'editor-main-area'}>
-          <PanelContainerDisplay panelContainer={panelViewState.panelTree} />
+          <PanelContainerDisplay
+            key={'pc-' + panelViewState.panelTree.id}
+            panelContainer={panelViewState.panelTree}
+          />
         </div>
       </div>
     );
