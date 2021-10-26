@@ -27,9 +27,11 @@ export class PanelViewState {
   @observable public panelTree: PanelContainer;
 
   constructor() {
-    this.panelTree = this.twoPanelTestLR();
+    this.panelTree = this.onePanelTest();
   }
 
+  // Passes
+  // One panel only
   private onePanelTest() {
     const rootContainer = new PanelContainer();
     const panel = new Panel();
@@ -39,6 +41,8 @@ export class PanelViewState {
     return rootContainer;
   }
 
+  // Passes
+  // Two panels side by side
   private twoPanelTestLR() {
     const container = this.onePanelTest();
 
@@ -46,6 +50,43 @@ export class PanelViewState {
     panel2.tabs = ['Another_Tab', 'Wowzer'];
 
     container.b = panel2;
+
+    return container;
+  }
+
+  // Passes
+  // Two panels, one above other
+  private twoPanelTestTB() {
+    const container = this.onePanelTest();
+
+    const p2 = new Panel();
+    p2.tabs = ['ImBelow', 'Cool'];
+
+    container.b = p2;
+    container.flow = PanelFlow.COLUMN;
+
+    return container;
+  }
+
+  // One panel to left, two split top-bot on right
+  private nestedPanelTest() {
+    // Get a container with one panel on 'a'
+    const container = this.onePanelTest();
+
+    // Make a new container for b, column flow
+    const nestCont = new PanelContainer();
+    //nestCont.flow = PanelFlow.COLUMN;
+
+    // Create two panels for new container
+    const p1 = new Panel();
+    p1.tabs = ['Top'];
+    nestCont.a = p1;
+    const p2 = new Panel();
+    p2.tabs = ['Bot'];
+    nestCont.b = p2;
+
+    // Assign new container to container 'b'
+    container.b = nestCont;
 
     return container;
   }

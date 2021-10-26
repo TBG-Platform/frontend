@@ -1,6 +1,6 @@
 import { Panel } from '../../state/PanelViewState';
 import { observer } from 'mobx-react';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { PanelContainer, PanelViewState } from '../../state/PanelViewState';
 
 import './editor-root.scss';
@@ -43,7 +43,15 @@ export class EditorRoot extends React.Component<Props> {
       );
     }
 
-    return <div className={'panel-container'}>{content}</div>;
+    const panelContainerStyle: CSSProperties = {
+      flexDirection: panelContainer.flow,
+    };
+
+    return (
+      <div className={'panel-container'} style={panelContainerStyle}>
+        {content}
+      </div>
+    );
   }
 
   private renderPanel(panel: Panel) {
