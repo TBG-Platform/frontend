@@ -1,0 +1,18 @@
+.panel-container {
+  flex: 1 1 100%;
+  display: flex;
+
+  .resize-bar {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 10px;
+    //background-color: blue;
+
+    &.vertical {
+      height: 100%;
+    }
+    &.horizontal {
+      width: 100%;
+    }
+  }
+}

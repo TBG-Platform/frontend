@@ -10,9 +10,14 @@ export enum PanelFlow {
 }
 
 export class PanelContainer {
+  div?: HTMLDivElement;
   a?: Panel | PanelContainer;
   b?: Panel | PanelContainer;
   flow = PanelFlow.ROW;
+
+  public setDiv(div: HTMLDivElement) {
+    this.div = div;
+  }
 
   public static isPanelContainer(item: Panel | PanelContainer): item is PanelContainer {
     return item instanceof PanelContainer;
@@ -75,7 +80,7 @@ export class PanelViewState {
 
     // Make a new container for b, column flow
     const nestCont = new PanelContainer();
-    //nestCont.flow = PanelFlow.COLUMN;
+    nestCont.flow = PanelFlow.COLUMN;
 
     // Create two panels for new container
     const p1 = new Panel();

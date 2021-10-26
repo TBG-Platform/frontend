@@ -20,53 +20,53 @@
 
     display: flex;
 
-    .panel-container {
-      flex: 1 1 100%;
-      display: flex;
+    // .panel-container {
+    //   flex: 1 1 100%;
+    //   display: flex;
 
-      .resize-bar {
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 10px;
-        //background-color: blue;
+    //   .resize-bar {
+    //     flex-grow: 0;
+    //     flex-shrink: 0;
+    //     flex-basis: 10px;
+    //     //background-color: blue;
 
-        &.vertical {
-          height: 100%;
-        }
-        &.horizontal {
-          width: 100%;
-        }
-      }
+    //     &.vertical {
+    //       height: 100%;
+    //     }
+    //     &.horizontal {
+    //       width: 100%;
+    //     }
+    //   }
 
-      .panel {
-        flex: 1 1 100%;
-        border: 1px solid $mainBorderColor;
+    //   .panel {
+    //     flex: 1 1 100%;
+    //     border: 1px solid $mainBorderColor;
 
-        display: flex;
-        flex-direction: column;
+    //     display: flex;
+    //     flex-direction: column;
 
-        .panel-tab-list {
-          flex: 0 0 30px;
-          width: 100%;
-          border-bottom: 1px solid $mainBorderColor;
+    //     .panel-tab-list {
+    //       flex: 0 0 30px;
+    //       width: 100%;
+    //       border-bottom: 1px solid $mainBorderColor;
 
-          display: flex;
+    //       display: flex;
 
-          .panel-tab {
-            flex: 0 0 auto;
-            padding: 5px;
-            height: 100%;
-            border-right: 1px solid $mainBorderColor;
-          }
-        }
+    //       .panel-tab {
+    //         flex: 0 0 auto;
+    //         padding: 5px;
+    //         height: 100%;
+    //         border-right: 1px solid $mainBorderColor;
+    //       }
+    //     }
 
-        .panel-body {
-          flex: 1 1 100%;
-          width: 100%;
+    //     .panel-body {
+    //       flex: 1 1 100%;
+    //       width: 100%;
 
-          background-color: $mainBackgroundColor;
-        }
-      }
-    }
+    //       background-color: $mainBackgroundColor;
+    //     }
+    //   }
+    // }
   }
 }
