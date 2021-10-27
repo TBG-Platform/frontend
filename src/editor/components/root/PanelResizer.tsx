@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { PanelContainer, PanelFlow } from '../../state/PanelViewState';
+import { PanelContainer, PanelFlow } from '../../state/panels/PanelContainer';
 
 import './panel-resizer.scss';
 

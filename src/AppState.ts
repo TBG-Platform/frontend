@@ -1,4 +1,4 @@
-import { PanelViewState } from './editor/state/PanelViewState';
+import { PanelViewState } from './editor/state/panels/PanelViewState';
 import { StoryEditorState } from './editor/state/StoryEditorState';
 
 export class AppState {

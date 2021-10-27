@@ -1,4 +1,5 @@
-import { Panel, PanelContainer, PanelFlow } from '../editor/state/PanelViewState';
+import { Panel } from '../editor/state/panels/Panel';
+import { PanelContainer, PanelFlow } from '../editor/state/panels/PanelContainer';
 
 export class PanelUtils {
   public static isPanelContainer(item: Panel | PanelContainer): item is PanelContainer {
@@ -15,7 +16,7 @@ export class PanelUtils {
     const rootContainer = new PanelContainer();
 
     const panel = new Panel();
-    panel.tabs = ['First_Tab', 'SecondTab', 'Third'];
+    //panel.tabs = ['First_Tab', 'SecondTab', 'Third'];
     rootContainer.a = panel;
 
     return rootContainer;
@@ -27,7 +28,7 @@ export class PanelUtils {
     const container = this.onePanelTest();
 
     const panel2 = new Panel();
-    panel2.tabs = ['Another_Tab', 'Wowzer'];
+    //panel2.tabs = ['Another_Tab', 'Wowzer'];
 
     container.b = panel2;
 
@@ -48,6 +49,7 @@ export class PanelUtils {
     return container;
   }
 
+  // Passes
   // One panel to left, two split top-bot on right
   public static nestedLRTBTet() {
     // Get a container with one panel on 'a'

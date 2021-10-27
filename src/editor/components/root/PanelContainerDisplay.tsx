@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
-import { Panel, PanelContainer } from '../../state/PanelViewState';
+import { Panel } from '../../state/panels/Panel';
+import { PanelContainer } from '../../state/panels/PanelContainer';
 import { PanelDisplay } from './PanelDisplay';
 import { PanelResizer } from './PanelResizer';
 import { observer } from 'mobx-react';

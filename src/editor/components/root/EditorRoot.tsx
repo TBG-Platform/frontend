@@ -1,7 +1,7 @@
 import { Button } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { PanelViewState } from '../../state/PanelViewState';
+import { PanelViewState } from '../../state/panels/PanelViewState';
 import { PanelContainerDisplay } from './PanelContainerDisplay';
 
 import './editor-root.scss';

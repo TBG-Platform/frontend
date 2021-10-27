@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
-import { Panel } from '../../state/PanelViewState';
+import { Panel } from '../../state/panels/Panel';
 
 import './panel-display.scss';
 
