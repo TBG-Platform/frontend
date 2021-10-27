@@ -4,12 +4,13 @@ import { PanelContainer } from '../../state/panels/PanelContainer';
 import { PanelDisplay } from './PanelDisplay';
 import { PanelResizer } from './PanelResizer';
 import { observer } from 'mobx-react';
+import { PanelUtils } from '../../../utils/PanelUtils';
 
 import './panel-container-display.scss';
-import { PanelUtils } from '../../../utils/PanelUtils';
 
 interface Props {
   panelContainer: PanelContainer;
+  onFocusPanel: (panel: Panel) => void;
 }
 
 @observer
@@ -57,10 +58,20 @@ export class PanelContainerDisplay extends React.Component<Props> {
   }
 
   private getPanelOrContainer(item: Panel | PanelContainer) {
+    const { onFocusPanel } = this.props;
+
     if (PanelUtils.isPanel(item)) {
-      return <PanelDisplay key={'panel-' + item.id} panel={item} />;
+      return (
+        <PanelDisplay key={'panel-' + item.id} panel={item} onFocus={() => onFocusPanel(item)} />
+      );
     } else if (PanelUtils.isPanelContainer(item)) {
-      return <PanelContainerDisplay key={'pc-' + item.id} panelContainer={item} />;
+      return (
+        <PanelContainerDisplay
+          key={'pc-' + item.id}
+          panelContainer={item}
+          onFocusPanel={onFocusPanel}
+        />
+      );
     } else {
       return undefined;
     }

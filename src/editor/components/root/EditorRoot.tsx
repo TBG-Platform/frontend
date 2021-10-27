@@ -22,6 +22,7 @@ export class EditorRoot extends React.Component<Props> {
           <PanelContainerDisplay
             key={'pc-' + panelViewState.panelTree.id}
             panelContainer={panelViewState.panelTree}
+            onFocusPanel={panelViewState.focusPanel}
           />
         </div>
       </div>
@@ -37,6 +38,7 @@ export class EditorRoot extends React.Component<Props> {
         <Button text={'Two panel TB'} onClick={panelViewState.setTwoPanelTB} />
         <Button text={'Nested L,R-TB'} onClick={panelViewState.setLRTB} />
         <Button text={'Nested L-TB, R-TB'} onClick={panelViewState.setLTBRTB} />
+        <Button text={'Page display widget'} />
       </>
     );
   }

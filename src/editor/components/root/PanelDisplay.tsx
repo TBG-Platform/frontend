@@ -6,19 +6,22 @@ import './panel-display.scss';
 
 interface Props {
   panel: Panel;
+  onFocus: () => void;
 }
 
 @observer
 export class PanelDisplay extends React.Component<Props> {
   public render() {
-    const { panel } = this.props;
+    const { panel, onFocus } = this.props;
+
+    console.log('rendering panel: ', panel);
 
     const panelStyle: CSSProperties = {
       flexBasis: panel.basis + '%',
     };
 
     return (
-      <div className={'panel'} style={panelStyle}>
+      <div className={'panel'} style={panelStyle} onClick={onFocus}>
         <div className={'panel-tab-list'}>
           {panel.widgets.map((widget) => this.renderPanelWidgetTab(widget))}
         </div>

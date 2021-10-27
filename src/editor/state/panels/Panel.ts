@@ -5,6 +5,7 @@ import { PanelWidgetType } from './PanelWidgetType';
 export class PanelWidget {
   type: PanelWidgetType;
   title: string;
+  body: JSX.Element;
 }
 
 export class Panel {
