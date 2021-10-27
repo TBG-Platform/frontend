@@ -2,25 +2,44 @@
 
 .panel {
   flex-grow: 0;
-  flex-shrink: 0;
+  flex-shrink: 1;
   border: 1px solid $mainBorderColor;
 
   display: flex;
   flex-direction: column;
 
-  .panel-tab-list {
+  .panel-navbar {
     flex: 0 0 30px;
     width: 100%;
+    padding-right: 3px;
     border-bottom: 1px solid $mainBorderColor;
 
     display: flex;
+    justify-content: space-between;
 
-    .panel-tab {
-      user-select: none;
+    .panel-tab-list {
       flex: 0 0 auto;
-      padding: 5px;
       height: 100%;
-      border-right: 1px solid $mainBorderColor;
+
+      display: flex;
+
+      .panel-tab {
+        user-select: none;
+        cursor: grab;
+        flex: 0 0 auto;
+        padding: 5px;
+        height: 100%;
+        border-right: 1px solid $mainBorderColor;
+      }
+    }
+
+    .panel-options {
+      flex: 0 0 auto;
+      height: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -32,7 +51,7 @@
     background-color: $mainBackgroundColor;
 
     &.hover-backdrop-full {
-      &::before {
+      &::after {
         position: absolute;
         content: ' ';
         top: 0;

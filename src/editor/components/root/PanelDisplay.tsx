@@ -1,3 +1,5 @@
+import { Button, Icon } from '@blueprintjs/core';
+import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
 import { Panel, PanelWidget } from '../../state/panels/Panel';
@@ -30,8 +32,15 @@ export class PanelDisplay extends React.Component<Props> {
 
     return (
       <div className={'panel'} style={panelStyle} onClick={onFocus}>
-        <div className={'panel-tab-list'}>
-          {panel.widgets.map((widget) => this.renderPanelWidgetTab(widget))}
+        <div className={'panel-navbar'}>
+          <div className={'panel-tab-list'}>
+            {panel.widgets.map((widget) => this.renderPanelWidgetTab(widget))}
+          </div>
+          <div className={'panel-options'}>
+            <Popover2>
+              <Button icon={'more'} small minimal />
+            </Popover2>
+          </div>
         </div>
         <div
           ref={this.panelBodyRef}
