@@ -24,8 +24,6 @@ export class PanelDisplay extends React.Component<Props> {
   public render() {
     const { panel, onFocus, renderWidgetBody } = this.props;
 
-    console.log('rendering panel: ', panel);
-
     const panelStyle: CSSProperties = {
       flexBasis: panel.basis + '%',
     };
@@ -68,8 +66,6 @@ export class PanelDisplay extends React.Component<Props> {
   private onDragTabStart = (e: React.DragEvent<HTMLDivElement>) => {
     const { panel } = this.props;
 
-    console.log('dragging tab');
-
     const target = e.target as HTMLDivElement;
 
     // Set the transfer data to hold widget id and 'from' panel
@@ -81,9 +77,7 @@ export class PanelDisplay extends React.Component<Props> {
     e.dataTransfer.setData('text', JSON.stringify(data));
   };
 
-  private onDragTabEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('stopped dragging tab');
-
+  private onDragTabEnd = (_e: React.DragEvent<HTMLDivElement>) => {
     if (this.panelBodyRef.current) {
       this.panelBodyRef.current.classList.remove('hover-backdrop-full');
     }
@@ -92,8 +86,6 @@ export class PanelDisplay extends React.Component<Props> {
   private onDragOverPanel = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-
-    console.log('drag over panel');
 
     // Show the hover guide backdrop
     if (this.panelBodyRef.current) {
@@ -107,8 +99,7 @@ export class PanelDisplay extends React.Component<Props> {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log('drag leave panel');
-
+    // Due to tabs for this panel being nested, causes flicker otherwise
     if (e.currentTarget.contains(e.relatedTarget as HTMLElement)) {
       return;
     }
@@ -121,17 +112,12 @@ export class PanelDisplay extends React.Component<Props> {
   private onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     const { panel, onWidgetDrop } = this.props;
 
-    console.log('on drop');
-
     if (this.panelBodyRef.current) {
       this.panelBodyRef.current.classList.remove('hover-backdrop-full');
     }
 
     // How to get widget id?
     const data: WidgetDragData = JSON.parse(e.dataTransfer.getData('text'));
-    console.log('data', data);
-
-    console.log('from panel', this.props.panel);
 
     onWidgetDrop(data.widgetId, data.fromPanelId, panel);
 

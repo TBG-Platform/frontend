@@ -20,7 +20,6 @@ export class PanelViewState {
 
   @action public focusPanel = (panel: Panel) => {
     this.focusedPanel = panel;
-    console.log('focusing on panel', panel);
   };
 
   @action public addPanelWidget = () => {
