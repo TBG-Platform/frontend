@@ -1,9 +1,6 @@
 import { observable } from 'mobx';
 import { RandomUtils } from '../../../utils/RandomUtils';
-
-export enum PanelWidgetType {
-  PAGE_DISPLAY = 'page-display',
-}
+import { PanelWidgetType } from './PanelWidgetType';
 
 export class PanelWidget {
   type: PanelWidgetType;

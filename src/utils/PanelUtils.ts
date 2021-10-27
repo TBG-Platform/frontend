@@ -41,7 +41,7 @@ export class PanelUtils {
     const container = this.onePanelTest();
 
     const p2 = new Panel();
-    p2.tabs = ['ImBelow', 'Cool'];
+    // p2.tabs = ['ImBelow', 'Cool'];
 
     container.b = p2;
     container.flow = PanelFlow.COLUMN;
@@ -61,10 +61,10 @@ export class PanelUtils {
 
     // Create two panels for new container
     const p1 = new Panel();
-    p1.tabs = ['Top'];
+    //p1.tabs = ['Top'];
     nestCont.a = p1;
     const p2 = new Panel();
-    p2.tabs = ['Bot'];
+    //p2.tabs = ['Bot'];
     nestCont.b = p2;
 
     // Assign new container to container 'b'

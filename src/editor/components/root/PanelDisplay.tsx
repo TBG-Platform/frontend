@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
-import { Panel } from '../../state/panels/Panel';
+import { Panel, PanelWidget } from '../../state/panels/Panel';
 
 import './panel-display.scss';
 
@@ -20,19 +20,19 @@ export class PanelDisplay extends React.Component<Props> {
     return (
       <div className={'panel'} style={panelStyle}>
         <div className={'panel-tab-list'}>
-          {panel.tabs.map((tab, idx) => this.renderPanelTab(tab, idx))}
+          {panel.widgets.map((widget) => this.renderPanelWidgetTab(widget))}
         </div>
         <div className={'panel-body'}></div>
       </div>
     );
   }
 
-  private renderPanelTab(tabName: string, tabIndex: number) {
+  private renderPanelWidgetTab(widget: PanelWidget) {
     const { panel } = this.props;
 
     return (
-      <div key={`panel-${panel.id}-tab-${tabIndex}`} className={'panel-tab'}>
-        {tabName}
+      <div key={`panel-${panel.id}-tab-${widget.title}`} className={'panel-tab'}>
+        {widget.title}
       </div>
     );
   }
