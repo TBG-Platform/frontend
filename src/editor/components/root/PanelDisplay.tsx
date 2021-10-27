@@ -103,5 +103,9 @@ export class PanelDisplay extends React.Component<Props> {
 
   private onDrop = () => {
     console.log('on drop');
+
+    if (this.panelBodyRef.current) {
+      this.panelBodyRef.current.classList.remove('hover-backdrop-full');
+    }
   };
 }

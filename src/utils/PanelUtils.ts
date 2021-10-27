@@ -45,6 +45,7 @@ export class PanelUtils {
     const rootContainer = new PanelContainer();
 
     const panel = new Panel();
+    panel.basis = 100;
     //panel.tabs = ['First_Tab', 'SecondTab', 'Third'];
     rootContainer.a = panel;
 

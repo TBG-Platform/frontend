@@ -9,7 +9,7 @@ export class PanelViewState {
   @observable.ref public focusedPanel?: Panel;
 
   constructor() {
-    this.panelTree = PanelUtils.twoPanelTestLR();
+    this.panelTree = PanelUtils.onePanelTest();
     this.panelTree.basis = 100;
   }
 
@@ -38,6 +38,11 @@ export class PanelViewState {
     };
 
     panelTarget.addWidget(widget);
+  };
+
+  @action public setOnePanel = () => {
+    this.panelTree = PanelUtils.onePanelTest();
+    this.panelTree.basis = 100;
   };
 
   @action public setTwoPanelLR = () => {
