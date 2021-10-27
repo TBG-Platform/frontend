@@ -13,6 +13,7 @@ interface Props {
   panelContainer: PanelContainer;
   onFocusPanel: (panel: Panel) => void;
   renderWidgetBody: (panelWidgetType: PanelWidgetType) => JSX.Element;
+  onWidgetDrop: (widgetId: string, fromPanelId: string, toPanel: Panel) => void;
 }
 
 @observer
@@ -60,7 +61,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
   }
 
   private getPanelOrContainer(item: Panel | PanelContainer) {
-    const { onFocusPanel, renderWidgetBody } = this.props;
+    const { onFocusPanel, renderWidgetBody, onWidgetDrop } = this.props;
 
     if (PanelUtils.isPanel(item)) {
       return (
@@ -69,6 +70,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
           panel={item}
           onFocus={() => onFocusPanel(item)}
           renderWidgetBody={renderWidgetBody}
+          onWidgetDrop={onWidgetDrop}
         />
       );
     } else if (PanelUtils.isPanelContainer(item)) {
@@ -78,6 +80,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
           panelContainer={item}
           onFocusPanel={onFocusPanel}
           renderWidgetBody={renderWidgetBody}
+          onWidgetDrop={onWidgetDrop}
         />
       );
     } else {

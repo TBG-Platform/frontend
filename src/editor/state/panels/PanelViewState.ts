@@ -46,11 +46,8 @@ export class PanelViewState {
     panelTarget.addWidget(widget);
   };
 
-  @action public moveWidgetToPanel = (widgetId: string, fromPanel: Panel, toPanel: Panel) => {
-    console.log('widget id:', widgetId);
-    console.log('fromPanel', fromPanel);
-    console.log('toPanel', toPanel);
-
+  @action public moveWidgetToPanel = (widgetId: string, fromPanelId: string, toPanel: Panel) => {
+    const fromPanel = this.panelMap.get(fromPanelId);
     const widget = fromPanel.getWidget(widgetId);
     fromPanel.removeWidget(widgetId);
     toPanel.addWidget(widget);

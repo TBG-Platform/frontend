@@ -28,6 +28,7 @@ export class EditorRoot extends React.Component<Props> {
             panelContainer={panelViewState.panelTree}
             onFocusPanel={panelViewState.focusPanel}
             renderWidgetBody={this.renderWidgetBody}
+            onWidgetDrop={panelViewState.moveWidgetToPanel}
           />
         </div>
       </div>

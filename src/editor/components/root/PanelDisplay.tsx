@@ -5,11 +5,16 @@ import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
 
 import './panel-display.scss';
 
+interface WidgetDragData {
+  widgetId: string;
+  fromPanelId: string;
+}
+
 interface Props {
   panel: Panel;
   onFocus: () => void;
   renderWidgetBody: (panelWidgetType: PanelWidgetType) => JSX.Element;
-  //onWidgetDrop: () => void;
+  onWidgetDrop: (widgetId: string, fromPanelId: string, toPanel: Panel) => void;
 }
 
 @observer
@@ -61,12 +66,19 @@ export class PanelDisplay extends React.Component<Props> {
   }
 
   private onDragTabStart = (e: React.DragEvent<HTMLDivElement>) => {
+    const { panel } = this.props;
+
     console.log('dragging tab');
 
-    // Set the transfer data to hold widget id and 'from' panel
-
     const target = e.target as HTMLDivElement;
-    e.dataTransfer.setData('text', target.id);
+
+    // Set the transfer data to hold widget id and 'from' panel
+    const data: WidgetDragData = {
+      widgetId: target.id,
+      fromPanelId: panel.id,
+    };
+
+    e.dataTransfer.setData('text', JSON.stringify(data));
   };
 
   private onDragTabEnd = (e: React.DragEvent<HTMLDivElement>) => {
@@ -107,6 +119,8 @@ export class PanelDisplay extends React.Component<Props> {
   };
 
   private onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    const { panel, onWidgetDrop } = this.props;
+
     console.log('on drop');
 
     if (this.panelBodyRef.current) {
@@ -114,8 +128,12 @@ export class PanelDisplay extends React.Component<Props> {
     }
 
     // How to get widget id?
-    const id = e.dataTransfer.getData('text');
-    console.log('id: ', id);
+    const data: WidgetDragData = JSON.parse(e.dataTransfer.getData('text'));
+    console.log('data', data);
+
+    console.log('from panel', this.props.panel);
+
+    onWidgetDrop(data.widgetId, data.fromPanelId, panel);
 
     e.dataTransfer.clearData();
   };
