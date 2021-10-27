@@ -107,7 +107,12 @@ export class PanelContainer {
  * This may at least remove the 'a' and 'b' props/logic, which is suepr messy...
  * However, having an array of child items also increases the complexity of resizing,
  * because it would need to take into account all siblings, not just work between two siblings.
- *
+ * ... However however, by only having 2 items, the resizing is annoying! With three panels
+ * in a row, resizing one also affects the other, it gets quite fiddly.
+ * 
+ * 
+ * 
+ * 
  * As for the either/or type logic:
  *
  * Parent: ROW
@@ -119,4 +124,19 @@ export class PanelContainer {
  *  - Panel
  *
  * I may have parents amongst panels, so I will still have render-this-or-that logic...
- */
+ * 
+ * The 'OR' logic here is needed to know when to render a container div...
+ * which is necesasry to re-flow the dlex direction
+ * 
+ * but a panel class itself has useless props if it would only exist for the 
+ * container div needs
+ * 
+ * the container div still needs basis as if it were a panel
+ * 
+*/
+
+
+class T {
+  flow: 'row' | 'col';
+  children: T[] = [];
+}
