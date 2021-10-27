@@ -40,11 +40,10 @@ export class EditorRoot extends React.Component<Props> {
 
     return (
       <>
-        <Button text={'One panel'} onClick={panelViewState.setOnePanel} />
-        <Button text={'Two panel LR'} onClick={panelViewState.setTwoPanelLR} />
-        <Button text={'Two panel TB'} onClick={panelViewState.setTwoPanelTB} />
-        <Button text={'Nested L,R-TB'} onClick={panelViewState.setLRTB} />
-        <Button text={'Nested L-TB, R-TB'} onClick={panelViewState.setLTBRTB} />
+        <Button text={'One panel'} onClick={panelViewState.setOnePanelLayout} />
+        <Button text={'Two panel'} onClick={panelViewState.setTwoPanelLayout} />
+        <Button text={'Three panel'} onClick={panelViewState.setThreePanelLayout} />
+        <Button text={'Four panel'} onClick={panelViewState.setFourPanelLayout} />
         <Button text={'Test widget'} onClick={panelViewState.addPanelWidget} />
       </>
     );

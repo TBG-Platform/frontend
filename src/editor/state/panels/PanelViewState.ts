@@ -11,11 +11,9 @@ export class PanelViewState {
   private panelMap = new Map<string, Panel>();
 
   constructor() {
-    const treeData: PanelTreeData = PanelUtils.twoPanelTest();
+    const treeData: PanelTreeData = PanelUtils.onePanelLayout();
     this.panelTree = treeData.tree;
     this.panelMap = treeData.map;
-
-    this.panelTree.basis = 100;
   }
 
   @action public focusPanel = (panel: Panel) => {
@@ -52,29 +50,27 @@ export class PanelViewState {
     toPanel.addWidget(widget);
   };
 
-  @action public setOnePanel = () => {
-    this.panelTree = PanelUtils.onePanelTest();
-    this.panelTree.basis = 100;
-    this.panelTree.a.basis = 100;
+  @action public setOnePanelLayout = () => {
+    const data = PanelUtils.onePanelLayout();
+    this.panelTree = data.tree;
+    this.panelMap = data.map;
   };
 
-  @action public setTwoPanelLR = () => {
-    this.panelTree = PanelUtils.twoPanelTestLR();
-    this.panelTree.basis = 100;
+  @action public setTwoPanelLayout = () => {
+    const data = PanelUtils.twoPanelLayout();
+    this.panelTree = data.tree;
+    this.panelMap = data.map;
   };
 
-  @action public setTwoPanelTB = () => {
-    this.panelTree = PanelUtils.twoPanelTestTB();
-    this.panelTree.basis = 100;
+  @action public setThreePanelLayout = () => {
+    const data = PanelUtils.threePanelLayout();
+    this.panelTree = data.tree;
+    this.panelMap = data.map;
   };
 
-  @action public setLRTB = () => {
-    this.panelTree = PanelUtils.nestedLRTBTet();
-    this.panelTree.basis = 100;
-  };
-
-  @action public setLTBRTB = () => {
-    this.panelTree = PanelUtils.nestedLTBRTB();
-    this.panelTree.basis = 100;
+  @action public setFourPanelLayout = () => {
+    const data = PanelUtils.fourPanelLayout();
+    this.panelTree = data.tree;
+    this.panelMap = data.map;
   };
 }

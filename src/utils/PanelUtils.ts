@@ -1,3 +1,4 @@
+import { Tree } from '@blueprintjs/core';
 import { Panel } from '../editor/state/panels/Panel';
 import { PanelContainer, PanelFlow } from '../editor/state/panels/PanelContainer';
 
@@ -44,7 +45,25 @@ export class PanelUtils {
     return panel;
   }
 
-  public static twoPanelTest(): PanelTreeData {
+  public static onePanelLayout(): PanelTreeData {
+    const tree = new PanelContainer();
+    const map = new Map<string, Panel>();
+
+    const p = new Panel();
+
+    tree.a = p;
+    map.set(p.id, p);
+
+    tree.basis = 100;
+    tree.a.basis = 100;
+
+    return {
+      tree,
+      map,
+    };
+  }
+
+  public static twoPanelLayout(): PanelTreeData {
     const tree = new PanelContainer();
     const map = new Map<string, Panel>();
 
@@ -58,83 +77,71 @@ export class PanelUtils {
     tree.b = p2;
     map.set(p2.id, p2);
 
+    tree.basis = 100;
+
     return {
       tree,
       map,
     };
   }
 
-  // Passes
-  // One panel only
-  public static onePanelTest() {
-    const rootContainer = new PanelContainer();
+  public static threePanelLayout(): PanelTreeData {
+    const data = PanelUtils.onePanelLayout();
 
-    const panel = new Panel();
-    rootContainer.a = panel;
+    const pc = new PanelContainer();
+    pc.flow = PanelFlow.COLUMN;
 
-    return rootContainer;
-  }
-
-  // Passes
-  // Two panels side by side
-  public static twoPanelTestLR() {
-    const container = this.onePanelTest();
-
-    const panel2 = new Panel();
-    //panel2.tabs = ['Another_Tab', 'Wowzer'];
-
-    container.b = panel2;
-
-    return container;
-  }
-
-  // Passes
-  // Two panels, one above other
-  public static twoPanelTestTB() {
-    const container = this.onePanelTest();
-
-    const p2 = new Panel();
-    // p2.tabs = ['ImBelow', 'Cool'];
-
-    container.b = p2;
-    container.flow = PanelFlow.COLUMN;
-
-    return container;
-  }
-
-  // Passes
-  // One panel to left, two split top-bot on right
-  public static nestedLRTBTet() {
-    // Get a container with one panel on 'a'
-    const container = this.onePanelTest();
-
-    // Make a new container for b, column flow
-    const nestCont = new PanelContainer();
-    nestCont.flow = PanelFlow.COLUMN;
-
-    // Create two panels for new container
     const p1 = new Panel();
-    //p1.tabs = ['Top'];
-    nestCont.a = p1;
     const p2 = new Panel();
-    //p2.tabs = ['Bot'];
-    nestCont.b = p2;
 
-    // Assign new container to container 'b'
-    container.b = nestCont;
+    pc.a = p1;
+    pc.b = p2;
 
-    return container;
+    data.tree.b = pc;
+
+    data.map.set(p1.id, p1);
+    data.map.set(p2.id, p2);
+
+    data.tree.basis = 100;
+    data.tree.a.basis = 50;
+
+    return data;
   }
 
-  public static nestedLTBRTB() {
-    const lrCont = this.twoPanelTestLR();
+  public static fourPanelLayout() {
+    const tree = new PanelContainer();
 
-    const tb1 = this.twoPanelTestTB();
-    const tb2 = this.twoPanelTestTB();
+    const pc1 = new PanelContainer();
+    pc1.flow = PanelFlow.COLUMN;
 
-    lrCont.a = tb1;
-    lrCont.b = tb2;
+    const p1 = new Panel();
+    const p2 = new Panel();
+    pc1.a = p1;
+    pc1.b = p2;
 
-    return lrCont;
+    tree.a = pc1;
+
+    const pc2 = new PanelContainer();
+    pc2.flow = PanelFlow.COLUMN;
+
+    const p3 = new Panel();
+    const p4 = new Panel();
+    pc2.a = p3;
+    pc2.b = p4;
+
+    tree.b = pc2;
+
+    const map = new Map<string, Panel>();
+    map.set(p1.id, p1);
+    map.set(p2.id, p2);
+    map.set(p3.id, p3);
+    map.set(p4.id, p4);
+
+    tree.basis = 100;
+
+    return {
+      tree,
+      map,
+    };
   }
 }
