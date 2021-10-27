@@ -1,10 +1,10 @@
+import { Button } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { PanelViewState } from '../../state/PanelViewState';
 import { PanelContainerDisplay } from './PanelContainerDisplay';
 
 import './editor-root.scss';
-import { Button } from '@blueprintjs/core';
 
 interface Props {
   panelViewState: PanelViewState;

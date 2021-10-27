@@ -5,6 +5,7 @@ import { PanelResizer } from './PanelResizer';
 import { observer } from 'mobx-react';
 
 import './panel-container-display.scss';
+import { PanelUtils } from '../../../utils/PanelUtils';
 
 interface Props {
   panelContainer: PanelContainer;
@@ -33,7 +34,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
       content.push(this.getPanelOrContainer(panelContainer.b));
     }
 
-    // If the container has an a and a b, add a resize bar between them
+    // If the container has a and b, add a resize bar between them
     if (panelContainer.a && panelContainer.b) {
       const resizer = (
         <PanelResizer key={`pc-${panelContainer.id}-resizer`} panelContainer={panelContainer} />
@@ -55,9 +56,9 @@ export class PanelContainerDisplay extends React.Component<Props> {
   }
 
   private getPanelOrContainer(item: Panel | PanelContainer) {
-    if (PanelContainer.isPanel(item)) {
+    if (PanelUtils.isPanel(item)) {
       return <PanelDisplay key={'panel-' + item.id} panel={item} />;
-    } else if (PanelContainer.isPanelContainer(item)) {
+    } else if (PanelUtils.isPanelContainer(item)) {
       return <PanelContainerDisplay key={'pc-' + item.id} panelContainer={item} />;
     } else {
       return undefined;
