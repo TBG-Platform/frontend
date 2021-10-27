@@ -1,6 +1,11 @@
 import { Panel } from '../editor/state/panels/Panel';
 import { PanelContainer, PanelFlow } from '../editor/state/panels/PanelContainer';
 
+export interface PanelTreeData {
+  tree: PanelContainer;
+  map: Map<string, Panel>;
+}
+
 export class PanelUtils {
   public static isPanelContainer(item: Panel | PanelContainer): item is PanelContainer {
     return item instanceof PanelContainer;
@@ -39,14 +44,32 @@ export class PanelUtils {
     return panel;
   }
 
+  public static twoPanelTest(): PanelTreeData {
+    const tree = new PanelContainer();
+    const map = new Map<string, Panel>();
+
+    const p = new Panel();
+
+    tree.a = p;
+    map.set(p.id, p);
+
+    const p2 = new Panel();
+
+    tree.b = p2;
+    map.set(p2.id, p2);
+
+    return {
+      tree,
+      map,
+    };
+  }
+
   // Passes
   // One panel only
   public static onePanelTest() {
     const rootContainer = new PanelContainer();
 
     const panel = new Panel();
-    panel.basis = 100;
-    //panel.tabs = ['First_Tab', 'SecondTab', 'Third'];
     rootContainer.a = panel;
 
     return rootContainer;

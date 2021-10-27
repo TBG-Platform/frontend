@@ -9,6 +9,7 @@ interface Props {
   panel: Panel;
   onFocus: () => void;
   renderWidgetBody: (panelWidgetType: PanelWidgetType) => JSX.Element;
+  //onWidgetDrop: () => void;
 }
 
 @observer
@@ -48,6 +49,7 @@ export class PanelDisplay extends React.Component<Props> {
     return (
       <div
         key={`panel-${panel.id}-tab-${widget.title}`}
+        id={widget.id}
         className={'panel-tab'}
         draggable={'true'}
         onDragStart={this.onDragTabStart}
@@ -61,7 +63,10 @@ export class PanelDisplay extends React.Component<Props> {
   private onDragTabStart = (e: React.DragEvent<HTMLDivElement>) => {
     console.log('dragging tab');
 
-    e.dataTransfer.setData('text', 'tab id');
+    // Set the transfer data to hold widget id and 'from' panel
+
+    const target = e.target as HTMLDivElement;
+    e.dataTransfer.setData('text', target.id);
   };
 
   private onDragTabEnd = (e: React.DragEvent<HTMLDivElement>) => {
@@ -101,11 +106,17 @@ export class PanelDisplay extends React.Component<Props> {
     }
   };
 
-  private onDrop = () => {
+  private onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     console.log('on drop');
 
     if (this.panelBodyRef.current) {
       this.panelBodyRef.current.classList.remove('hover-backdrop-full');
     }
+
+    // How to get widget id?
+    const id = e.dataTransfer.getData('text');
+    console.log('id: ', id);
+
+    e.dataTransfer.clearData();
   };
 }

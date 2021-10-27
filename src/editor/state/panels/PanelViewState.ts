@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
-import { PanelUtils } from '../../../utils/PanelUtils';
+import { PanelTreeData, PanelUtils } from '../../../utils/PanelUtils';
+import { RandomUtils } from '../../../utils/RandomUtils';
 import { Panel, PanelWidget } from './Panel';
 import { PanelContainer } from './PanelContainer';
 import { PanelWidgetType } from './PanelWidgetType';
@@ -7,9 +8,13 @@ import { PanelWidgetType } from './PanelWidgetType';
 export class PanelViewState {
   @observable public panelTree: PanelContainer;
   @observable.ref public focusedPanel?: Panel;
+  private panelMap = new Map<string, Panel>();
 
   constructor() {
-    this.panelTree = PanelUtils.onePanelTest();
+    const treeData: PanelTreeData = PanelUtils.twoPanelTest();
+    this.panelTree = treeData.tree;
+    this.panelMap = treeData.map;
+
     this.panelTree.basis = 100;
   }
 
@@ -33,6 +38,7 @@ export class PanelViewState {
 
     // Otherwise, now add the widget to the panel
     const widget: PanelWidget = {
+      id: RandomUtils.createId(),
       type: PanelWidgetType.TEST,
       title: 'Test Widget',
     };
@@ -40,9 +46,20 @@ export class PanelViewState {
     panelTarget.addWidget(widget);
   };
 
+  @action public moveWidgetToPanel = (widgetId: string, fromPanel: Panel, toPanel: Panel) => {
+    console.log('widget id:', widgetId);
+    console.log('fromPanel', fromPanel);
+    console.log('toPanel', toPanel);
+
+    const widget = fromPanel.getWidget(widgetId);
+    fromPanel.removeWidget(widgetId);
+    toPanel.addWidget(widget);
+  };
+
   @action public setOnePanel = () => {
     this.panelTree = PanelUtils.onePanelTest();
     this.panelTree.basis = 100;
+    this.panelTree.a.basis = 100;
   };
 
   @action public setTwoPanelLR = () => {
