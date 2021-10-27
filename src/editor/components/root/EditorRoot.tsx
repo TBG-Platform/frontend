@@ -30,6 +30,7 @@ export class EditorRoot extends React.Component<Props> {
               onFocusPanel={panelViewState.focusPanel}
               renderWidgetBody={this.renderWidgetBody}
               onWidgetDrop={panelViewState.moveWidgetToPanel}
+              onPanelSplit={panelViewState.splitPanel}
             />
           ) : (
             this.renderNoPanels()

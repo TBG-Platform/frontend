@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { Panel } from '../../state/panels/Panel';
-import { PanelContainer } from '../../state/panels/PanelContainer';
+import { PanelContainer, PanelFlow } from '../../state/panels/PanelContainer';
 import { PanelDisplay } from './PanelDisplay';
 import { PanelResizer } from './PanelResizer';
 import { observer } from 'mobx-react';
@@ -14,6 +14,7 @@ interface Props {
   onFocusPanel: (panel: Panel) => void;
   renderWidgetBody: (panelWidgetType: PanelWidgetType) => JSX.Element;
   onWidgetDrop: (widgetId: string, fromPanelId: string, toPanel: Panel) => void;
+  onPanelSplit: (panel: Panel, flow: PanelFlow) => void;
 }
 
 @observer
@@ -61,7 +62,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
   }
 
   private getPanelOrContainer(item: Panel | PanelContainer) {
-    const { onFocusPanel, renderWidgetBody, onWidgetDrop } = this.props;
+    const { onFocusPanel, renderWidgetBody, onWidgetDrop, onPanelSplit } = this.props;
 
     if (PanelUtils.isPanel(item)) {
       return (
@@ -71,6 +72,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
           onFocus={() => onFocusPanel(item)}
           renderWidgetBody={renderWidgetBody}
           onWidgetDrop={onWidgetDrop}
+          onPanelSplit={(flow: PanelFlow) => onPanelSplit(item, flow)}
         />
       );
     } else if (PanelUtils.isPanelContainer(item)) {
@@ -81,6 +83,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
           onFocusPanel={onFocusPanel}
           renderWidgetBody={renderWidgetBody}
           onWidgetDrop={onWidgetDrop}
+          onPanelSplit={onPanelSplit}
         />
       );
     } else {

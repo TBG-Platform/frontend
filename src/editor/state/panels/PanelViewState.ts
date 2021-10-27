@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { PanelTreeData, PanelUtils } from '../../../utils/PanelUtils';
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { Panel, PanelWidget } from './Panel';
-import { PanelContainer } from './PanelContainer';
+import { PanelContainer, PanelFlow } from './PanelContainer';
 import { PanelWidgetType } from './PanelWidgetType';
 
 export class PanelViewState {
@@ -44,6 +44,46 @@ export class PanelViewState {
     const widget = fromPanel.getWidget(widgetId);
     fromPanel.removeWidget(widgetId);
     toPanel.addWidget(widget);
+  };
+
+  @action public splitPanel = (panel: Panel, flow: PanelFlow) => {
+    console.log('splitting panel');
+    /**
+     * If this panel is a, and there's no b, add a b panel
+     * otherwise, this panel becomes a container
+     */
+    const parent = panel.parent;
+    if (parent.hasPanelB()) {
+      // This panel needs to become a panel container
+      const pc = new PanelContainer();
+      pc.flow = flow;
+
+      // Container 'a' becomes this panel
+      pc.a = panel;
+
+      // Update its basis
+      pc.a.basis = 50;
+
+      // New panel 'b' in container
+      const newPanel = new Panel(pc);
+      pc.b = newPanel;
+
+      // Update panel map
+      this.panelMap.set(newPanel.id, newPanel);
+
+      // Set the new container
+      panel.parent.makePanelIntoContainer(panel, pc);
+    } else {
+      // Fill the b slot with a new panel instead
+      const bPanel = new Panel(parent);
+      parent.b = bPanel;
+      parent.flow = flow;
+
+      // Update first panel's basis
+      parent.a.basis = 50;
+
+      this.panelMap.set(bPanel.id, bPanel);
+    }
   };
 
   @action public setOnePanelLayout = () => {

@@ -49,7 +49,7 @@ export class PanelUtils {
     const tree = new PanelContainer();
     const map = new Map<string, Panel>();
 
-    const p = new Panel();
+    const p = new Panel(tree);
 
     tree.a = p;
     map.set(p.id, p);
@@ -67,12 +67,12 @@ export class PanelUtils {
     const tree = new PanelContainer();
     const map = new Map<string, Panel>();
 
-    const p = new Panel();
+    const p = new Panel(tree);
 
     tree.a = p;
     map.set(p.id, p);
 
-    const p2 = new Panel();
+    const p2 = new Panel(tree);
 
     tree.b = p2;
     map.set(p2.id, p2);
@@ -91,8 +91,8 @@ export class PanelUtils {
     const pc = new PanelContainer();
     pc.flow = PanelFlow.COLUMN;
 
-    const p1 = new Panel();
-    const p2 = new Panel();
+    const p1 = new Panel(pc);
+    const p2 = new Panel(pc);
 
     pc.a = p1;
     pc.b = p2;
@@ -114,8 +114,8 @@ export class PanelUtils {
     const pc1 = new PanelContainer();
     pc1.flow = PanelFlow.COLUMN;
 
-    const p1 = new Panel();
-    const p2 = new Panel();
+    const p1 = new Panel(pc1);
+    const p2 = new Panel(pc1);
     pc1.a = p1;
     pc1.b = p2;
 
@@ -124,8 +124,8 @@ export class PanelUtils {
     const pc2 = new PanelContainer();
     pc2.flow = PanelFlow.COLUMN;
 
-    const p3 = new Panel();
-    const p4 = new Panel();
+    const p3 = new Panel(pc2);
+    const p4 = new Panel(pc2);
     pc2.a = p3;
     pc2.b = p4;
 

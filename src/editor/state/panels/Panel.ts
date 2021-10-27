@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 import { RandomUtils } from '../../../utils/RandomUtils';
+import { PanelContainer } from './PanelContainer';
 import { PanelWidgetType } from './PanelWidgetType';
 
 export interface PanelWidget {
@@ -9,10 +10,15 @@ export interface PanelWidget {
 }
 
 export class Panel {
-  id = RandomUtils.createId();
-  @observable basis: number = 50;
-  @observable widgets: PanelWidget[] = [];
-  @observable.ref selectedWidget?: PanelWidget;
+  public id = RandomUtils.createId();
+  public parent: PanelContainer;
+  @observable public basis: number = 50;
+  @observable public widgets: PanelWidget[] = [];
+  @observable.ref public selectedWidget?: PanelWidget;
+
+  constructor(parent: PanelContainer) {
+    this.parent = parent;
+  }
 
   public getWidget(id: string) {
     return this.widgets.find((widget) => widget.id === id);

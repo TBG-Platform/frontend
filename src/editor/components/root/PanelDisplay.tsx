@@ -1,8 +1,9 @@
-import { Button, Icon } from '@blueprintjs/core';
+import { Button, Icon, Menu, MenuItem, Position } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React, { CSSProperties } from 'react';
 import { Panel, PanelWidget } from '../../state/panels/Panel';
+import { PanelFlow } from '../../state/panels/PanelContainer';
 import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
 
 import './panel-display.scss';
@@ -17,6 +18,7 @@ interface Props {
   onFocus: () => void;
   renderWidgetBody: (panelWidgetType: PanelWidgetType) => JSX.Element;
   onWidgetDrop: (widgetId: string, fromPanelId: string, toPanel: Panel) => void;
+  onPanelSplit: (flow: PanelFlow) => void;
 }
 
 @observer
@@ -36,11 +38,7 @@ export class PanelDisplay extends React.Component<Props> {
           <div className={'panel-tab-list'}>
             {panel.widgets.map((widget) => this.renderPanelWidgetTab(widget))}
           </div>
-          <div className={'panel-options'}>
-            <Popover2>
-              <Button icon={'more'} small minimal />
-            </Popover2>
-          </div>
+          <div className={'panel-options'}>{this.renderPanelOptions()}</div>
         </div>
         <div
           ref={this.panelBodyRef}
@@ -69,6 +67,33 @@ export class PanelDisplay extends React.Component<Props> {
       >
         {widget.title}
       </div>
+    );
+  }
+
+  private renderPanelOptions() {
+    const { onPanelSplit } = this.props;
+
+    return (
+      <Popover2
+        position={Position.BOTTOM}
+        content={
+          <Menu>
+            <MenuItem
+              text={'Split right'}
+              icon={'add-column-right'}
+              onClick={() => onPanelSplit(PanelFlow.ROW)}
+            />
+            <MenuItem
+              text={'Split bottom'}
+              icon={'add-row-bottom'}
+              onClick={() => onPanelSplit(PanelFlow.COLUMN)}
+            />
+            <MenuItem text={'Delete panel'} icon={'trash'} />
+          </Menu>
+        }
+      >
+        <Button icon={'more'} small minimal />
+      </Popover2>
     );
   }
 
