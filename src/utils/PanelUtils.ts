@@ -10,6 +10,35 @@ export class PanelUtils {
     return item instanceof Panel;
   }
 
+  public static findFirstPanel(panelCont: PanelContainer): Panel | undefined {
+    // If there is no a and b, return undefined
+    if (!panelCont.a && !panelCont.b) {
+      return undefined;
+    }
+
+    // Return a then b if either are panels
+    if (PanelUtils.isPanel(panelCont.a)) {
+      return panelCont.a;
+    }
+
+    if (PanelUtils.isPanel(panelCont.b)) {
+      return panelCont.b;
+    }
+
+    // If a is a panel container, call again with that
+    let panel: Panel | undefined = undefined;
+    if (PanelUtils.isPanelContainer(panelCont.a)) {
+      panel = PanelUtils.findFirstPanel(panelCont.a);
+    }
+
+    // If still no panel, try with b
+    if (!panel && PanelUtils.isPanelContainer(panelCont.b)) {
+      panel = PanelUtils.findFirstPanel(panelCont.b);
+    }
+
+    return panel;
+  }
+
   // Passes
   // One panel only
   public static onePanelTest() {

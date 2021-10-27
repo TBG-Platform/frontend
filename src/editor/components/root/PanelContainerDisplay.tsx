@@ -5,12 +5,14 @@ import { PanelDisplay } from './PanelDisplay';
 import { PanelResizer } from './PanelResizer';
 import { observer } from 'mobx-react';
 import { PanelUtils } from '../../../utils/PanelUtils';
+import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
 
 import './panel-container-display.scss';
 
 interface Props {
   panelContainer: PanelContainer;
   onFocusPanel: (panel: Panel) => void;
+  renderWidgetBody: (panelWidgetType: PanelWidgetType) => JSX.Element;
 }
 
 @observer
@@ -58,11 +60,16 @@ export class PanelContainerDisplay extends React.Component<Props> {
   }
 
   private getPanelOrContainer(item: Panel | PanelContainer) {
-    const { onFocusPanel } = this.props;
+    const { onFocusPanel, renderWidgetBody } = this.props;
 
     if (PanelUtils.isPanel(item)) {
       return (
-        <PanelDisplay key={'panel-' + item.id} panel={item} onFocus={() => onFocusPanel(item)} />
+        <PanelDisplay
+          key={'panel-' + item.id}
+          panel={item}
+          onFocus={() => onFocusPanel(item)}
+          renderWidgetBody={renderWidgetBody}
+        />
       );
     } else if (PanelUtils.isPanelContainer(item)) {
       return (
@@ -70,6 +77,7 @@ export class PanelContainerDisplay extends React.Component<Props> {
           key={'pc-' + item.id}
           panelContainer={item}
           onFocusPanel={onFocusPanel}
+          renderWidgetBody={renderWidgetBody}
         />
       );
     } else {

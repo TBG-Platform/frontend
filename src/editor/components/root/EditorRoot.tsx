@@ -3,11 +3,15 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { PanelViewState } from '../../state/panels/PanelViewState';
 import { PanelContainerDisplay } from './PanelContainerDisplay';
+import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
 
 import './editor-root.scss';
+import { PanelWidgetRenderer } from './PanelWidgetRenderer';
+import { AppState } from '../../../AppState';
 
 interface Props {
   panelViewState: PanelViewState;
+  appState: AppState;
 }
 
 @observer
@@ -23,6 +27,7 @@ export class EditorRoot extends React.Component<Props> {
             key={'pc-' + panelViewState.panelTree.id}
             panelContainer={panelViewState.panelTree}
             onFocusPanel={panelViewState.focusPanel}
+            renderWidgetBody={this.renderWidgetBody}
           />
         </div>
       </div>
@@ -38,8 +43,12 @@ export class EditorRoot extends React.Component<Props> {
         <Button text={'Two panel TB'} onClick={panelViewState.setTwoPanelTB} />
         <Button text={'Nested L,R-TB'} onClick={panelViewState.setLRTB} />
         <Button text={'Nested L-TB, R-TB'} onClick={panelViewState.setLTBRTB} />
-        <Button text={'Page display widget'} />
+        <Button text={'Page display widget'} onClick={panelViewState.addPanelWidget} />
       </>
     );
   }
+
+  private renderWidgetBody = (panelWidgetType: PanelWidgetType) => {
+    return PanelWidgetRenderer.getRenderer(panelWidgetType, this.props.appState);
+  };
 }

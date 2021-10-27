@@ -8,5 +8,6 @@ export class AppState {
   constructor() {
     this.panelViewState = new PanelViewState();
     this.storyEditorState = new StoryEditorState();
+    this.storyEditorState.createNewStory();
   }
 }

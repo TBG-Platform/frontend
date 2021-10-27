@@ -1,7 +1,8 @@
 import { action, observable } from 'mobx';
 import { PanelUtils } from '../../../utils/PanelUtils';
-import { Panel } from './Panel';
+import { Panel, PanelWidget } from './Panel';
 import { PanelContainer } from './PanelContainer';
+import { PanelWidgetType } from './PanelWidgetType';
 
 export class PanelViewState {
   @observable public panelTree: PanelContainer;
@@ -16,9 +17,27 @@ export class PanelViewState {
     console.log('focusing on panel', panel);
   };
 
-  @action public addPanelWidget() {
-    // Where am I adding it?
-  }
+  @action public addPanelWidget = () => {
+    // Add a panel widget to the focused panel
+    let panelTarget = this.focusedPanel;
+    // If no focused panel, choose first panel
+    if (!panelTarget) {
+      panelTarget = PanelUtils.findFirstPanel(this.panelTree);
+    }
+    // If still no panel target, there are no panels!
+    if (!panelTarget) {
+      console.log('need to make a panel first!');
+      return;
+    }
+
+    // Otherwise, now add the widget to the panel
+    const widget: PanelWidget = {
+      type: PanelWidgetType.PAGE_DISPLAY,
+      title: 'Test Widget',
+    };
+
+    panelTarget.addWidget(widget);
+  };
 
   @action public setTwoPanelLR = () => {
     this.panelTree = PanelUtils.twoPanelTestLR();
