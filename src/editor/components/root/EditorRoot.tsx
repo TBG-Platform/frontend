@@ -23,13 +23,17 @@ export class EditorRoot extends React.Component<Props> {
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>{this.renderNavbarOptions()}</div>
         <div className={'editor-main-area'}>
-          <PanelContainerDisplay
-            key={'pc-' + panelViewState.panelTree.id}
-            panelContainer={panelViewState.panelTree}
-            onFocusPanel={panelViewState.focusPanel}
-            renderWidgetBody={this.renderWidgetBody}
-            onWidgetDrop={panelViewState.moveWidgetToPanel}
-          />
+          {panelViewState.panelTree ? (
+            <PanelContainerDisplay
+              key={'pc-' + panelViewState.panelTree.id}
+              panelContainer={panelViewState.panelTree}
+              onFocusPanel={panelViewState.focusPanel}
+              renderWidgetBody={this.renderWidgetBody}
+              onWidgetDrop={panelViewState.moveWidgetToPanel}
+            />
+          ) : (
+            this.renderNoPanels()
+          )}
         </div>
       </div>
     );
@@ -47,6 +51,10 @@ export class EditorRoot extends React.Component<Props> {
         <Button text={'Test widget'} onClick={panelViewState.addPanelWidget} />
       </>
     );
+  }
+
+  private renderNoPanels() {
+    return <div>no panels</div>;
   }
 
   private renderWidgetBody = (panelWidgetType: PanelWidgetType) => {

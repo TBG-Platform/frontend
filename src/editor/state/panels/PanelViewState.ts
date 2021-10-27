@@ -6,15 +6,11 @@ import { PanelContainer } from './PanelContainer';
 import { PanelWidgetType } from './PanelWidgetType';
 
 export class PanelViewState {
-  @observable public panelTree: PanelContainer;
+  @observable public panelTree?: PanelContainer;
   @observable.ref public focusedPanel?: Panel;
   private panelMap = new Map<string, Panel>();
 
-  constructor() {
-    const treeData: PanelTreeData = PanelUtils.onePanelLayout();
-    this.panelTree = treeData.tree;
-    this.panelMap = treeData.map;
-  }
+  constructor() {}
 
   @action public focusPanel = (panel: Panel) => {
     this.focusedPanel = panel;
