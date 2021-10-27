@@ -50,7 +50,6 @@ export class PanelResizer extends React.Component<Props> {
     const mouseDelta = mousePos - panelStart;
     const resizeBarPercent = (mouseDelta / panelMax) * 100;
 
-    console.log('resize percent: ', resizeBarPercent);
     panelContainer.setSplit(resizeBarPercent);
   };
 

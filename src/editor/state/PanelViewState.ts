@@ -27,11 +27,9 @@ export class PanelContainer {
   @action public setSplit(split: number) {
     if (this.a) {
       this.a.basis = split;
-      console.log('a split:', split);
     }
     if (this.b) {
       this.b.basis = Math.abs(100 - split);
-      console.log('b split:', this.b.basis);
     }
   }
 
@@ -48,9 +46,28 @@ export class PanelViewState {
   @observable public panelTree: PanelContainer;
 
   constructor() {
-    this.panelTree = this.nestedPanelTest();
-    this.panelTree.basis = 100;
+    this.setTwoPanelLR();
   }
+
+  @action public setTwoPanelLR = () => {
+    this.panelTree = this.twoPanelTestLR();
+    this.panelTree.basis = 100;
+  };
+
+  @action public setTwoPanelTB = () => {
+    this.panelTree = this.twoPanelTestTB();
+    this.panelTree.basis = 100;
+  };
+
+  @action public setLRTB = () => {
+    this.panelTree = this.nestedLRTBTet();
+    this.panelTree.basis = 100;
+  };
+
+  @action public setLTBRTB = () => {
+    this.panelTree = this.nestedLTBRTB();
+    this.panelTree.basis = 100;
+  };
 
   // Passes
   // One panel only
@@ -92,7 +109,7 @@ export class PanelViewState {
   }
 
   // One panel to left, two split top-bot on right
-  private nestedPanelTest() {
+  private nestedLRTBTet() {
     // Get a container with one panel on 'a'
     const container = this.onePanelTest();
 
@@ -112,6 +129,18 @@ export class PanelViewState {
     container.b = nestCont;
 
     return container;
+  }
+
+  private nestedLTBRTB() {
+    const lrCont = this.twoPanelTestLR();
+
+    const tb1 = this.twoPanelTestTB();
+    const tb2 = this.twoPanelTestTB();
+
+    lrCont.a = tb1;
+    lrCont.b = tb2;
+
+    return lrCont;
   }
 }
 

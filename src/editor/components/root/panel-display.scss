@@ -16,6 +16,7 @@
     display: flex;
 
     .panel-tab {
+      user-select: none;
       flex: 0 0 auto;
       padding: 5px;
       height: 100%;

@@ -1,10 +1,10 @@
 import React, { CSSProperties } from 'react';
-import { Panel, PanelContainer, PanelFlow } from '../../state/PanelViewState';
+import { Panel, PanelContainer } from '../../state/PanelViewState';
 import { PanelDisplay } from './PanelDisplay';
-
-import './panel-container-display.scss';
 import { PanelResizer } from './PanelResizer';
 import { observer } from 'mobx-react';
+
+import './panel-container-display.scss';
 
 interface Props {
   panelContainer: PanelContainer;
