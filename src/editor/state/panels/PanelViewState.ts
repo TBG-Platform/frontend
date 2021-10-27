@@ -9,7 +9,8 @@ export class PanelViewState {
   @observable.ref public focusedPanel?: Panel;
 
   constructor() {
-    this.setTwoPanelLR();
+    this.panelTree = PanelUtils.twoPanelTestLR();
+    this.panelTree.basis = 100;
   }
 
   @action public focusPanel = (panel: Panel) => {
@@ -32,7 +33,7 @@ export class PanelViewState {
 
     // Otherwise, now add the widget to the panel
     const widget: PanelWidget = {
-      type: PanelWidgetType.PAGE_DISPLAY,
+      type: PanelWidgetType.TEST,
       title: 'Test Widget',
     };
 

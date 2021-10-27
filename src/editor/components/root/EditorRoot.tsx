@@ -4,10 +4,10 @@ import React from 'react';
 import { PanelViewState } from '../../state/panels/PanelViewState';
 import { PanelContainerDisplay } from './PanelContainerDisplay';
 import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
-
-import './editor-root.scss';
 import { PanelWidgetRenderer } from './PanelWidgetRenderer';
 import { AppState } from '../../../AppState';
+
+import './editor-root.scss';
 
 interface Props {
   panelViewState: PanelViewState;

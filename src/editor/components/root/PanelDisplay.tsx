@@ -13,6 +13,8 @@ interface Props {
 
 @observer
 export class PanelDisplay extends React.Component<Props> {
+  private panelBodyRef = React.createRef<HTMLDivElement>();
+
   public render() {
     const { panel, onFocus, renderWidgetBody } = this.props;
 
@@ -27,7 +29,13 @@ export class PanelDisplay extends React.Component<Props> {
         <div className={'panel-tab-list'}>
           {panel.widgets.map((widget) => this.renderPanelWidgetTab(widget))}
         </div>
-        <div className={'panel-body'}>
+        <div
+          ref={this.panelBodyRef}
+          className={'panel-body'}
+          onDragOver={this.onDragOverPanel}
+          onDragLeave={this.onDragOverLeavePanel}
+          onDrop={this.onDrop}
+        >
           {panel.selectedWidget && renderWidgetBody(panel.selectedWidget.type)}
         </div>
       </div>
@@ -38,9 +46,62 @@ export class PanelDisplay extends React.Component<Props> {
     const { panel } = this.props;
 
     return (
-      <div key={`panel-${panel.id}-tab-${widget.title}`} className={'panel-tab'}>
+      <div
+        key={`panel-${panel.id}-tab-${widget.title}`}
+        className={'panel-tab'}
+        draggable={'true'}
+        onDragStart={this.onDragTabStart}
+        onDragEnd={this.onDragTabEnd}
+      >
         {widget.title}
       </div>
     );
   }
+
+  private onDragTabStart = (e: React.DragEvent<HTMLDivElement>) => {
+    console.log('dragging tab');
+
+    e.dataTransfer.setData('text', 'tab id');
+  };
+
+  private onDragTabEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    console.log('stopped dragging tab');
+
+    if (this.panelBodyRef.current) {
+      this.panelBodyRef.current.classList.remove('hover-backdrop-full');
+    }
+  };
+
+  private onDragOverPanel = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log('drag over panel');
+
+    // Show the hover guide backdrop
+    if (this.panelBodyRef.current) {
+      this.panelBodyRef.current.classList.add('hover-backdrop-full');
+    }
+
+    return false;
+  };
+
+  private onDragOverLeavePanel = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log('drag leave panel');
+
+    if (e.currentTarget.contains(e.relatedTarget as HTMLElement)) {
+      return;
+    }
+
+    if (this.panelBodyRef.current) {
+      this.panelBodyRef.current.classList.remove('hover-backdrop-full');
+    }
+  };
+
+  private onDrop = () => {
+    console.log('on drop');
+  };
 }
