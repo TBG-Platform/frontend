@@ -11,6 +11,7 @@ import './dui-panel-container-renderer.scss';
 interface Props {
   duiPanelContainer: DuiPanelContainer;
   duiState: DockableUIState;
+  renderPanel: (panelId: string) => JSX.Element;
 }
 
 @observer
@@ -34,7 +35,7 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
   }
 
   private renderChild(child: DuiPanelContainerChild) {
-    const { duiState } = this.props;
+    const { duiState, renderPanel } = this.props;
 
     const childStyle: CSSProperties = {
       flexBasis: child.basis + '%',
@@ -45,10 +46,16 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
     const container = duiState.getContainer(child.id);
     if (container) {
       // Render another container
-      childBody = <DuiPanelContainerRenderer duiPanelContainer={container} duiState={duiState} />;
+      childBody = (
+        <DuiPanelContainerRenderer
+          duiPanelContainer={container}
+          duiState={duiState}
+          renderPanel={renderPanel}
+        />
+      );
     } else {
       // Render the panel
-      console.log('panel');
+      childBody = renderPanel(child.id);
     }
 
     return (

@@ -7,12 +7,13 @@ import { observer } from 'mobx-react';
 
 interface Props {
   duiState: DockableUIState;
+  renderPanel: (panelId: string) => JSX.Element;
 }
 
 @observer
 export class DockableUI extends React.Component<Props> {
   public render() {
-    const { duiState } = this.props;
+    const { duiState, renderPanel } = this.props;
 
     console.log('dock ui root render');
 
@@ -22,6 +23,7 @@ export class DockableUI extends React.Component<Props> {
           <DuiPanelContainerRenderer
             duiPanelContainer={duiState.rootContainer}
             duiState={duiState}
+            renderPanel={renderPanel}
           />
         )}
       </div>

@@ -22,7 +22,7 @@ export class EditorRoot extends React.Component<Props> {
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>{this.renderNavbarOptions()}</div>
         <div className={'editor-main-area'}>
-          <DockableUI duiState={appState.dockableUiState} />
+          <DockableUI duiState={appState.dockableUiState} renderPanel={this.renderPanel} />
         </div>
       </div>
     );
@@ -56,6 +56,10 @@ export class EditorRoot extends React.Component<Props> {
       </>
     );
   }
+
+  private renderPanel = (panelId: string) => {
+    return <div className={'panel'}>{panelId}</div>;
+  };
 
   private renderNoPanels() {
     return <div>no panels</div>;
