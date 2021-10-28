@@ -1,14 +1,12 @@
 import { Button } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { PanelViewState } from '../../state/panels/PanelViewState';
-import { PanelContainerDisplay } from './PanelContainerDisplay';
 import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
 import { PanelWidgetRenderer } from './PanelWidgetRenderer';
 import { AppState } from '../../../AppState';
+import { DockableUI } from '../dockable-ui/DockableUI';
 
 import './editor-root.scss';
-import { DockableUI } from '../dockable-ui/DockableUI';
 
 interface Props {
   appState: AppState;
@@ -23,7 +21,7 @@ export class EditorRoot extends React.Component<Props> {
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>{this.renderNavbarOptions()}</div>
         <div className={'editor-main-area'}>
-          <DockableUI dockableUiState={appState.dockableUiState} />
+          <DockableUI duiState={appState.dockableUiState} />
         </div>
       </div>
     );
