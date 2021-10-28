@@ -15,6 +15,24 @@ export class DockableUIState {
     return this.containerMap.get(id);
   }
 
+  @action public deletePanel = (containerId: string, panelId: string) => {
+    const cont = this.containerMap.get(containerId);
+    cont.removeChild(panelId);
+
+    // If this was the last panel of that container, delete the container
+    if (!cont.children.length) {
+      this.containerMap.delete(cont.id);
+
+      // Was this the root container?
+      if (cont.id === this.rootContainer.id) {
+        this.rootContainer = undefined;
+      }
+    } else {
+      // Otherwise, there are children left; rebase them
+      cont.rebaseChildren();
+    }
+  };
+
   @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
     this.clearLayoutData();
 

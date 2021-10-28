@@ -22,5 +22,14 @@ export class DuiPanelContainer {
 
   @action public addChild(child: DuiPanelContainerChild) {
     this.children.push(child);
+    this.rebaseChildren();
+  }
+
+  @action public removeChild(id: string) {
+    this.children = this.children.filter((ch) => ch.id !== id);
+  }
+
+  @action public rebaseChildren() {
+    this.children.forEach((ch) => (ch.basis = 100 / this.children.length));
   }
 }

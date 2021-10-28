@@ -24,14 +24,18 @@ export class DockableUI extends React.Component<Props> {
           <DuiPanelContainerRenderer
             duiPanelContainer={duiState.rootContainer}
             duiState={duiState}
-            renderPanel={this.renderPanel}
+            renderPanel={(panelId: string, containerId: string) =>
+              this.renderPanel(panelId, containerId)
+            }
           />
         )}
       </div>
     );
   }
 
-  private renderPanel = (panelId: string) => {
-    return <DuiPanelFrame />;
+  private renderPanel = (panelId: string, containerId: string) => {
+    const { duiState } = this.props;
+
+    return <DuiPanelFrame containerId={containerId} panelId={panelId} duiState={duiState} />;
   };
 }
