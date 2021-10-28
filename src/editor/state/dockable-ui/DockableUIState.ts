@@ -55,8 +55,9 @@ export class DockableUIState {
     childCont.addChild(splitPanelId);
 
     // Parent container loses the panel and gains the new child container
-    container.insertChild(childCont.id, panelId);
-    container.removeChild(panelId);
+    // Maintain the same basis the panel had
+    const panelBasis = container.getChildBasis(panelId);
+    container.replaceChild(childCont.id, panelBasis, panelId);
 
     // Update state to track new container and panel
     this.containerMap.set(childCont.id, childCont);

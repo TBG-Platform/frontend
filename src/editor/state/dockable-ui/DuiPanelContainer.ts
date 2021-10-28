@@ -28,6 +28,10 @@ export class DuiPanelContainer {
     this.containerDiv = div;
   }
 
+  public getChildBasis(childId: string): number | undefined {
+    return this.children.find((ch) => ch.id === childId)?.basis;
+  }
+
   @action public addChild(childId: string) {
     this.children.push({
       id: childId,
@@ -37,9 +41,9 @@ export class DuiPanelContainer {
     this.rebaseChildren();
   }
 
-  @action public insertChild(childId: string, insertAfterId: string) {
+  @action public insertChild(id: string, insertAfterId: string) {
     const child: DuiPanelContainerChild = {
-      id: childId,
+      id,
       basis: 100,
     };
 
@@ -47,6 +51,11 @@ export class DuiPanelContainer {
     this.children.splice(insertIdx, 0, child);
 
     this.rebaseChildren();
+  }
+
+  @action public replaceChild(id: string, basis: number, toReplaceId: string) {
+    const insertIdx = this.children.findIndex((ch) => ch.id === toReplaceId);
+    this.children.splice(insertIdx, 1, { id, basis });
   }
 
   @action public removeChild(id: string) {
