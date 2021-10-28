@@ -26,7 +26,11 @@ export class DockableUIState {
     }
 
     // If the split follows the container's flow, new sibling panel
-    if (container.flow === flow) {
+    // Or if there is only one panel in this container, we can re-flow it to suit the split
+    if (container.flow === flow || container.children.length === 1) {
+      // Re-flow (no effect if first clause above is true)
+      container.flow = flow;
+
       // Make a new sibling panel
       const siblingId = RandomUtils.createId();
       container.insertChild(siblingId, panelId);

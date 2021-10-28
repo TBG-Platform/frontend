@@ -60,21 +60,6 @@ export class DuiPanelContainer {
   }
 
   @action public resizeChildren(e: MouseEvent, resizerIndex: number, resizer: HTMLDivElement) {
-    /**
-     * Need to know:
-     * - the index of the resizer, which is the index of the child to its left
-     *   there will always be a child to right at index + 1
-     *
-     * - how many pixels the mouse has moved, and in which direction
-     *
-     * can then:
-     * - get mouse delta as percentage of container; flex basis change
-     * - based on direction, add to one panel and subtract from another
-     *
-     * to do:
-     * - panels should have minimum dimensions...
-     */
-
     // Gather required data from mouse, resizer and panel
     let mousePos = e.clientX;
     const contRect = this.containerDiv.getBoundingClientRect();
@@ -101,8 +86,5 @@ export class DuiPanelContainer {
 
     childBefore.basis += deltaPercent;
     childAfter.basis -= deltaPercent;
-
-    //console.log('mouseDelta', mouseDelta);
-    //console.log('deltaPercent', deltaPercent);
   }
 }
