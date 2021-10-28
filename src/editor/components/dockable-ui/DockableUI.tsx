@@ -20,6 +20,7 @@ export class DockableUI extends React.Component<Props> {
       <div className={'dockable-ui-root'}>
         {duiState.rootContainer && (
           <DuiPanelContainerRenderer
+            key={`dpcr-${duiState.rootContainer.id}`}
             duiPanelContainer={duiState.rootContainer}
             duiState={duiState}
             renderPanel={(panelId: string, containerId: string) =>

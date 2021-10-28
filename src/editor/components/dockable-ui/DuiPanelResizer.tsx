@@ -24,9 +24,16 @@ export class DuiPanelResizer extends React.Component<Props> {
         ref={this.resizeRef}
         className={'resize-bar ' + resizeClass}
         onMouseDown={this.onResizeMouseDown}
+        draggable={'false'}
+        onDragStart={this.preventDragAction}
       ></div>
     );
   }
+
+  private preventDragAction = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    return false;
+  };
 
   private onResizeMouseDown = () => {
     document.addEventListener('mousemove', this.onResizeMouseMove);
