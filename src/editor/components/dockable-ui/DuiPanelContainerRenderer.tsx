@@ -17,6 +17,14 @@ interface Props {
 
 @observer
 export class DuiPanelContainerRenderer extends React.Component<Props> {
+  private containerRef = React.createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    if (this.containerRef.current) {
+      this.props.duiPanelContainer.setDiv(this.containerRef.current);
+    }
+  }
+
   public render() {
     const { duiPanelContainer } = this.props;
 
@@ -28,7 +36,11 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
     };
 
     return (
-      <div className={'dui-panel-container-renderer'} style={containerStyle}>
+      <div
+        ref={this.containerRef}
+        className={'dui-panel-container-renderer'}
+        style={containerStyle}
+      >
         {children}
       </div>
     );
@@ -50,7 +62,13 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
       childContent.push(this.renderChild(child));
       // Then the resizer - if it's not the last child
       if (idx < duiPanelContainer.children.length - 1)
-        childContent.push(<DuiPanelResizer container={duiPanelContainer} />);
+        childContent.push(
+          <DuiPanelResizer
+            key={`dpcr-resizer-${idx}`}
+            container={duiPanelContainer}
+            resizerIndex={idx}
+          />
+        );
     });
 
     return childContent;
