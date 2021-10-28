@@ -21,22 +21,33 @@ export class DockableUIState {
 
     // If this was the last panel of that container, delete the container
     if (!cont.children.length) {
-      this.containerMap.delete(cont.id);
-
-      // Was this the root container?
-      if (cont.id === this.rootContainer.id) {
-        this.rootContainer = undefined;
-      }
-    } else {
-      // Otherwise, there are children left; rebase them
-      cont.rebaseChildren();
+      this.deleteContainer(cont);
     }
   };
+
+  @action public deleteContainer(container: DuiPanelContainer) {
+    this.containerMap.delete(container.id);
+
+    // Was this the root container?
+    if (container.id === this.rootContainer.id) {
+      this.rootContainer = undefined;
+      return; // nothing else to do
+    }
+
+    // Otherwise, parent needs to remove this container
+    const parent = this.containerMap.get(container.parentId);
+    parent.removeChild(container.id);
+
+    // If the parent is also now empty, delete that; recurse
+    if (!parent.children.length) {
+      this.deleteContainer(parent);
+    }
+  }
 
   @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
     this.clearLayoutData();
 
-    const container = new DuiPanelContainer(RandomUtils.createId());
+    const container = new DuiPanelContainer(RandomUtils.createId(), '');
     if (flow) {
       container.flow = flow;
     }
@@ -53,7 +64,7 @@ export class DockableUIState {
   @action public setNestedLayout = () => {
     this.clearLayoutData();
 
-    const container = new DuiPanelContainer(RandomUtils.createId());
+    const container = new DuiPanelContainer(RandomUtils.createId(), '');
 
     // Get 2 children, apply to container
     const children = DuiUtils.makeContainerChildren(2);
@@ -63,7 +74,7 @@ export class DockableUIState {
     this.panelIds.push(children[0].id);
 
     // Second is a container
-    const innerCont = new DuiPanelContainer(children[1].id);
+    const innerCont = new DuiPanelContainer(children[1].id, container.id);
     innerCont.flow = DuiPanelContainerFlow.COLUMN;
 
     // Give it 2 children

@@ -13,11 +13,13 @@ export interface DuiPanelContainerChild {
 
 export class DuiPanelContainer {
   public id: string;
+  public parentId: string;
   @observable public flow = DuiPanelContainerFlow.ROW;
   @observable public children: DuiPanelContainerChild[] = [];
 
-  constructor(id: string) {
+  constructor(id: string, parentId: string) {
     this.id = id;
+    this.parentId = parentId;
   }
 
   @action public addChild(child: DuiPanelContainerChild) {
@@ -27,6 +29,7 @@ export class DuiPanelContainer {
 
   @action public removeChild(id: string) {
     this.children = this.children.filter((ch) => ch.id !== id);
+    this.rebaseChildren();
   }
 
   @action public rebaseChildren() {
