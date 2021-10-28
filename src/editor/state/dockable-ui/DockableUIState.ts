@@ -29,7 +29,7 @@ export class DockableUIState {
     if (container.flow === flow) {
       // Make a new sibling panel
       const siblingId = RandomUtils.createId();
-      container.addChild(siblingId);
+      container.addChild(siblingId, panelId);
     }
 
     // If the split is contrary to container's flow, new container with this panel and new one
