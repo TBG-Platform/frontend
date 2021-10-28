@@ -18,6 +18,8 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
   public render() {
     const { duiPanelContainer } = this.props;
 
+    console.log('container render', duiPanelContainer.id);
+
     // Render a wrapper div for each child
 
     return (

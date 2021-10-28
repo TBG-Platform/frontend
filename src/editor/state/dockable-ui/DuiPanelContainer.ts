@@ -12,9 +12,13 @@ export interface DuiPanelContainerChild {
 }
 
 export class DuiPanelContainer {
-  public id = RandomUtils.createId();
+  public id: string;
   @observable public flow = DuiPanelContainerFlow.ROW;
   @observable public children: DuiPanelContainerChild[] = [];
+
+  constructor(id: string) {
+    this.id = id;
+  }
 
   @action public addChild(child: DuiPanelContainerChild) {
     this.children.push(child);

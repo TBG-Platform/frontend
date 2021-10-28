@@ -28,13 +28,14 @@ export class EditorRoot extends React.Component<Props> {
   }
 
   private renderNavbarOptions() {
+    const { appState } = this.props;
+    const { dockableUiState } = appState;
+
     return (
       <>
-        {/* <Button text={'One panel'} onClick={panelViewState.setOnePanelLayout} />
-        <Button text={'Two panel'} onClick={panelViewState.setTwoPanelLayout} />
-        <Button text={'Three panel'} onClick={panelViewState.setThreePanelLayout} />
-        <Button text={'Four panel'} onClick={panelViewState.setFourPanelLayout} />
-        <Button text={'Test widget'} onClick={panelViewState.addPanelWidget} /> */}
+        <Button text={'One panel'} onClick={() => dockableUiState.setHorizontalLayout(1)} />
+        <Button text={'Two panel'} onClick={() => dockableUiState.setHorizontalLayout(2)} />
+        <Button text={'Thre panel'} onClick={() => dockableUiState.setHorizontalLayout(3)} />
       </>
     );
   }
