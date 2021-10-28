@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import { DuiUtils, PanelLayoutData } from '../../../utils/DuiUtils';
+import { DuiUtils } from '../../../utils/DuiUtils';
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';
 
@@ -15,6 +15,26 @@ export class DockableUIState {
     return this.containerMap.get(id);
   }
 
+  @action public splitPanel = (
+    containerId: string,
+    panelId: string,
+    flow: DuiPanelContainerFlow
+  ) => {
+    const container = this.containerMap.get(containerId);
+    if (!container) {
+      return;
+    }
+
+    // If the split follows the container's flow, new sibling panel
+    if (container.flow === flow) {
+      // Make a new sibling panel
+      const siblingId = RandomUtils.createId();
+      container.addChild(siblingId);
+    }
+
+    // If the split is contrary to container's flow, new container with this panel and new one
+  };
+
   @action public deletePanel = (containerId: string, panelId: string) => {
     const cont = this.containerMap.get(containerId);
     cont.removeChild(panelId);
@@ -24,25 +44,6 @@ export class DockableUIState {
       this.deleteContainer(cont);
     }
   };
-
-  @action public deleteContainer(container: DuiPanelContainer) {
-    this.containerMap.delete(container.id);
-
-    // Was this the root container?
-    if (container.id === this.rootContainer.id) {
-      this.rootContainer = undefined;
-      return; // nothing else to do
-    }
-
-    // Otherwise, parent needs to remove this container
-    const parent = this.containerMap.get(container.parentId);
-    parent.removeChild(container.id);
-
-    // If the parent is also now empty, delete that; recurse
-    if (!parent.children.length) {
-      this.deleteContainer(parent);
-    }
-  }
 
   @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
     this.clearLayoutData();
@@ -89,6 +90,25 @@ export class DockableUIState {
 
     this.rootContainer = container;
   };
+
+  @action private deleteContainer(container: DuiPanelContainer) {
+    this.containerMap.delete(container.id);
+
+    // Was this the root container?
+    if (container.id === this.rootContainer.id) {
+      this.rootContainer = undefined;
+      return; // nothing else to do
+    }
+
+    // Otherwise, parent needs to remove this container
+    const parent = this.containerMap.get(container.parentId);
+    parent.removeChild(container.id);
+
+    // If the parent is also now empty, delete that; recurse
+    if (!parent.children.length) {
+      this.deleteContainer(parent);
+    }
+  }
 
   @action private clearLayoutData() {
     this.rootContainer = undefined;

@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { Position } from 'react-flow-renderer';
 import { DockableUIState } from '../../state/dockable-ui/DockableUIState';
+import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
 
 import './dui-panel-frame.scss';
 
@@ -37,8 +38,18 @@ export class DuiPanelFrame extends React.Component<Props> {
         position={Position.Bottom}
         content={
           <Menu>
-            <MenuItem text={'Split right'} icon={'add-column-right'} />
-            <MenuItem text={'Split bottom'} icon={'add-row-bottom'} />
+            <MenuItem
+              text={'Split right'}
+              icon={'add-column-right'}
+              onClick={() => duiState.splitPanel(containerId, panelId, DuiPanelContainerFlow.ROW)}
+            />
+            <MenuItem
+              text={'Split bottom'}
+              icon={'add-row-bottom'}
+              onClick={() =>
+                duiState.splitPanel(containerId, panelId, DuiPanelContainerFlow.COLUMN)
+              }
+            />
             <MenuItem
               text={'Delete panel'}
               icon={'trash'}
