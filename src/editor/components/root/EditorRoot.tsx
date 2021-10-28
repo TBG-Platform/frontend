@@ -8,48 +8,35 @@ import { PanelWidgetRenderer } from './PanelWidgetRenderer';
 import { AppState } from '../../../AppState';
 
 import './editor-root.scss';
+import { DockableUI } from '../dockable-ui/DockableUI';
 
 interface Props {
-  panelViewState: PanelViewState;
   appState: AppState;
 }
 
 @observer
 export class EditorRoot extends React.Component<Props> {
   public render() {
-    const { panelViewState } = this.props;
+    const { appState } = this.props;
 
     return (
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>{this.renderNavbarOptions()}</div>
         <div className={'editor-main-area'}>
-          {panelViewState.panelTree ? (
-            <PanelContainerDisplay
-              key={'pc-' + panelViewState.panelTree.id}
-              panelContainer={panelViewState.panelTree}
-              onFocusPanel={panelViewState.focusPanel}
-              renderWidgetBody={this.renderWidgetBody}
-              onWidgetDrop={panelViewState.moveWidgetToPanel}
-              onPanelSplit={panelViewState.splitPanel}
-            />
-          ) : (
-            this.renderNoPanels()
-          )}
+          <DockableUI dockableUiState={appState.dockableUiState} />
         </div>
       </div>
     );
   }
 
   private renderNavbarOptions() {
-    const { panelViewState } = this.props;
-
     return (
       <>
-        <Button text={'One panel'} onClick={panelViewState.setOnePanelLayout} />
+        {/* <Button text={'One panel'} onClick={panelViewState.setOnePanelLayout} />
         <Button text={'Two panel'} onClick={panelViewState.setTwoPanelLayout} />
         <Button text={'Three panel'} onClick={panelViewState.setThreePanelLayout} />
         <Button text={'Four panel'} onClick={panelViewState.setFourPanelLayout} />
-        <Button text={'Test widget'} onClick={panelViewState.addPanelWidget} />
+        <Button text={'Test widget'} onClick={panelViewState.addPanelWidget} /> */}
       </>
     );
   }
