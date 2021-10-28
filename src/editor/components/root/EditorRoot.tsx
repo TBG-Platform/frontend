@@ -22,7 +22,7 @@ export class EditorRoot extends React.Component<Props> {
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>{this.renderNavbarOptions()}</div>
         <div className={'editor-main-area'}>
-          <DockableUI duiState={appState.dockableUiState} renderPanel={this.renderPanel} />
+          <DockableUI duiState={appState.dockableUiState} renderPanelBody={this.renderPanel} />
         </div>
       </div>
     );
@@ -37,7 +37,7 @@ export class EditorRoot extends React.Component<Props> {
         Horizontal:
         <Button text={'One panel'} onClick={() => dockableUiState.setFlatLayout(1)} />
         <Button text={'Two panel'} onClick={() => dockableUiState.setFlatLayout(2)} />
-        <Button text={'Thre panel'} onClick={() => dockableUiState.setFlatLayout(3)} />
+        <Button text={'Three panel'} onClick={() => dockableUiState.setFlatLayout(3)} />
         Vertical:
         <Button
           text={'One panel'}
@@ -48,7 +48,7 @@ export class EditorRoot extends React.Component<Props> {
           onClick={() => dockableUiState.setFlatLayout(2, DuiPanelContainerFlow.COLUMN)}
         />
         <Button
-          text={'Thre panel'}
+          text={'Three panel'}
           onClick={() => dockableUiState.setFlatLayout(3, DuiPanelContainerFlow.COLUMN)}
         />
         Nested:

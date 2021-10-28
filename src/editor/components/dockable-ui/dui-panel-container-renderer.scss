@@ -5,6 +5,9 @@
   display: flex;
 
   .container-child {
+    flex-grow: 0;
+    flex-shrink: 0;
+
     border: 1px solid gainsboro;
   }
 }
