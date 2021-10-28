@@ -1,15 +1,14 @@
 import { action, observable } from 'mobx';
 import { DuiUtils } from '../../../utils/DuiUtils';
 import { RandomUtils } from '../../../utils/RandomUtils';
+import { DuiPanel } from './DuiPanel';
 import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';
 
 export class DockableUIState {
   @observable public rootContainer?: DuiPanelContainer;
 
   public containerMap = new Map<string, DuiPanelContainer>();
-  public panelIds: string[] = [];
-
-  constructor() {}
+  public panelMap = new Map<string, DuiPanel>();
 
   public getContainer(id: string): DuiPanelContainer | undefined {
     return this.containerMap.get(id);
@@ -34,9 +33,10 @@ export class DockableUIState {
       // Make a new sibling panel
       const siblingId = RandomUtils.createId();
       container.insertChild(siblingId, panelId);
+      const siblingPanel = new DuiPanel(siblingId);
 
       // Update state to track new panel
-      this.panelIds.push(siblingId);
+      this.panelMap.set(siblingId, siblingPanel);
 
       return; // done now!
     }
@@ -52,6 +52,7 @@ export class DockableUIState {
 
     // It also gets the new panel as a result of the split
     const splitPanelId = RandomUtils.createId();
+    const splitPanel = new DuiPanel(splitPanelId);
     childCont.addChild(splitPanelId);
 
     // Parent container loses the panel and gains the new child container
@@ -61,17 +62,26 @@ export class DockableUIState {
 
     // Update state to track new container and panel
     this.containerMap.set(childCont.id, childCont);
-    this.panelIds.push(splitPanelId);
+    this.panelMap.set(splitPanelId, splitPanel);
   };
 
   @action public deletePanel = (containerId: string, panelId: string) => {
+    // Remove panel from parent container
     const cont = this.containerMap.get(containerId);
     cont.removeChild(panelId);
+
+    // Then from state map
+    this.panelMap.delete(panelId);
 
     // If this was the last panel of that container, delete the container
     if (!cont.children.length) {
       this.deleteContainer(cont);
     }
+  };
+
+  @action public addPanelTab = (panelId: string) => {
+    // Finds the panel by id
+    // Adds a tab to its tab list
   };
 
   @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
@@ -82,10 +92,12 @@ export class DockableUIState {
       container.flow = flow;
     }
 
-    const children = DuiUtils.makeContainerChildren(panelCount);
-    this.panelIds = children.map((ch) => ch.id);
-
-    container.children = children;
+    for (let i = 0; i < panelCount; i++) {
+      const panelId = RandomUtils.createId();
+      const panel = new DuiPanel(panelId);
+      this.panelMap.set(panelId, panel);
+      container.addChild(panelId);
+    }
 
     this.rootContainer = container;
     this.containerMap.set(this.rootContainer.id, this.rootContainer);
@@ -94,30 +106,32 @@ export class DockableUIState {
   @action public setNestedLayout = () => {
     this.clearLayoutData();
 
-    const container = new DuiPanelContainer(RandomUtils.createId(), '');
+    // Root container
+    const rootContainer = new DuiPanelContainer(RandomUtils.createId(), '');
 
-    // Get 2 children, apply to container
-    const children = DuiUtils.makeContainerChildren(2);
-    container.children = children;
+    // Left side is a panel
+    const leftPanelId = RandomUtils.createId();
+    const leftPanel = new DuiPanel(leftPanelId);
+    this.panelMap.set(leftPanelId, leftPanel);
+    rootContainer.addChild(leftPanelId);
 
-    // First is a panel
-    this.panelIds.push(children[0].id);
+    // Right side is a container with two panels
+    const rightContainer = new DuiPanelContainer(RandomUtils.createId(), rootContainer.id);
+    rightContainer.flow = DuiPanelContainerFlow.COLUMN;
 
-    // Second is a container
-    const innerCont = new DuiPanelContainer(children[1].id, container.id);
-    innerCont.flow = DuiPanelContainerFlow.COLUMN;
+    for (let i = 0; i < 2; i++) {
+      const panelId = RandomUtils.createId();
+      const panel = new DuiPanel(panelId);
+      this.panelMap.set(panelId, panel);
+      rightContainer.addChild(panelId);
+    }
 
-    // Give it 2 children
-    const innerChildren = DuiUtils.makeContainerChildren(2);
-    innerCont.children = innerChildren;
+    rootContainer.addChild(rightContainer.id);
 
-    // Both are panels
-    this.panelIds = [...this.panelIds, ...innerChildren.map((ch) => ch.id)];
+    this.containerMap.set(rootContainer.id, rootContainer);
+    this.containerMap.set(rightContainer.id, rightContainer);
 
-    this.containerMap.set(container.id, container);
-    this.containerMap.set(innerCont.id, innerCont);
-
-    this.rootContainer = container;
+    this.rootContainer = rootContainer;
   };
 
   @action private deleteContainer(container: DuiPanelContainer) {
@@ -142,6 +156,6 @@ export class DockableUIState {
   @action private clearLayoutData() {
     this.rootContainer = undefined;
     this.containerMap.clear();
-    this.panelIds = [];
+    this.panelMap.clear();
   }
 }

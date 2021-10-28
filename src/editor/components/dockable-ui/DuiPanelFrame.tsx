@@ -39,12 +39,12 @@ export class DuiPanelFrame extends React.Component<Props> {
         content={
           <Menu>
             <MenuItem
-              text={'Split right'}
+              text={'Add panel right'}
               icon={'add-column-right'}
               onClick={() => duiState.splitPanel(containerId, panelId, DuiPanelContainerFlow.ROW)}
             />
             <MenuItem
-              text={'Split bottom'}
+              text={'Add panel below'}
               icon={'add-row-bottom'}
               onClick={() =>
                 duiState.splitPanel(containerId, panelId, DuiPanelContainerFlow.COLUMN)

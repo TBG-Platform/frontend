@@ -5,9 +5,9 @@ import {
   DuiPanelContainer,
   DuiPanelContainerChild,
 } from '../../state/dockable-ui/DuiPanelContainer';
+import { DuiPanelResizer } from './DuiPanelResizer';
 
 import './dui-panel-container-renderer.scss';
-import { DuiPanelResizer } from './DuiPanelResizer';
 
 interface Props {
   duiPanelContainer: DuiPanelContainer;

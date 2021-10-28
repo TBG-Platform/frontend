@@ -5,9 +5,9 @@ import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
 import { PanelWidgetRenderer } from './PanelWidgetRenderer';
 import { AppState } from '../../../AppState';
 import { DockableUI } from '../dockable-ui/DockableUI';
+import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
 
 import './editor-root.scss';
-import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
 
 interface Props {
   appState: AppState;
