@@ -35,22 +35,24 @@ export class EditorRoot extends React.Component<Props> {
     return (
       <>
         Horizontal:
-        <Button text={'One panel'} onClick={() => dockableUiState.setHorizontalLayout(1)} />
-        <Button text={'Two panel'} onClick={() => dockableUiState.setHorizontalLayout(2)} />
-        <Button text={'Thre panel'} onClick={() => dockableUiState.setHorizontalLayout(3)} />
+        <Button text={'One panel'} onClick={() => dockableUiState.setFlatLayout(1)} />
+        <Button text={'Two panel'} onClick={() => dockableUiState.setFlatLayout(2)} />
+        <Button text={'Thre panel'} onClick={() => dockableUiState.setFlatLayout(3)} />
         Vertical:
         <Button
           text={'One panel'}
-          onClick={() => dockableUiState.setHorizontalLayout(1, DuiPanelContainerFlow.COLUMN)}
+          onClick={() => dockableUiState.setFlatLayout(1, DuiPanelContainerFlow.COLUMN)}
         />
         <Button
           text={'Two panel'}
-          onClick={() => dockableUiState.setHorizontalLayout(2, DuiPanelContainerFlow.COLUMN)}
+          onClick={() => dockableUiState.setFlatLayout(2, DuiPanelContainerFlow.COLUMN)}
         />
         <Button
           text={'Thre panel'}
-          onClick={() => dockableUiState.setHorizontalLayout(3, DuiPanelContainerFlow.COLUMN)}
+          onClick={() => dockableUiState.setFlatLayout(3, DuiPanelContainerFlow.COLUMN)}
         />
+        Nested:
+        <Button text={'Nested 3'} onClick={() => dockableUiState.setNestedLayout()} />
       </>
     );
   }

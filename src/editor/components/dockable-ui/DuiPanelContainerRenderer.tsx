@@ -48,14 +48,13 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
       childBody = <DuiPanelContainerRenderer duiPanelContainer={container} duiState={duiState} />;
     } else {
       // Render the panel
+      console.log('panel');
     }
 
     return (
-      <div
-        key={'container-child-' + child.id}
-        className={'container-child'}
-        style={childStyle}
-      ></div>
+      <div key={'container-child-' + child.id} className={'container-child'} style={childStyle}>
+        {childBody}
+      </div>
     );
   }
 }
