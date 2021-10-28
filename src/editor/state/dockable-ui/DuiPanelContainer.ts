@@ -22,7 +22,16 @@ export class DuiPanelContainer {
     this.parentId = parentId;
   }
 
-  @action public addChild(childId: string, insertAfterId: string) {
+  @action public addChild(childId: string) {
+    this.children.push({
+      id: childId,
+      basis: 100,
+    });
+
+    this.rebaseChildren();
+  }
+
+  @action public insertChild(childId: string, insertAfterId: string) {
     const child: DuiPanelContainerChild = {
       id: childId,
       basis: 100,

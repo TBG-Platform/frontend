@@ -29,10 +29,34 @@ export class DockableUIState {
     if (container.flow === flow) {
       // Make a new sibling panel
       const siblingId = RandomUtils.createId();
-      container.addChild(siblingId, panelId);
+      container.insertChild(siblingId, panelId);
+
+      // Update state to track new panel
+      this.panelIds.push(siblingId);
+
+      return; // done now!
     }
 
-    // If the split is contrary to container's flow, new container with this panel and new one
+    // If the split is contrary to container's flow:
+
+    // Make a new container as a child of current container, set its flow
+    const childCont = new DuiPanelContainer(RandomUtils.createId(), container.id);
+    childCont.flow = flow;
+
+    // Child container gets the panel being split
+    childCont.addChild(panelId);
+
+    // It also gets the new panel as a result of the split
+    const splitPanelId = RandomUtils.createId();
+    childCont.addChild(splitPanelId);
+
+    // Parent container loses the panel and gains the new child container
+    container.insertChild(childCont.id, panelId);
+    container.removeChild(panelId);
+
+    // Update state to track new container and panel
+    this.containerMap.set(childCont.id, childCont);
+    this.panelIds.push(splitPanelId);
   };
 
   @action public deletePanel = (containerId: string, panelId: string) => {

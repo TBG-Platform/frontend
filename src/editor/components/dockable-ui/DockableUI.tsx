@@ -16,8 +16,6 @@ export class DockableUI extends React.Component<Props> {
   public render() {
     const { duiState } = this.props;
 
-    console.log('dock ui root render');
-
     return (
       <div className={'dockable-ui-root'}>
         {duiState.rootContainer && (
