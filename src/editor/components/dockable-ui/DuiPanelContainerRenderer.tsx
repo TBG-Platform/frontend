@@ -7,6 +7,7 @@ import {
 } from '../../state/dockable-ui/DuiPanelContainer';
 
 import './dui-panel-container-renderer.scss';
+import { DuiPanelResizer } from './DuiPanelResizer';
 
 interface Props {
   duiPanelContainer: DuiPanelContainer;
@@ -19,7 +20,8 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
   public render() {
     const { duiPanelContainer } = this.props;
 
-    // Render a wrapper div for each child
+    // Get children with resize bars between them
+    const children = this.renderChildren();
 
     const containerStyle: CSSProperties = {
       flexDirection: duiPanelContainer.flow,
@@ -27,9 +29,33 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
 
     return (
       <div className={'dui-panel-container-renderer'} style={containerStyle}>
-        {duiPanelContainer.children.map((child) => this.renderChild(child))}
+        {children}
       </div>
     );
+  }
+
+  private renderChildren() {
+    const { duiPanelContainer } = this.props;
+
+    let childContent: JSX.Element[] = [];
+
+    // If there's only one child, just render that
+    if (duiPanelContainer.children.length === 1) {
+      return this.renderChild(duiPanelContainer.children[0]);
+    }
+
+    // Otherwise, put a resize bar after each child but the last
+    //const children = duiPanelContainer.children.map((child) => this.renderChild(child));
+
+    duiPanelContainer.children.forEach((child, idx) => {
+      // First the child
+      childContent.push(this.renderChild(child));
+      // Then the resizer - if it's not the last child
+      if (idx < duiPanelContainer.children.length - 1)
+        childContent.push(<DuiPanelResizer container={duiPanelContainer} />);
+    });
+
+    return childContent;
   }
 
   private renderChild(child: DuiPanelContainerChild) {
