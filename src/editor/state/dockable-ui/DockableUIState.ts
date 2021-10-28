@@ -1,5 +1,4 @@
 import { action, observable } from 'mobx';
-import { DuiUtils } from '../../../utils/DuiUtils';
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { DuiPanel } from './DuiPanel';
 import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';

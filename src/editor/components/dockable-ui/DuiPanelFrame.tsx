@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Button } from '@blueprintjs/core';
+import { Menu, MenuItem, Button, Divider } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -12,6 +12,7 @@ interface Props {
   containerId: string;
   panelId: string;
   duiState: DockableUIState;
+  panelMenuItems?: () => JSX.Element;
 }
 
 @observer
@@ -31,13 +32,20 @@ export class DuiPanelFrame extends React.Component<Props> {
   }
 
   private renderPanelOptions() {
-    const { containerId, panelId, duiState } = this.props;
+    const { containerId, panelId, duiState, panelMenuItems } = this.props;
 
     return (
       <Popover2
         position={Position.Bottom}
         content={
           <Menu>
+            {panelMenuItems && (
+              <>
+                {panelMenuItems()}
+                <Divider />
+              </>
+            )}
+
             <MenuItem
               text={'Add panel right'}
               icon={'add-column-right'}

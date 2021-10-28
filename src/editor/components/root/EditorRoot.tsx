@@ -1,4 +1,4 @@
-import { Button } from '@blueprintjs/core';
+import { Button, MenuItem } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
@@ -22,7 +22,11 @@ export class EditorRoot extends React.Component<Props> {
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>{this.renderNavbarOptions()}</div>
         <div className={'editor-main-area'}>
-          <DockableUI duiState={appState.dockableUiState} renderPanelBody={this.renderPanel} />
+          <DockableUI
+            duiState={appState.dockableUiState}
+            renderPanelBody={this.renderPanel}
+            renderPanelMenuItems={this.renderPanelMenuItems}
+          />
         </div>
       </div>
     );
@@ -56,6 +60,17 @@ export class EditorRoot extends React.Component<Props> {
       </>
     );
   }
+
+  private renderPanelMenuItems = () => {
+    return (
+      <>
+        <MenuItem
+          text={'Im an extra options!'}
+          onClick={() => console.log('extra option clicked!')}
+        />
+      </>
+    );
+  };
 
   private renderPanel = (panelId: string) => {
     return <div className={'panel'}>{panelId}</div>;

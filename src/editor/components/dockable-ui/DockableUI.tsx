@@ -9,6 +9,7 @@ import './dockable-ui.scss';
 interface Props {
   duiState: DockableUIState;
   renderPanelBody: (panelId: string) => JSX.Element;
+  renderPanelMenuItems?: () => JSX.Element;
 }
 
 @observer
@@ -33,8 +34,15 @@ export class DockableUI extends React.Component<Props> {
   }
 
   private renderPanel = (panelId: string, containerId: string) => {
-    const { duiState } = this.props;
+    const { duiState, renderPanelMenuItems } = this.props;
 
-    return <DuiPanelFrame containerId={containerId} panelId={panelId} duiState={duiState} />;
+    return (
+      <DuiPanelFrame
+        containerId={containerId}
+        panelId={panelId}
+        duiState={duiState}
+        panelMenuItems={renderPanelMenuItems}
+      />
+    );
   };
 }
