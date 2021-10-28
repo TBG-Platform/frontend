@@ -45,8 +45,6 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
     }
 
     // Otherwise, put a resize bar after each child but the last
-    //const children = duiPanelContainer.children.map((child) => this.renderChild(child));
-
     duiPanelContainer.children.forEach((child, idx) => {
       // First the child
       childContent.push(this.renderChild(child));

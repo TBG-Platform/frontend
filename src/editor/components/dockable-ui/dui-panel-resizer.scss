@@ -3,7 +3,7 @@
 .resize-bar {
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: 10px;
+  flex-basis: 5px;
 
   &:hover {
     background-color: $mainHoverColor;
@@ -11,10 +11,14 @@
 
   &.vertical {
     height: 100%;
+    border-top: 1px solid $mainBorderColor;
+    border-bottom: 1px solid $mainBorderColor;
     cursor: ew-resize;
   }
   &.horizontal {
     width: 100%;
+    border-left: 1px solid $mainBorderColor;
+    border-right: 1px solid $mainBorderColor;
     cursor: ns-resize;
   }
 }
