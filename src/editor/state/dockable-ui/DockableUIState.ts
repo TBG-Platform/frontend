@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { DuiUtils, PanelLayoutData } from '../../../utils/DuiUtils';
 import { RandomUtils } from '../../../utils/RandomUtils';
-import { DuiPanelContainer } from './DuiPanelContainer';
+import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';
 
 export class DockableUIState {
   @observable public rootContainer?: DuiPanelContainer;
@@ -9,22 +9,19 @@ export class DockableUIState {
   public containerMap = new Map<string, DuiPanelContainer>();
   public panelIds: string[] = [];
 
-  constructor() {
-    // const layoutData: PanelLayoutData = DuiUtils.makeOnePanelContainer();
-    // this.containerMap = layoutData.containerMap;
-    // this.panelIds = layoutData.panelIds;
-    // this.rootContainer = this.containerMap.get(layoutData.rootContainerId);
-  }
+  constructor() {}
 
   public getContainer(id: string): DuiPanelContainer | undefined {
     return this.containerMap.get(id);
   }
 
-  @action public setHorizontalLayout = (panelCount: number) => {
-    console.log('set one panel');
+  @action public setHorizontalLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
     this.clearLayoutData();
 
     const container = new DuiPanelContainer(RandomUtils.createId());
+    if (flow) {
+      container.flow = flow;
+    }
 
     const children = DuiUtils.makeContainerChildren(panelCount);
     this.panelIds = children.map((ch) => ch.id);

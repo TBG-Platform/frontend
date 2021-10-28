@@ -22,8 +22,12 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
 
     // Render a wrapper div for each child
 
+    const containerStyle: CSSProperties = {
+      flexDirection: duiPanelContainer.flow,
+    };
+
     return (
-      <div className={'dui-panel-container-renderer'}>
+      <div className={'dui-panel-container-renderer'} style={containerStyle}>
         {duiPanelContainer.children.map((child) => this.renderChild(child))}
       </div>
     );
