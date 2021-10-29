@@ -29,8 +29,6 @@ export class DuiPanelFrame extends React.Component<Props> {
   public render() {
     const { panel, renderTabBody } = this.props;
 
-    console.log('render dui panel frame');
-
     // Get the id of the selected tab to render in the panel body
     const tabId = panel.selectedTab?.id;
 
