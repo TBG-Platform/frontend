@@ -11,14 +11,10 @@
 
   &.vertical {
     height: 100%;
-    //border-top: 1px solid $mainBorderColor;
-    //border-bottom: 1px solid $mainBorderColor;
     cursor: ew-resize;
   }
   &.horizontal {
     width: 100%;
-    //border-left: 1px solid $mainBorderColor;
-    //border-right: 1px solid $mainBorderColor;
     cursor: ns-resize;
   }
 }
