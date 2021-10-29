@@ -1,4 +1,4 @@
-import { Button, MenuItem } from '@blueprintjs/core';
+import { Button, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { AppState } from '../../../AppState';
@@ -26,6 +26,7 @@ export class EditorRoot extends React.Component<Props> {
             duiState={appState.dockableUiState}
             renderTabBody={this.renderTabBody}
             renderPanelMenuItems={this.renderPanelMenuItems}
+            renderNoPanels={this.renderNoPanels}
           />
         </div>
       </div>
@@ -87,5 +88,27 @@ export class EditorRoot extends React.Component<Props> {
     const content = TabBodyRenderer.getTabBody(tab, appState);
 
     return <div className={'tab-body'}>{content}</div>;
+  };
+
+  private renderNoPanels = () => {
+    const { appState } = this.props;
+    const { dockableUiState } = appState;
+
+    return (
+      <div className={'no-panels-screen'}>
+        <NonIdealState
+          icon={'page-layout'}
+          title={'No panels'}
+          description={'You have no panels! Click here to create one, or choose a layout.'}
+          action={
+            <Button
+              icon={'add'}
+              text={'Add a panel'}
+              onClick={() => dockableUiState.setFlatLayout(1)}
+            />
+          }
+        />
+      </div>
+    );
   };
 }

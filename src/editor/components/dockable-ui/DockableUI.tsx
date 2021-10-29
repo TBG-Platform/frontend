@@ -10,27 +10,34 @@ interface Props {
   duiState: DockableUIState;
   renderTabBody: (panelId: string) => JSX.Element;
   renderPanelMenuItems?: (panelId: string) => JSX.Element;
+  renderNoPanels?: () => JSX.Element;
 }
 
 @observer
 export class DockableUI extends React.Component<Props> {
   public render() {
-    const { duiState } = this.props;
+    const { duiState, renderNoPanels } = this.props;
 
-    return (
-      <div className={'dockable-ui-root'}>
-        {duiState.rootContainer && (
-          <DuiPanelContainerRenderer
-            key={`dpcr-${duiState.rootContainer.id}`}
-            duiPanelContainer={duiState.rootContainer}
-            duiState={duiState}
-            renderPanel={(panelId: string, containerId: string) =>
-              this.renderPanel(panelId, containerId)
-            }
-          />
-        )}
-      </div>
-    );
+    let content: JSX.Element = undefined;
+
+    // If there are containers to render, render them
+    if (duiState.rootContainer) {
+      content = (
+        <DuiPanelContainerRenderer
+          key={`dpcr-${duiState.rootContainer.id}`}
+          duiPanelContainer={duiState.rootContainer}
+          duiState={duiState}
+          renderPanel={(panelId: string, containerId: string) =>
+            this.renderPanel(panelId, containerId)
+          }
+        />
+      );
+    } else if (renderNoPanels) {
+      // Otherwise render given no panels content
+      content = renderNoPanels();
+    }
+
+    return <div className={'dockable-ui-root'}>{content}</div>;
   }
 
   private renderPanel = (panelId: string, containerId: string) => {
