@@ -1,8 +1,6 @@
 import { Button, MenuItem } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { PanelWidgetType } from '../../state/panels/PanelWidgetType';
-import { PanelWidgetRenderer } from './PanelWidgetRenderer';
 import { AppState } from '../../../AppState';
 import { DockableUI } from '../dockable-ui/DockableUI';
 import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
