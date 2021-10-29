@@ -78,13 +78,13 @@ export class EditorRoot extends React.Component<Props> {
     const { appState } = this.props;
 
     // Get the type of tab we're rendering
-    const tabType = appState.getTabType(tabId);
-    if (!tabType) {
+    const tab = appState.getTab(tabId);
+    if (!tab) {
       return;
     }
 
     // Get the component for this tab type
-    const content = TabBodyRenderer.getTabBody(tabType);
+    const content = TabBodyRenderer.getTabBody(tab, appState);
 
     return <div className={'tab-body'}>{content}</div>;
   };

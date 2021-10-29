@@ -1,6 +1,7 @@
 import { DockableUIState } from './editor/state/dockable-ui/DockableUIState';
 import { DuiPanelTab } from './editor/state/dockable-ui/DuiPanel';
 import { PanelTabType } from './editor/state/panels/PanelTabType';
+import { TestState } from './editor/state/panels/TestState';
 import { StoryEditorState } from './editor/state/StoryEditorState';
 import { RandomUtils } from './utils/RandomUtils';
 
@@ -11,7 +12,7 @@ export interface PanelTab extends DuiPanelTab {
 export class AppState {
   public storyEditorState?: StoryEditorState;
   public dockableUiState: DockableUIState;
-
+  public testStates: TestState[] = [];
   private tabMap = new Map<string, PanelTab>();
 
   constructor() {
@@ -30,11 +31,24 @@ export class AppState {
     };
     this.tabMap.set(tab.id, tab);
 
+    // Setup any states this tab requires
+    this.createTabState(tab.id, tabType);
+
     // Give it to dockable ui to render
     this.dockableUiState.addPanelTab(panelId, tab);
   };
 
-  public getTabType(id: string): PanelTabType | undefined {
-    return this.tabMap.get(id)?.type;
+  public getTab(id: string): PanelTab | undefined {
+    return this.tabMap.get(id);
+  }
+
+  private createTabState(tabId: string, tabType: PanelTabType) {
+    // Create whatever state this tab component requires
+    switch (tabType) {
+      case PanelTabType.TEST:
+        const testState = new TestState(tabId);
+        this.testStates.push(testState);
+        break;
+    }
   }
 }

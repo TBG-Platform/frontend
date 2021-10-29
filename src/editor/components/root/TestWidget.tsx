@@ -1,14 +1,21 @@
 import { NonIdealState } from '@blueprintjs/core';
 import React from 'react';
+import { TestState } from '../../state/panels/TestState';
 
-export class TestWidget extends React.Component {
+interface Props {
+  testState: TestState;
+}
+
+export class TestWidget extends React.Component<Props> {
   public render() {
+    const { testState } = this.props;
+
     return (
       <div className={'test-widget'}>
         <NonIdealState
           icon={'widget'}
           title={'No widgets selected'}
-          description={'Add a widget to this panel via the buttons at the top!'}
+          description={`Test state value - ${testState.message}`}
         />
       </div>
     );
