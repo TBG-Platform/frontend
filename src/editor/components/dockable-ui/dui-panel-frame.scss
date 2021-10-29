@@ -38,9 +38,19 @@
 
         display: flex;
         align-items: center;
+        gap: 3px;
 
         &.selected {
           background-color: $mainHoverColor;
+        }
+
+        .tab-delete {
+          cursor: pointer;
+          border-radius: 50%;
+
+          &:hover {
+            background-color: gainsboro;
+          }
         }
       }
     }

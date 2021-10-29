@@ -3,11 +3,24 @@ import { RandomUtils } from '../../../utils/RandomUtils';
 import { DuiPanel, DuiPanelTab } from './DuiPanel';
 import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';
 
+type DockableUIEvent = 'close-tab';
+
 export class DockableUIState {
   @observable public rootContainer?: DuiPanelContainer;
 
-  public containerMap = new Map<string, DuiPanelContainer>();
-  public panelMap = new Map<string, DuiPanel>();
+  // Overridable event callbacks
+  private onDeleteTab?: (tabId: string) => void;
+
+  private containerMap = new Map<string, DuiPanelContainer>();
+  private panelMap = new Map<string, DuiPanel>();
+
+  public addEventListener(event: DockableUIEvent, callback: (tabId: string) => void) {
+    switch (event) {
+      case 'close-tab':
+        this.onDeleteTab = callback;
+        break;
+    }
+  }
 
   public getContainer(id: string): DuiPanelContainer | undefined {
     return this.containerMap.get(id);
@@ -114,6 +127,16 @@ export class DockableUIState {
 
     // Add it to the new panel
     toPanel.addTab(tab);
+  }
+
+  @action public closeTab(tabId: string, panel: DuiPanel) {
+    // Get panel to delete the tab
+    panel.removeTab(tabId);
+
+    // Fire event for tab deletion to update consumers
+    if (this.onDeleteTab) {
+      this.onDeleteTab(tabId);
+    }
   }
 
   @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {

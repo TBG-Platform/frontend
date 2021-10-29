@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Button, Divider } from '@blueprintjs/core';
+import { Menu, MenuItem, Button, Divider, Icon } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -58,7 +58,7 @@ export class DuiPanelFrame extends React.Component<Props> {
   }
 
   private renderPanelTab(tab: DuiPanelTab) {
-    const { panel } = this.props;
+    const { panel, duiState } = this.props;
 
     const tabSelectedClass = panel.isSelected(tab) ? 'selected' : '';
 
@@ -73,6 +73,11 @@ export class DuiPanelFrame extends React.Component<Props> {
         onClick={() => panel.selectTab(tab)}
       >
         {tab.label}
+        <Icon
+          className={'tab-delete'}
+          icon={'small-cross'}
+          onClick={() => duiState.closeTab(tab.id, panel)}
+        />
       </div>
     );
   }

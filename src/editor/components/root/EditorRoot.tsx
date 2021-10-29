@@ -5,9 +5,9 @@ import { AppState } from '../../../AppState';
 import { DockableUI } from '../dockable-ui/DockableUI';
 import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
 import { PanelTabType } from '../../state/panels/PanelTabType';
+import { TabBodyRenderer } from './TabBodyRenderer';
 
 import './editor-root.scss';
-import { TabBodyRenderer } from './TabBodyRenderer';
 
 interface Props {
   appState: AppState;

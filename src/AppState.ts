@@ -16,7 +16,10 @@ export class AppState {
   private tabMap = new Map<string, PanelTab>();
 
   constructor() {
+    // Setup dockable ui state
     this.dockableUiState = new DockableUIState();
+    this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
+
     this.storyEditorState = new StoryEditorState();
     this.storyEditorState.createNewStory();
   }
@@ -32,7 +35,7 @@ export class AppState {
     this.tabMap.set(tab.id, tab);
 
     // Setup any states this tab requires
-    this.createTabState(tab.id, tabType);
+    this.createTabState(tab);
 
     // Give it to dockable ui to render
     this.dockableUiState.addPanelTab(panelId, tab);
@@ -42,12 +45,29 @@ export class AppState {
     return this.tabMap.get(id);
   }
 
-  private createTabState(tabId: string, tabType: PanelTabType) {
+  private createTabState(tab: PanelTab) {
     // Create whatever state this tab component requires
-    switch (tabType) {
+    switch (tab.type) {
       case PanelTabType.TEST:
-        const testState = new TestState(tabId);
+        const testState = new TestState(tab.id);
         this.testStates.push(testState);
+        break;
+    }
+  }
+
+  private onCloseTab = (tabId: string) => {
+    // Remove any states made for this tab
+    const tab = this.tabMap.get(tabId);
+    this.removeTabState(tab);
+
+    // Then remove the tab from the map
+    this.tabMap.delete(tabId);
+  };
+
+  private removeTabState(tab: PanelTab) {
+    switch (tab.type) {
+      case PanelTabType.TEST:
+        this.testStates = this.testStates.filter((ts) => ts.tabId !== tab.id);
         break;
     }
   }
