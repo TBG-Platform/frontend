@@ -55,11 +55,13 @@ export class DuiPanelFrame extends React.Component<Props> {
   private renderPanelTab(tab: DuiPanelTab) {
     const { panel } = this.props;
 
+    const tabSelectedClass = panel.isSelected(tab) ? 'selected' : '';
+
     return (
       <div
         key={`panel-tab-${tab.id}`}
         id={tab.id}
-        className={'panel-tab'}
+        className={'panel-tab ' + tabSelectedClass}
         draggable={'true'}
         onDragStart={this.onDragStartTab}
         onDragEnd={this.onDragEndTab}

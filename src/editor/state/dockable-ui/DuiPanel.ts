@@ -36,4 +36,8 @@ export class DuiPanel {
   @action public selectTab(tab: DuiPanelTab) {
     this.selectedTab = tab;
   }
+
+  public isSelected(tab: DuiPanelTab) {
+    return tab.id === this.selectedTab?.id;
+  }
 }

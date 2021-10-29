@@ -88,10 +88,21 @@ export class DuiPanelContainer {
     // Find distance mouse has moved from resizer pos as a percentage of container size
     const mouseDelta = mousePos - resizerPos;
     const deltaPercent = (mouseDelta / panelMax) * 100;
-    // delta percent is the rate of change in terms of flex basis
+    // delta percent is the rate of change in terms of flex basis %
 
     const childBefore = this.children[resizerIndex];
     const childAfter = this.children[resizerIndex + 1];
+
+    // If the change would make a panel too small, don't make it
+    const minSize = 30;
+    const minPercent = (minSize / panelMax) * 100;
+
+    const childBeforeBasis = childBefore.basis + deltaPercent;
+    const childAfterBasis = childAfter.basis - deltaPercent;
+
+    if (childBeforeBasis < minPercent || childAfterBasis < minPercent) {
+      return;
+    }
 
     childBefore.basis += deltaPercent;
     childAfter.basis -= deltaPercent;
