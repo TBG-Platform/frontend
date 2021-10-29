@@ -93,18 +93,25 @@ export class DuiPanelContainer {
     const childBefore = this.children[resizerIndex];
     const childAfter = this.children[resizerIndex + 1];
 
-    // If the change would make a panel too small, don't make it
+    // If the change would make a panel too small, adjust
     const minSize = 30;
     const minPercent = (minSize / panelMax) * 100;
 
-    const childBeforeBasis = childBefore.basis + deltaPercent;
-    const childAfterBasis = childAfter.basis - deltaPercent;
+    let childBeforeBasis = childBefore.basis + deltaPercent;
+    let childAfterBasis = childAfter.basis - deltaPercent;
 
-    if (childBeforeBasis < minPercent || childAfterBasis < minPercent) {
-      return;
+    // If the left side would be made too small
+    if (childBeforeBasis < minPercent) {
+      // Make left side minimum size
+      childBeforeBasis = minPercent;
+      // Right side is its current basis, plus whatever the left lost to get to min size
+      childAfterBasis = childAfter.basis + childBefore.basis - minPercent;
+    } else if (childAfterBasis < minPercent) {
+      childAfterBasis = minPercent;
+      childBeforeBasis = childBefore.basis + childAfter.basis - minPercent;
     }
 
-    childBefore.basis += deltaPercent;
-    childAfter.basis -= deltaPercent;
+    childBefore.basis = childBeforeBasis;
+    childAfter.basis = childAfterBasis;
   }
 }
