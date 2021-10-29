@@ -17,6 +17,7 @@ export class EditorNavbar extends React.Component<Props> {
     return (
       <div className={'editor-navbar'}>
         {this.renderFilesMenu()}
+        {this.renderViewMenu()}
         {this.renderLayoutMenu()}
       </div>
     );
@@ -37,6 +38,25 @@ export class EditorNavbar extends React.Component<Props> {
         }
       >
         <div className={'menu-root'}>File</div>
+      </Popover2>
+    );
+  }
+
+  private renderViewMenu() {
+    return (
+      <Popover2
+        position={Position.BOTTOM}
+        minimal
+        className={'menu-root-wrapper'}
+        content={
+          <Menu>
+            <MenuItem text={'Story graph'} disabled />
+            <MenuItem text={'Page editor'} disabled />
+            <MenuItem text={'Details inspector'} disabled />
+          </Menu>
+        }
+      >
+        <div className={'menu-root'}>View</div>
       </Popover2>
     );
   }
