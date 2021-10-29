@@ -8,6 +8,7 @@ import { DockableUI } from '../dockable-ui/DockableUI';
 import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
 
 import './editor-root.scss';
+import { PanelTabType } from '../../state/panels/PanelTabType';
 
 interface Props {
   appState: AppState;
@@ -62,9 +63,14 @@ export class EditorRoot extends React.Component<Props> {
   }
 
   private renderPanelMenuItems = (panelId: string) => {
+    const { appState } = this.props;
+
     return (
       <>
-        <MenuItem text={'Add test tab'} onClick={() => console.log('extra option clicked!')} />
+        <MenuItem
+          text={'Add test tab'}
+          onClick={() => appState.addTab(panelId, PanelTabType.TEST)}
+        />
       </>
     );
   };

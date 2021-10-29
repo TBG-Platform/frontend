@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { RandomUtils } from '../../../utils/RandomUtils';
-import { DuiPanel } from './DuiPanel';
+import { DuiPanel, DuiPanelTab } from './DuiPanel';
 import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';
 
 export class DockableUIState {
@@ -11,6 +11,10 @@ export class DockableUIState {
 
   public getContainer(id: string): DuiPanelContainer | undefined {
     return this.containerMap.get(id);
+  }
+
+  public getPanel(id: string): DuiPanel | undefined {
+    return this.panelMap.get(id);
   }
 
   @action public splitPanel = (
@@ -78,10 +82,14 @@ export class DockableUIState {
     }
   };
 
-  @action public addPanelTab = (panelId: string) => {
-    // Finds the panel by id
-    // Adds a tab to its tab list
-  };
+  @action public addPanelTab(panelId: string, tab: DuiPanelTab) {
+    const panel = this.panelMap.get(panelId);
+    if (!panel) {
+      return;
+    }
+
+    panel.addTab(tab);
+  }
 
   @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
     this.clearLayoutData();

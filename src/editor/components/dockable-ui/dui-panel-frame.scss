@@ -17,6 +17,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .navbar-tab-list {
+      flex: 0 0 auto;
+      height: 100%;
+
+      display: flex;
+
+      .panel-tab {
+        flex: 0 0 auto;
+        height: 100%;
+        padding-left: 3px;
+        padding-right: 3px;
+        user-select: none;
+        cursor: grab;
+        border-right: 1px solid $mainBorderColor;
+
+        display: flex;
+        align-items: center;
+      }
+    }
   }
 
   .panel-frame-body {

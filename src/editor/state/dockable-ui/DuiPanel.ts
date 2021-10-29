@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 export interface DuiPanelTab {
   id: string;
@@ -11,5 +11,10 @@ export class DuiPanel {
 
   constructor(id: string) {
     this.id = id;
+  }
+
+  @action public addTab(tab: DuiPanelTab) {
+    this.tabs.push(tab);
+    console.log('added tab', this.tabs);
   }
 }
