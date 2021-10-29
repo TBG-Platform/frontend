@@ -9,7 +9,7 @@ import './dockable-ui.scss';
 interface Props {
   duiState: DockableUIState;
   renderPanelBody: (panelId: string) => JSX.Element;
-  renderPanelMenuItems?: () => JSX.Element;
+  renderPanelMenuItems?: (panelId: string) => JSX.Element;
 }
 
 @observer

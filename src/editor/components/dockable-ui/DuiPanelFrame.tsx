@@ -12,7 +12,7 @@ interface Props {
   containerId: string;
   panelId: string;
   duiState: DockableUIState;
-  panelMenuItems?: () => JSX.Element;
+  panelMenuItems?: (panelId: string) => JSX.Element;
 }
 
 @observer
@@ -41,7 +41,7 @@ export class DuiPanelFrame extends React.Component<Props> {
           <Menu>
             {panelMenuItems && (
               <>
-                {panelMenuItems()}
+                {panelMenuItems(panelId)}
                 <Divider />
               </>
             )}

@@ -61,13 +61,10 @@ export class EditorRoot extends React.Component<Props> {
     );
   }
 
-  private renderPanelMenuItems = () => {
+  private renderPanelMenuItems = (panelId: string) => {
     return (
       <>
-        <MenuItem
-          text={'Im an extra options!'}
-          onClick={() => console.log('extra option clicked!')}
-        />
+        <MenuItem text={'Add test tab'} onClick={() => console.log('extra option clicked!')} />
       </>
     );
   };
