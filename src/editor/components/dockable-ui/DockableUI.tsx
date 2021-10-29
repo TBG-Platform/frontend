@@ -8,7 +8,7 @@ import './dockable-ui.scss';
 
 interface Props {
   duiState: DockableUIState;
-  renderPanelBody: (panelId: string) => JSX.Element;
+  renderTabBody: (panelId: string) => JSX.Element;
   renderPanelMenuItems?: (panelId: string) => JSX.Element;
 }
 
@@ -34,7 +34,7 @@ export class DockableUI extends React.Component<Props> {
   }
 
   private renderPanel = (panelId: string, containerId: string) => {
-    const { duiState, renderPanelMenuItems } = this.props;
+    const { duiState, renderTabBody, renderPanelMenuItems } = this.props;
 
     const panel = duiState.getPanel(panelId);
     if (panel) {
@@ -44,6 +44,7 @@ export class DockableUI extends React.Component<Props> {
           panel={panel}
           duiState={duiState}
           panelMenuItems={renderPanelMenuItems}
+          renderTabBody={renderTabBody}
         />
       );
     }

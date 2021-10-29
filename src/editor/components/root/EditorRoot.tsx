@@ -6,9 +6,9 @@ import { PanelWidgetRenderer } from './PanelWidgetRenderer';
 import { AppState } from '../../../AppState';
 import { DockableUI } from '../dockable-ui/DockableUI';
 import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
+import { PanelTabType } from '../../state/panels/PanelTabType';
 
 import './editor-root.scss';
-import { PanelTabType } from '../../state/panels/PanelTabType';
 
 interface Props {
   appState: AppState;
@@ -25,7 +25,7 @@ export class EditorRoot extends React.Component<Props> {
         <div className={'editor-main-area'}>
           <DockableUI
             duiState={appState.dockableUiState}
-            renderPanelBody={this.renderPanel}
+            renderTabBody={this.renderTabBody}
             renderPanelMenuItems={this.renderPanelMenuItems}
           />
         </div>
@@ -75,15 +75,7 @@ export class EditorRoot extends React.Component<Props> {
     );
   };
 
-  private renderPanel = (panelId: string) => {
-    return <div className={'panel'}>{panelId}</div>;
-  };
-
-  private renderNoPanels() {
-    return <div>no panels</div>;
-  }
-
-  private renderWidgetBody = (panelWidgetType: PanelWidgetType) => {
-    return PanelWidgetRenderer.getRenderer(panelWidgetType, this.props.appState);
+  private renderTabBody = (tabId: string) => {
+    return <div className={'panel'}>{tabId}</div>;
   };
 }
