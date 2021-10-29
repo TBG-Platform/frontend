@@ -146,11 +146,13 @@ export class DuiPanelFrame extends React.Component<Props> {
   };
 
   private onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    const { duiState, panel } = this.props;
+
     this.panelBodyRef.current?.classList.remove('hover-backdrop');
 
     const data: TabDragData = JSON.parse(e.dataTransfer.getData('text'));
 
-    console.log('drag data: ', data);
+    duiState.moveTab(data.tabId, data.fromPanelId, panel);
 
     e.dataTransfer.clearData();
   };

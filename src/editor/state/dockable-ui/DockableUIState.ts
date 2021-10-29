@@ -91,6 +91,31 @@ export class DockableUIState {
     panel.addTab(tab);
   }
 
+  @action public moveTab(tabId: string, fromPanelId: string, toPanel: DuiPanel) {
+    // If dropped on same panel, do nothing
+    if (fromPanelId === toPanel.id) {
+      return;
+    }
+
+    // Get the from panel
+    const fromPanel = this.panelMap.get(fromPanelId);
+    if (!fromPanel) {
+      return;
+    }
+
+    // Get the tab
+    const tab = fromPanel.getTab(tabId);
+    if (!tab) {
+      return;
+    }
+
+    // Remove it from 'from' panel
+    fromPanel.removeTab(tab.id);
+
+    // Add it to the new panel
+    toPanel.addTab(tab);
+  }
+
   @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
     this.clearLayoutData();
 

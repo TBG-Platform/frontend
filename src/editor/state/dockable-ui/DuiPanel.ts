@@ -13,8 +13,15 @@ export class DuiPanel {
     this.id = id;
   }
 
+  public getTab(id: string) {
+    return this.tabs.find((tab) => tab.id === id);
+  }
+
   @action public addTab(tab: DuiPanelTab) {
     this.tabs.push(tab);
-    console.log('added tab', this.tabs);
+  }
+
+  @action public removeTab(id: string) {
+    this.tabs = this.tabs.filter((tab) => tab.id === id);
   }
 }
