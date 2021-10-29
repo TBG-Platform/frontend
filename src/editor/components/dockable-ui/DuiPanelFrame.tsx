@@ -29,6 +29,8 @@ export class DuiPanelFrame extends React.Component<Props> {
   public render() {
     const { panel } = this.props;
 
+    console.log('render dui panel frame');
+
     return (
       <div className={'dui-panel-frame'}>
         <div className={'panel-frame-navbar'}>
@@ -51,6 +53,8 @@ export class DuiPanelFrame extends React.Component<Props> {
   }
 
   private renderPanelTab(tab: DuiPanelTab) {
+    const { panel } = this.props;
+
     return (
       <div
         key={`panel-tab-${tab.id}`}
@@ -59,6 +63,7 @@ export class DuiPanelFrame extends React.Component<Props> {
         draggable={'true'}
         onDragStart={this.onDragStartTab}
         onDragEnd={this.onDragEndTab}
+        onClick={() => panel.selectTab(tab)}
       >
         {tab.label}
       </div>
@@ -151,10 +156,13 @@ export class DuiPanelFrame extends React.Component<Props> {
 
     this.panelBodyRef.current?.classList.remove('hover-backdrop');
 
-    const data: TabDragData = JSON.parse(e.dataTransfer.getData('text'));
+    const data = e.dataTransfer.getData('text').trim();
 
-    duiState.moveTab(data.tabId, data.fromPanelId, panel);
+    if (data) {
+      const dragData: TabDragData = JSON.parse(data);
+      duiState.moveTab(dragData.tabId, dragData.fromPanelId, panel);
 
-    e.dataTransfer.clearData();
+      e.dataTransfer.clearData();
+    }
   };
 }
