@@ -18,6 +18,7 @@ interface Props {
   containerId: string;
   panel: DuiPanel;
   duiState: DockableUIState;
+  renderTabBody?: (tabId: string) => JSX.Element;
   panelMenuItems?: (panelId: string) => JSX.Element;
 }
 

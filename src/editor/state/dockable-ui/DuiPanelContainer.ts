@@ -47,7 +47,7 @@ export class DuiPanelContainer {
       basis: 100,
     };
 
-    const insertIdx = this.children.findIndex((ch) => ch.id === insertAfterId);
+    const insertIdx = this.children.findIndex((ch) => ch.id === insertAfterId) + 1;
     this.children.splice(insertIdx, 0, child);
 
     this.rebaseChildren();
