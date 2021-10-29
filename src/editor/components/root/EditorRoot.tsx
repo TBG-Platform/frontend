@@ -7,6 +7,7 @@ import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer
 import { PanelTabType } from '../../state/panels/PanelTabType';
 
 import './editor-root.scss';
+import { TabBodyRenderer } from './TabBodyRenderer';
 
 interface Props {
   appState: AppState;
@@ -74,6 +75,17 @@ export class EditorRoot extends React.Component<Props> {
   };
 
   private renderTabBody = (tabId: string) => {
-    return <div className={'panel'}>{tabId}</div>;
+    const { appState } = this.props;
+
+    // Get the type of tab we're rendering
+    const tabType = appState.getTabType(tabId);
+    if (!tabType) {
+      return;
+    }
+
+    // Get the component for this tab type
+    const content = TabBodyRenderer.getTabBody(tabType);
+
+    return <div className={'tab-body'}>{content}</div>;
   };
 }

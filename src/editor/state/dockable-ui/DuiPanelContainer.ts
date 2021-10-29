@@ -1,5 +1,4 @@
 import { action, observable } from 'mobx';
-import { RandomUtils } from '../../../utils/RandomUtils';
 
 export enum DuiPanelContainerFlow {
   ROW = 'row',

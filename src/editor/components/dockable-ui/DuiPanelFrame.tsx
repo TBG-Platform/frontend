@@ -27,9 +27,12 @@ export class DuiPanelFrame extends React.Component<Props> {
   private panelBodyRef = React.createRef<HTMLDivElement>();
 
   public render() {
-    const { panel } = this.props;
+    const { panel, renderTabBody } = this.props;
 
     console.log('render dui panel frame');
+
+    // Get the id of the selected tab to render in the panel body
+    const tabId = panel.selectedTab?.id;
 
     return (
       <div className={'dui-panel-frame'}>
@@ -47,7 +50,9 @@ export class DuiPanelFrame extends React.Component<Props> {
           onDragOver={this.onDragOverPanel}
           onDragLeave={this.onDragOverLeavePanel}
           onDrop={this.onDrop}
-        ></div>
+        >
+          {tabId && renderTabBody(tabId)}
+        </div>
       </div>
     );
   }
