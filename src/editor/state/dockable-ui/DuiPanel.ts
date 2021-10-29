@@ -22,6 +22,6 @@ export class DuiPanel {
   }
 
   @action public removeTab(id: string) {
-    this.tabs = this.tabs.filter((tab) => tab.id === id);
+    this.tabs = this.tabs.filter((tab) => tab.id !== id);
   }
 }
