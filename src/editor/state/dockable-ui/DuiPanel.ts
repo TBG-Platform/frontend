@@ -25,12 +25,27 @@ export class DuiPanel {
   }
 
   @action public removeTab(id: string) {
+    let nextTab: DuiPanelTab = undefined;
+
+    // Is this the selected tab?
+    if (this.selectedTab?.id === id) {
+      // Need to select the previous tab - get index
+      const idx = this.tabs.findIndex((tab) => tab.id === id);
+
+      // Find tab before or after to select
+      if (idx > 0) {
+        nextTab = this.tabs[idx - 1];
+      } else if (this.tabs.length > 1) {
+        nextTab = this.tabs[idx + 1];
+      }
+    }
+
+    // Remove the tab
     this.tabs = this.tabs.filter((tab) => tab.id !== id);
 
-    // Was this the selected tab? Remove its ref
-    if (this.selectedTab?.id === id) {
-      this.selectedTab = undefined;
-    }
+    // Select the next, if any
+    this.selectTab(nextTab);
+    console.log('reselected after delete, ', this.selectedTab.id);
   }
 
   @action public selectTab(tab: DuiPanelTab) {

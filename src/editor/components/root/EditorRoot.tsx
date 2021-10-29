@@ -1,9 +1,9 @@
 import { Button, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
+
 import { AppState } from '../../../AppState';
 import { DockableUI } from '../dockable-ui/DockableUI';
-import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
 import { PanelTabType } from '../../state/panels/PanelTabType';
 import { TabBodyRenderer } from './TabBodyRenderer';
 import { EditorNavbar } from '../navbar/EditorNavbar';
@@ -33,35 +33,6 @@ export class EditorRoot extends React.Component<Props> {
           />
         </div>
       </div>
-    );
-  }
-
-  private renderNavbarOptions() {
-    const { appState } = this.props;
-    const { dockableUiState } = appState;
-
-    return (
-      <>
-        Horizontal:
-        <Button text={'One panel'} onClick={() => dockableUiState.setFlatLayout(1)} />
-        <Button text={'Two panel'} onClick={() => dockableUiState.setFlatLayout(2)} />
-        <Button text={'Three panel'} onClick={() => dockableUiState.setFlatLayout(3)} />
-        Vertical:
-        <Button
-          text={'One panel'}
-          onClick={() => dockableUiState.setFlatLayout(1, DuiPanelContainerFlow.COLUMN)}
-        />
-        <Button
-          text={'Two panel'}
-          onClick={() => dockableUiState.setFlatLayout(2, DuiPanelContainerFlow.COLUMN)}
-        />
-        <Button
-          text={'Three panel'}
-          onClick={() => dockableUiState.setFlatLayout(3, DuiPanelContainerFlow.COLUMN)}
-        />
-        Nested:
-        <Button text={'Nested 3'} onClick={() => dockableUiState.setNestedLayout()} />
-      </>
     );
   }
 

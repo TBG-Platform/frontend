@@ -132,6 +132,7 @@ export class DockableUIState {
   @action public closeTab(tabId: string, panel: DuiPanel) {
     // Get panel to delete the tab
     panel.removeTab(tabId);
+    this.panelMap.set(panel.id, panel);
 
     // Fire event for tab deletion to update consumers
     if (this.onDeleteTab) {
