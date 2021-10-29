@@ -139,7 +139,7 @@ export class DockableUIState {
     }
   }
 
-  @action public setFlatLayout = (panelCount: number, flow?: DuiPanelContainerFlow) => {
+  @action public setFlatLayout(panelCount: number, flow?: DuiPanelContainerFlow) {
     this.clearLayoutData();
 
     const container = new DuiPanelContainer(RandomUtils.createId(), '');
@@ -156,9 +156,9 @@ export class DockableUIState {
 
     this.rootContainer = container;
     this.containerMap.set(this.rootContainer.id, this.rootContainer);
-  };
+  }
 
-  @action public setNestedLayout = () => {
+  @action public setNestedLayout() {
     this.clearLayoutData();
 
     // Root container
@@ -187,7 +187,7 @@ export class DockableUIState {
     this.containerMap.set(rightContainer.id, rightContainer);
 
     this.rootContainer = rootContainer;
-  };
+  }
 
   @action private deleteContainer(container: DuiPanelContainer) {
     this.containerMap.delete(container.id);

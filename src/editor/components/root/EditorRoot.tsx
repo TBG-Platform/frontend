@@ -6,6 +6,7 @@ import { DockableUI } from '../dockable-ui/DockableUI';
 import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
 import { PanelTabType } from '../../state/panels/PanelTabType';
 import { TabBodyRenderer } from './TabBodyRenderer';
+import { EditorNavbar } from '../navbar/EditorNavbar';
 
 import './editor-root.scss';
 
@@ -20,7 +21,9 @@ export class EditorRoot extends React.Component<Props> {
 
     return (
       <div className={'editor-root'}>
-        <div className={'editor-navbar-area'}>{this.renderNavbarOptions()}</div>
+        <div className={'editor-navbar-area'}>
+          <EditorNavbar appState={appState} />
+        </div>
         <div className={'editor-main-area'}>
           <DockableUI
             duiState={appState.dockableUiState}
