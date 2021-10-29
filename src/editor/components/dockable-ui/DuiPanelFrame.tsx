@@ -9,6 +9,11 @@ import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer
 
 import './dui-panel-frame.scss';
 
+interface TabDragData {
+  tabId: string;
+  fromPanelId: string;
+}
+
 interface Props {
   containerId: string;
   panel: DuiPanel;
@@ -18,6 +23,8 @@ interface Props {
 
 @observer
 export class DuiPanelFrame extends React.Component<Props> {
+  private panelBodyRef = React.createRef<HTMLDivElement>();
+
   public render() {
     const { panel } = this.props;
 
@@ -31,16 +38,27 @@ export class DuiPanelFrame extends React.Component<Props> {
           <div className={'navbar-options'}>{this.renderPanelOptions()}</div>
         </div>
 
-        <div className={'panel-frame-body'}></div>
+        <div
+          ref={this.panelBodyRef}
+          className={'panel-frame-body'}
+          onDragOver={this.onDragOverPanel}
+          onDragLeave={this.onDragOverLeavePanel}
+          onDrop={this.onDrop}
+        ></div>
       </div>
     );
   }
 
   private renderPanelTab(tab: DuiPanelTab) {
-    console.log('renderPanelTab');
-
     return (
-      <div key={`panel-tab-${tab.id}`} id={tab.id} className={'panel-tab'} draggable={'true'}>
+      <div
+        key={`panel-tab-${tab.id}`}
+        id={tab.id}
+        className={'panel-tab'}
+        draggable={'true'}
+        onDragStart={this.onDragStartTab}
+        onDragEnd={this.onDragEndTab}
+      >
         {tab.label}
       </div>
     );
@@ -85,4 +103,55 @@ export class DuiPanelFrame extends React.Component<Props> {
       </Popover2>
     );
   }
+
+  private onDragStartTab = (e: React.DragEvent<HTMLDivElement>) => {
+    const { panel } = this.props;
+
+    const target = e.target as HTMLDivElement;
+
+    // Set the transfer data to hold tab id and 'from' panel
+    const data: TabDragData = {
+      tabId: target.id,
+      fromPanelId: panel.id,
+    };
+
+    e.dataTransfer.setData('text', JSON.stringify(data));
+  };
+
+  private onDragEndTab = (_e: React.DragEvent<HTMLDivElement>) => {
+    this.panelBodyRef.current?.classList.remove('hover-backdrop');
+  };
+
+  private onDragOverPanel = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Show the hover guide backdrop
+
+    this.panelBodyRef.current?.classList.add('hover-backdrop');
+
+    return false;
+  };
+
+  private onDragOverLeavePanel = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Due to tabs for this panel being nested, causes flicker otherwise
+    if (e.currentTarget.contains(e.relatedTarget as HTMLElement)) {
+      return;
+    }
+
+    this.panelBodyRef.current.classList.remove('hover-backdrop');
+  };
+
+  private onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    this.panelBodyRef.current?.classList.remove('hover-backdrop');
+
+    const data: TabDragData = JSON.parse(e.dataTransfer.getData('text'));
+
+    console.log('drag data: ', data);
+
+    e.dataTransfer.clearData();
+  };
 }
