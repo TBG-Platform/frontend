@@ -25,7 +25,7 @@ export class DuiPanel {
   }
 
   @action public removeTab(id: string) {
-    let nextTab: DuiPanelTab = undefined;
+    let nextTab: DuiPanelTab = this.selectedTab;
 
     // Is this the selected tab?
     if (this.selectedTab?.id === id) {

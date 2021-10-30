@@ -44,7 +44,7 @@ export class EditorRootState {
     this.createTabState(tab);
 
     // Give it to dockable ui to render
-    this.dockableUiState.addPanelTab(panelId, tab);
+    this.dockableUiState.addPanelTab(tab, panelId);
   };
 
   public getTab(id: string): PanelTab | undefined {

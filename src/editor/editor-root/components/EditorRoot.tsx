@@ -78,7 +78,7 @@ export class EditorRoot extends React.Component<Props> {
         <NonIdealState
           icon={'page-layout'}
           title={'No panels'}
-          description={'You have no panels! Click here to create one, or choose a layout.'}
+          description={'You have no panels! Click here to add one, or choose a layout.'}
           action={
             <Button
               icon={'add'}

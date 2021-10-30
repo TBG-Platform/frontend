@@ -13,6 +13,7 @@ export class DockableUIState {
 
   private containerMap = new Map<string, DuiPanelContainer>();
   private panelMap = new Map<string, DuiPanel>();
+  private selectedPanelId = '';
 
   public addEventListener(event: DockableUIEvent, callback: (tabId: string) => void) {
     switch (event) {
@@ -28,6 +29,11 @@ export class DockableUIState {
 
   public getPanel(id: string): DuiPanel | undefined {
     return this.panelMap.get(id);
+  }
+
+  public selectPanel(panelId: string) {
+    this.selectedPanelId = panelId;
+    console.log('selected panel', this.selectedPanelId);
   }
 
   @action public splitPanel = (
@@ -95,7 +101,7 @@ export class DockableUIState {
     }
   };
 
-  @action public addPanelTab(panelId: string, tab: DuiPanelTab) {
+  @action public addPanelTab(tab: DuiPanelTab, panelId: string) {
     const panel = this.panelMap.get(panelId);
     if (!panel) {
       return;

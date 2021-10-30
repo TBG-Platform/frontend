@@ -27,13 +27,13 @@ export class DuiPanelFrame extends React.Component<Props> {
   private panelBodyRef = React.createRef<HTMLDivElement>();
 
   public render() {
-    const { panel, renderTabBody } = this.props;
+    const { panel, duiState, renderTabBody } = this.props;
 
     // Get the id of the selected tab to render in the panel body
     const tabId = panel.selectedTab?.id;
 
     return (
-      <div className={'dui-panel-frame'}>
+      <div className={'dui-panel-frame'} onClick={() => duiState.selectPanel(panel.id)}>
         <div className={'panel-frame-navbar'}>
           <div className={'navbar-tab-list'}>
             {panel.tabs.map((tab) => this.renderPanelTab(tab))}
