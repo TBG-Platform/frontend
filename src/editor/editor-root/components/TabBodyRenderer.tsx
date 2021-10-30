@@ -1,6 +1,6 @@
 import React from 'react';
+import { PageEditor } from '../../page-editor/components/PageEditor';
 import { StoryGraph } from '../../story-graph/components/StoryGraphDetails';
-
 import { EditorRootState, PanelTab } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
 import { TestWidget } from './TestWidget';
@@ -16,6 +16,8 @@ export class TabBodyRenderer {
         break;
       case PanelTabType.STORY_GRAPH:
         return <StoryGraph storyGraphState={editorState.storyGraphState} />;
+      case PanelTabType.PAGE_EDITOR:
+        return <PageEditor />;
     }
 
     // If there was no state or component for this tab type

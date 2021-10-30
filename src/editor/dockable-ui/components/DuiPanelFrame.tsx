@@ -49,7 +49,7 @@ export class DuiPanelFrame extends React.Component<Props> {
           onDragLeave={this.onDragOverLeavePanel}
           onDrop={this.onDrop}
         >
-          {tabId !== undefined ? renderTabBody(tabId) : <></>}
+          {tabId && renderTabBody(tabId)}
         </div>
       </div>
     );

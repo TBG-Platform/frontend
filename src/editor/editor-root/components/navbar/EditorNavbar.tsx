@@ -8,6 +8,7 @@ import { EditorRootState } from '../../state/EditorRootState';
 import { PanelTabType } from '../../state/PanelTabType';
 
 import './editor-navbar.scss';
+import { PageSelector } from './PageSelector';
 
 interface Props {
   editorState: EditorRootState;
@@ -59,7 +60,12 @@ export class EditorNavbar extends React.Component<Props> {
               text={'Story graph'}
               onClick={() => editorState.addTab(PanelTabType.STORY_GRAPH)}
             />
-            <MenuItem text={'Page editor'} disabled />
+
+            <MenuItem
+              icon={'manual'}
+              text={'Page editor'}
+              onClick={() => editorState.addTab(PanelTabType.PAGE_EDITOR)}
+            />
             <MenuItem text={'Details inspector'} disabled />
           </Menu>
         }

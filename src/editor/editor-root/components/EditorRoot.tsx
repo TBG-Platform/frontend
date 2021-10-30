@@ -50,6 +50,11 @@ export class EditorRoot extends React.Component<Props> {
           text={'Story graph'}
           onClick={() => editorState.addTab(PanelTabType.STORY_GRAPH, panelId)}
         />
+        <MenuItem
+          icon={'manual'}
+          text={'Page editor'}
+          onClick={() => editorState.addTab(PanelTabType.PAGE_EDITOR, panelId)}
+        />
       </>
     );
   };
