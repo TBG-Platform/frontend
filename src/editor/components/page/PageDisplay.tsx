@@ -6,7 +6,7 @@ import { PageItemWidget } from './PageItemWidget';
 import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
 import { DetailsPanelFocus } from '../../state/DetailsPanelState';
 
-import './page-display.scss';
+//import './page-display.scss';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { Menu, MenuItem } from '@blueprintjs/core';
 import { Vector } from '../../../utils/Vector';
