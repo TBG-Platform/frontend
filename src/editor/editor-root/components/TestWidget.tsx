@@ -1,6 +1,6 @@
 import { NonIdealState } from '@blueprintjs/core';
 import React from 'react';
-import { TestState } from '../../state/panels/TestState';
+import { TestState } from '../state/TestState';
 
 interface Props {
   testState: TestState;

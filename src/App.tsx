@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { AppState } from './AppState';
-
-import { EditorRoot } from './editor/components/root/EditorRoot';
+import { EditorRoot } from './editor/editor-root/components/EditorRoot';
 
 import './app.scss';
 

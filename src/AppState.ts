@@ -1,7 +1,7 @@
 import { DockableUIState } from './editor/dockable-ui/state/DockableUIState';
 import { DuiPanelTab } from './editor/dockable-ui/state/DuiPanel';
-import { PanelTabType } from './editor/state/panels/PanelTabType';
-import { TestState } from './editor/state/panels/TestState';
+import { PanelTabType } from './editor/editor-root/state/PanelTabType';
+import { TestState } from './editor/editor-root/state/TestState';
 import { StoryEditorState } from './editor/state/StoryEditorState';
 import { RandomUtils } from './utils/RandomUtils';
 

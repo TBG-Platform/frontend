@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppState, PanelTab } from '../../../AppState';
-import { PanelTabType } from '../../state/panels/PanelTabType';
+import { PanelTabType } from '../state/PanelTabType';
 import { TestWidget } from './TestWidget';
 
 export class TabBodyRenderer {
