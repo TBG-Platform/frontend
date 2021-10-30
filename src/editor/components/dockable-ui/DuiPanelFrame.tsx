@@ -75,7 +75,10 @@ export class DuiPanelFrame extends React.Component<Props> {
         <Icon
           className={'tab-delete'}
           icon={'small-cross'}
-          onClick={() => duiState.closeTab(tab.id, panel)}
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+            e.stopPropagation();
+            duiState.closeTab(tab.id, panel);
+          }}
         />
       </div>
     );

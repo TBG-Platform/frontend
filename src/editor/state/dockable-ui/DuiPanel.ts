@@ -45,11 +45,13 @@ export class DuiPanel {
 
     // Select the next, if any
     this.selectTab(nextTab);
-    console.log('reselected after delete, ', this.selectedTab.id);
   }
 
   @action public selectTab(tab: DuiPanelTab) {
-    this.selectedTab = tab;
+    // Sanity check - does this panel still own the tab
+    if (this.tabs.find((t) => t.id === tab.id)) {
+      this.selectedTab = tab;
+    }
   }
 
   public isSelected(tab: DuiPanelTab) {
