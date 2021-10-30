@@ -72,6 +72,7 @@ export class EditorRootState {
   };
 
   private removeTabState(tab: PanelTab) {
+    // Remove any lazy-loaded states for the tab just closed
     switch (tab.type) {
       case PanelTabType.TEST:
         this.testStates = this.testStates.filter((ts) => ts.tabId !== tab.id);

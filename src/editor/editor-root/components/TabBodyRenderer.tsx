@@ -1,4 +1,5 @@
 import React from 'react';
+import { StoryGraph } from '../../story-graph/components/StoryGraphDetails';
 
 import { EditorRootState, PanelTab } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
@@ -12,6 +13,9 @@ export class TabBodyRenderer {
         if (testState) {
           return <TestWidget testState={testState} />;
         }
+        break;
+      case PanelTabType.STORY_GRAPH:
+        return <StoryGraph storyGraphState={editorState.storyGraphState} />;
     }
 
     // If there was no state or component for this tab type

@@ -10,7 +10,7 @@ interface Props {
 }
 
 @observer
-export class StoryGraphDetails extends React.Component<Props> {
+export class StoryGraph extends React.Component<Props> {
   public render() {
     const { storyGraphState } = this.props;
 
