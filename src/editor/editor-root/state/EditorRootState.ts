@@ -1,7 +1,9 @@
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
-import { StoryEditorState } from '../../state/StoryEditorState';
+import { Page } from '../../state/Page';
+import { Story } from '../../state/Story';
+import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
 import { PanelTabType } from './PanelTabType';
 import { TestState } from './TestState';
 
@@ -10,18 +12,23 @@ export interface PanelTab extends DuiPanelTab {
 }
 
 export class EditorRootState {
-  public storyEditorState: StoryEditorState;
+  public story: Story;
+  public storyGraphState = new StoryGraphState();
   public dockableUiState: DockableUIState;
   public testStates: TestState[] = [];
   private tabMap = new Map<string, PanelTab>();
 
   constructor() {
-    // Setup dockable ui state
+    // Setup story - will be done elsewhere later and passed into constructor
+    const story = new Story();
+    const firstPage = new Page();
+    firstPage.setName('First page');
+    story.addPage(firstPage);
+    this.storyGraphState.addPageNode(firstPage.id, firstPage.name);
+    this.story = story;
+
     this.dockableUiState = new DockableUIState();
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
-
-    this.storyEditorState = new StoryEditorState();
-    this.storyEditorState.createNewStory();
   }
 
   public addTab = (panelId: string, tabType: PanelTabType) => {
