@@ -37,6 +37,8 @@ export class DuiPanel {
         nextTab = this.tabs[idx - 1];
       } else if (this.tabs.length > 1) {
         nextTab = this.tabs[idx + 1];
+      } else {
+        nextTab = undefined;
       }
     }
 
