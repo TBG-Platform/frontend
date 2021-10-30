@@ -1,4 +1,5 @@
 import { action, observable } from 'mobx';
+import { StoryEventType, storyObserver } from '../events/StoryEventObserver';
 import { Page } from './Page';
 
 export class Story {
@@ -12,6 +13,8 @@ export class Story {
 
   @action public addPage = (page: Page) => {
     this.pages.push(page);
+
+    storyObserver.fireEvent({ type: StoryEventType.NEW_PAGE, page });
   };
 
   @action public selectPage = (pageId: string) => {

@@ -1,8 +1,35 @@
 import { action, observable } from 'mobx';
 import { FlowElement, Node } from 'react-flow-renderer';
+import { storyObserver, StoryEvent, StoryEventType } from '../../events/StoryEventObserver';
+import { Page } from '../../state/Page';
 
 export class StoryGraphState {
   @observable.ref public elements: FlowElement[] = [];
+
+  constructor() {
+    storyObserver.addGameEventListener(this.onNewPage, StoryEventType.NEW_PAGE);
+  }
+
+  private onNewPage = (event: StoryEvent) => {
+    if (event.type !== StoryEventType.NEW_PAGE) {
+      return;
+    }
+
+    const page: Page = event.page;
+
+    const type = this.elements.length ? 'default' : 'input';
+
+    const node: Node = {
+      id: page.id,
+      type,
+      data: { label: page.name },
+      position: { x: 0, y: 0 },
+    };
+
+    this.elements.push(node);
+
+    this.elements = [...this.elements];
+  };
 
   @action public addPageNode(id: string, name: string) {
     // Only first node is of type input

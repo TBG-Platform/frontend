@@ -24,7 +24,6 @@ export class EditorRootState {
     const firstPage = new Page();
     firstPage.setName('First page');
     story.addPage(firstPage);
-    this.storyGraphState.addPageNode(firstPage.id, firstPage.name);
     this.story = story;
 
     this.dockableUiState = new DockableUIState();

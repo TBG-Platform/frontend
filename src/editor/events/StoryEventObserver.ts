@@ -1,9 +1,11 @@
+import { Page } from '../state/Page';
+
 export enum StoryEventType {
   ANY = 'event-any', // encompasses all event types
   NEW_PAGE = 'event-new-page',
 }
 
-export type StoryEvent = { type: StoryEventType.NEW_PAGE; parameter: string };
+export type StoryEvent = { type: StoryEventType.NEW_PAGE; page: Page };
 
 type StoryEventListener = (event: StoryEvent) => void;
 
@@ -30,4 +32,4 @@ class StoryEventObserver {
   }
 }
 
-export const gameObserver = new StoryEventObserver();
+export const storyObserver = new StoryEventObserver();
