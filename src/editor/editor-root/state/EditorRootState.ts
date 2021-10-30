@@ -30,7 +30,7 @@ export class EditorRootState {
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
   }
 
-  public addTab = (panelId: string, tabType: PanelTabType) => {
+  public addTab = (tabType: PanelTabType, panelId?: string) => {
     // Create the tab to pass to dockable ui state
     const tabId = RandomUtils.createId();
     const tab: PanelTab = {

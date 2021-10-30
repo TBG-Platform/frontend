@@ -5,6 +5,7 @@ import React from 'react';
 
 import { DuiPanelContainerFlow } from '../../../dockable-ui/state/DuiPanelContainer';
 import { EditorRootState } from '../../state/EditorRootState';
+import { PanelTabType } from '../../state/PanelTabType';
 
 import './editor-navbar.scss';
 
@@ -44,6 +45,8 @@ export class EditorNavbar extends React.Component<Props> {
   }
 
   private renderViewMenu() {
+    const { editorState } = this.props;
+
     return (
       <Popover2
         position={Position.BOTTOM}
@@ -51,7 +54,11 @@ export class EditorNavbar extends React.Component<Props> {
         className={'menu-root-wrapper'}
         content={
           <Menu>
-            <MenuItem text={'Story graph'} disabled />
+            <MenuItem
+              icon={'diagram-tree'}
+              text={'Story graph'}
+              onClick={() => editorState.addTab(PanelTabType.STORY_GRAPH)}
+            />
             <MenuItem text={'Page editor'} disabled />
             <MenuItem text={'Details inspector'} disabled />
           </Menu>

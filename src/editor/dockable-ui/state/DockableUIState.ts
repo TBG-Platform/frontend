@@ -32,8 +32,9 @@ export class DockableUIState {
   }
 
   public selectPanel(panelId: string) {
-    this.selectedPanelId = panelId;
-    console.log('selected panel', this.selectedPanelId);
+    if (this.panelMap.has(panelId)) {
+      this.selectedPanelId = panelId;
+    }
   }
 
   @action public splitPanel = (
@@ -101,10 +102,16 @@ export class DockableUIState {
     }
   };
 
-  @action public addPanelTab(tab: DuiPanelTab, panelId: string) {
-    const panel = this.panelMap.get(panelId);
+  @action public addPanelTab(tab: DuiPanelTab, panelId?: string) {
+    let panel = this.panelMap.get(panelId ?? this.selectedPanelId);
     if (!panel) {
-      return;
+      // If there are no panels, make one
+      if (!this.panelMap.size) {
+        this.setFlatLayout(1);
+      }
+
+      // Then grab the first panel
+      panel = this.panelMap.values().next().value;
     }
 
     panel.addTab(tab);

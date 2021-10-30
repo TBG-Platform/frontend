@@ -43,12 +43,12 @@ export class EditorRoot extends React.Component<Props> {
       <>
         <MenuItem
           text={'Add test tab'}
-          onClick={() => editorState.addTab(panelId, PanelTabType.TEST)}
+          onClick={() => editorState.addTab(PanelTabType.TEST, panelId)}
         />
         <MenuItem
           icon={'diagram-tree'}
           text={'Story graph'}
-          onClick={() => editorState.addTab(panelId, PanelTabType.STORY_GRAPH)}
+          onClick={() => editorState.addTab(PanelTabType.STORY_GRAPH, panelId)}
         />
       </>
     );
