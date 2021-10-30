@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { DockableUIState } from '../../state/dockable-ui/DockableUIState';
+import { DockableUIState } from '../state/DockableUIState';
 import { DuiPanelContainerRenderer } from './DuiPanelContainerRenderer';
 import { DuiPanelFrame } from './DuiPanelFrame';
 

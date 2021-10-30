@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  DuiPanelContainer,
-  DuiPanelContainerFlow,
-} from '../../state/dockable-ui/DuiPanelContainer';
+import { DuiPanelContainer, DuiPanelContainerFlow } from '../state/DuiPanelContainer';
 
 import './dui-panel-resizer.scss';
 

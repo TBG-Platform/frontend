@@ -1,5 +1,5 @@
-import { DockableUIState } from './editor/state/dockable-ui/DockableUIState';
-import { DuiPanelTab } from './editor/state/dockable-ui/DuiPanel';
+import { DockableUIState } from './editor/dockable-ui/state/DockableUIState';
+import { DuiPanelTab } from './editor/dockable-ui/state/DuiPanel';
 import { PanelTabType } from './editor/state/panels/PanelTabType';
 import { TestState } from './editor/state/panels/TestState';
 import { StoryEditorState } from './editor/state/StoryEditorState';
@@ -10,7 +10,7 @@ export interface PanelTab extends DuiPanelTab {
 }
 
 export class AppState {
-  public storyEditorState?: StoryEditorState;
+  public storyEditorState: StoryEditorState;
   public dockableUiState: DockableUIState;
   public testStates: TestState[] = [];
   private tabMap = new Map<string, PanelTab>();

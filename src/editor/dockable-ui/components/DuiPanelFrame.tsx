@@ -3,9 +3,9 @@ import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Position } from 'react-flow-renderer';
-import { DockableUIState } from '../../state/dockable-ui/DockableUIState';
-import { DuiPanel, DuiPanelTab } from '../../state/dockable-ui/DuiPanel';
-import { DuiPanelContainerFlow } from '../../state/dockable-ui/DuiPanelContainer';
+import { DockableUIState } from '../state/DockableUIState';
+import { DuiPanel, DuiPanelTab } from '../state/DuiPanel';
+import { DuiPanelContainerFlow } from '../state/DuiPanelContainer';
 
 import './dui-panel-frame.scss';
 

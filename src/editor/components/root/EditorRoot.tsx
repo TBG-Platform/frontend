@@ -3,10 +3,10 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 import { AppState } from '../../../AppState';
-import { DockableUI } from '../dockable-ui/DockableUI';
 import { PanelTabType } from '../../state/panels/PanelTabType';
 import { TabBodyRenderer } from './TabBodyRenderer';
 import { EditorNavbar } from '../navbar/EditorNavbar';
+import { DockableUI } from '../../dockable-ui/components/DockableUI';
 
 import './editor-root.scss';
 
