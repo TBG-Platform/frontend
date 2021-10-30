@@ -6,7 +6,7 @@ import { AppState } from '../../../AppState';
 import { PanelTabType } from '../state/PanelTabType';
 import { TabBodyRenderer } from './TabBodyRenderer';
 import { DockableUI } from '../../dockable-ui/components/DockableUI';
-import { EditorNavbar } from '../../components/navbar/EditorNavbar';
+import { EditorNavbar } from './navbar/EditorNavbar';
 
 import './editor-root.scss';
 

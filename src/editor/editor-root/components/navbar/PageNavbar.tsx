@@ -1,10 +1,10 @@
 import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { StandardButton } from '../../../common/buttons/StandardButton';
+import { StandardButton } from '../../../../common/buttons/StandardButton';
 
-import { EditableText } from '../../../common/inputs/editable-text/EditableText';
-import { StoryEditorState } from '../../state/StoryEditorState';
+import { EditableText } from '../../../../common/inputs/editable-text/EditableText';
+import { StoryEditorState } from '../../../state/StoryEditorState';
 
 import './page-navbar.scss';
 

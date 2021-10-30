@@ -2,8 +2,8 @@ import { Menu, MenuItem, Position } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { AppState } from '../../../AppState';
-import { DuiPanelContainerFlow } from '../../dockable-ui/state/DuiPanelContainer';
+import { AppState } from '../../../../AppState';
+import { DuiPanelContainerFlow } from '../../../dockable-ui/state/DuiPanelContainer';
 
 import './editor-navbar.scss';
 
