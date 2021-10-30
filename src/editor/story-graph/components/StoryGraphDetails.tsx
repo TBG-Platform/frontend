@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import ReactFlow from 'react-flow-renderer';
-
-import { StoryGraphState } from '../../../state/StoryGraphState';
+import { StoryGraphState } from '../state/StoryGraphState';
 
 import './story-graph-details.scss';
 

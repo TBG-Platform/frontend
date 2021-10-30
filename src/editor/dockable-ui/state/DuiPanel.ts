@@ -43,8 +43,8 @@ export class DuiPanel {
     // Remove the tab
     this.tabs = this.tabs.filter((tab) => tab.id !== id);
 
-    // Select the next, if any
-    this.selectTab(nextTab);
+    // Select the next tab
+    this.selectedTab = nextTab;
   }
 
   @action public selectTab(tab: DuiPanelTab) {

@@ -31,7 +31,6 @@ export class DuiPanelFrame extends React.Component<Props> {
 
     // Get the id of the selected tab to render in the panel body
     const tabId = panel.selectedTab?.id;
-    console.log('frame render, selected tab id', tabId);
 
     return (
       <div className={'dui-panel-frame'}>
@@ -50,7 +49,7 @@ export class DuiPanelFrame extends React.Component<Props> {
           onDragLeave={this.onDragOverLeavePanel}
           onDrop={this.onDrop}
         >
-          {tabId && renderTabBody(tabId)}
+          {tabId !== undefined ? renderTabBody(tabId) : <></>}
         </div>
       </div>
     );

@@ -5,7 +5,7 @@ import { Vector } from '../../utils/Vector';
 import { DetailsPanelFocus, DetailsPanelState } from './DetailsPanelState';
 import { Page } from './Page';
 import { Story } from './Story';
-import { StoryGraphState } from './StoryGraphState';
+import { StoryGraphState } from '../story-graph/state/StoryGraphState';
 
 export class StoryEditorState {
   @observable.ref public story?: Story;

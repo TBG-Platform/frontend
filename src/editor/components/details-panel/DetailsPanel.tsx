@@ -8,7 +8,7 @@ import { DetailsPanelFocus, DetailsPanelState } from '../../state/DetailsPanelSt
 import { StoryEditorState } from '../../state/StoryEditorState';
 
 import './details-panel.scss';
-import { StoryGraphDetails } from './story-graph-details/StoryGraphDetails';
+import { StoryGraphDetails } from '../../story-graph/components/StoryGraphDetails';
 
 interface Props {
   storyEditorState: StoryEditorState;
