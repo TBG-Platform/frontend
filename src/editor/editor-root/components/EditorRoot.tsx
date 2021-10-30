@@ -2,31 +2,31 @@ import { Button, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { AppState } from '../../../AppState';
 import { PanelTabType } from '../state/PanelTabType';
 import { TabBodyRenderer } from './TabBodyRenderer';
 import { DockableUI } from '../../dockable-ui/components/DockableUI';
 import { EditorNavbar } from './navbar/EditorNavbar';
+import { EditorRootState } from '../state/EditorRootState';
 
 import './editor-root.scss';
 
 interface Props {
-  appState: AppState;
+  editorState: EditorRootState;
 }
 
 @observer
 export class EditorRoot extends React.Component<Props> {
   public render() {
-    const { appState } = this.props;
+    const { editorState } = this.props;
 
     return (
       <div className={'editor-root'}>
         <div className={'editor-navbar-area'}>
-          <EditorNavbar appState={appState} />
+          <EditorNavbar editorState={editorState} />
         </div>
         <div className={'editor-main-area'}>
           <DockableUI
-            duiState={appState.dockableUiState}
+            duiState={editorState.dockableUiState}
             renderTabBody={this.renderTabBody}
             renderPanelMenuItems={this.renderPanelMenuItems}
             renderNoPanels={this.renderNoPanels}
@@ -37,36 +37,36 @@ export class EditorRoot extends React.Component<Props> {
   }
 
   private renderPanelMenuItems = (panelId: string) => {
-    const { appState } = this.props;
+    const { editorState } = this.props;
 
     return (
       <>
         <MenuItem
           text={'Add test tab'}
-          onClick={() => appState.addTab(panelId, PanelTabType.TEST)}
+          onClick={() => editorState.addTab(panelId, PanelTabType.TEST)}
         />
       </>
     );
   };
 
   private renderTabBody = (tabId: string) => {
-    const { appState } = this.props;
+    const { editorState } = this.props;
 
     // Get the type of tab we're rendering
-    const tab = appState.getTab(tabId);
+    const tab = editorState.getTab(tabId);
     if (!tab) {
       return;
     }
 
     // Get the component for this tab type
-    const content = TabBodyRenderer.getTabBody(tab, appState);
+    const content = TabBodyRenderer.getTabBody(tab, editorState);
 
     return <div className={'tab-body'}>{content}</div>;
   };
 
   private renderNoPanels = () => {
-    const { appState } = this.props;
-    const { dockableUiState } = appState;
+    const { editorState } = this.props;
+    const { dockableUiState } = editorState;
 
     return (
       <div className={'no-panels-screen'}>

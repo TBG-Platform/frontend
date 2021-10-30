@@ -9,6 +9,6 @@ import './app.scss';
 export class App extends React.PureComponent {
   private readonly appState = new AppState();
   public render() {
-    return <EditorRoot appState={this.appState} />;
+    return <EditorRoot editorState={this.appState.editorRootState} />;
   }
 }

@@ -2,13 +2,14 @@ import { Menu, MenuItem, Position } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { AppState } from '../../../../AppState';
+
 import { DuiPanelContainerFlow } from '../../../dockable-ui/state/DuiPanelContainer';
+import { EditorRootState } from '../../state/EditorRootState';
 
 import './editor-navbar.scss';
 
 interface Props {
-  appState: AppState;
+  editorState: EditorRootState;
 }
 
 @observer
@@ -62,7 +63,7 @@ export class EditorNavbar extends React.Component<Props> {
   }
 
   private renderLayoutMenu() {
-    const { appState } = this.props;
+    const { editorState } = this.props;
 
     return (
       <Popover2
@@ -73,17 +74,17 @@ export class EditorNavbar extends React.Component<Props> {
           <Menu>
             <MenuItem
               text={'Three column'}
-              onClick={() => appState.dockableUiState.setFlatLayout(3)}
+              onClick={() => editorState.dockableUiState.setFlatLayout(3)}
             />
             <MenuItem
               text={'Three row'}
               onClick={() =>
-                appState.dockableUiState.setFlatLayout(3, DuiPanelContainerFlow.COLUMN)
+                editorState.dockableUiState.setFlatLayout(3, DuiPanelContainerFlow.COLUMN)
               }
             />
             <MenuItem
               text={'Nested 3'}
-              onClick={() => appState.dockableUiState.setNestedLayout()}
+              onClick={() => editorState.dockableUiState.setNestedLayout()}
             />
           </Menu>
         }

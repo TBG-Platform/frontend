@@ -1,13 +1,14 @@
 import React from 'react';
-import { AppState, PanelTab } from '../../../AppState';
+
+import { EditorRootState, PanelTab } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
 import { TestWidget } from './TestWidget';
 
 export class TabBodyRenderer {
-  public static getTabBody(tab: PanelTab, appState: AppState) {
+  public static getTabBody(tab: PanelTab, editorState: EditorRootState) {
     switch (tab.type) {
       case PanelTabType.TEST:
-        const testState = appState.testStates.find((ts) => ts.tabId === tab.id);
+        const testState = editorState.testStates.find((ts) => ts.tabId === tab.id);
         if (testState) {
           return <TestWidget testState={testState} />;
         }
