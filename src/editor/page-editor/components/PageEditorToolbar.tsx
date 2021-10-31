@@ -1,0 +1,31 @@
+import { Button } from '@blueprintjs/core';
+import { observer } from 'mobx-react';
+import React from 'react';
+import { PageSelector } from '../../editor-root/components/navbar/PageSelector';
+import { PageEditorState } from '../state/PageEditorState';
+
+import './page-editor-toolbar.scss';
+
+interface Props {
+  pageEditorState: PageEditorState;
+}
+
+@observer
+export class PageEditorToolbar extends React.Component<Props> {
+  public render() {
+    const { pageEditorState } = this.props;
+
+    const selectedPage = pageEditorState.selectedPage;
+
+    return (
+      <div className={'page-editor-toolbar'}>
+        <PageSelector
+          pages={pageEditorState.pages}
+          target={
+            <Button text={selectedPage.name} minimal outlined small rightIcon={'chevron-down'} />
+          }
+        />
+      </div>
+    );
+  }
+}
