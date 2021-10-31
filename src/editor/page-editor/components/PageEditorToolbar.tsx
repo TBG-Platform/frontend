@@ -1,6 +1,7 @@
-import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
+import { Button, ButtonGroup } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
+
 import { StandardButton } from '../../../common/buttons/StandardButton';
 import { StandardDivider } from '../../../common/dividers/StandardDivider';
 import { PageSelector } from '../../editor-root/components/navbar/PageSelector';
