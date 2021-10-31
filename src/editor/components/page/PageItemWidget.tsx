@@ -23,19 +23,20 @@ export class PageItemWidget extends React.Component<Props> {
   private pageItemRef = React.createRef<HTMLDivElement>();
   private dragOffset = new Vector();
   private pageResizeObserver: ResizeObserver;
-  @observable fontSize = 0;
+  @observable private pageWidth = 0;
 
   constructor(props: Props) {
     super(props);
 
     // Setup page width
+    this.pageWidth = props.pageDiv.getBoundingClientRect().width;
   }
 
   componentDidMount() {
     const { pageDiv } = this.props;
 
     this.pageResizeObserver = new ResizeObserver((_entries: ResizeObserverEntry[]) => {
-      console.log('page resized');
+      this.pageWidth = pageDiv.getBoundingClientRect().width;
     });
 
     this.pageResizeObserver.observe(pageDiv);
@@ -76,8 +77,8 @@ export class PageItemWidget extends React.Component<Props> {
     const { pageDiv, pageItem } = this.props;
 
     // Page item 'size' prop is percentage of page width
-    const pageRect = pageDiv.getBoundingClientRect();
-    const w = pageRect.width;
+    //    const pageRect = pageDiv.getBoundingClientRect();
+    const w = this.pageWidth;
     const s = parseFloat(pageItem.textSettings.size);
 
     const fontSize = (w / 100) * s;
