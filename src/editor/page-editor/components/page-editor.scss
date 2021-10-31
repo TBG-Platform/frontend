@@ -10,8 +10,13 @@
   .page-editor-toolbar {
     flex: 0 0 30px;
     width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
     border-bottom: 1px solid $mainBorderColor;
     background-color: white;
+
+    display: flex;
+    align-items: center;
   }
 
   .page-edit-area {

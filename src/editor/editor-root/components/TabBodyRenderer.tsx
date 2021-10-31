@@ -17,7 +17,10 @@ export class TabBodyRenderer {
       case PanelTabType.STORY_GRAPH:
         return <StoryGraph storyGraphState={editorState.storyGraphState} />;
       case PanelTabType.PAGE_EDITOR:
-        return <PageEditor />;
+        const pageEditorState = editorState.pageEditorStates.find((pes) => pes.tabId === tab.id);
+        if (pageEditorState) {
+          return <PageEditor pageEditorState={pageEditorState} />;
+        }
     }
 
     // If there was no state or component for this tab type

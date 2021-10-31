@@ -1,6 +1,7 @@
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
+import { PageEditorState } from '../../page-editor/state/PageEditorState';
 import { Page } from '../../state/Page';
 import { Story } from '../../state/Story';
 import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
@@ -14,6 +15,7 @@ export interface PanelTab extends DuiPanelTab {
 export class EditorRootState {
   public story: Story;
   public storyGraphState = new StoryGraphState();
+  public pageEditorStates: PageEditorState[] = [];
   public dockableUiState: DockableUIState;
   public testStates: TestState[] = [];
   private tabMap = new Map<string, PanelTab>();
@@ -58,6 +60,10 @@ export class EditorRootState {
         const testState = new TestState(tab.id);
         this.testStates.push(testState);
         break;
+      case PanelTabType.PAGE_EDITOR:
+        const pageEditState = new PageEditorState(tab.id, this.story.pages);
+        this.pageEditorStates.push(pageEditState);
+        break;
     }
   }
 
@@ -75,6 +81,9 @@ export class EditorRootState {
     switch (tab.type) {
       case PanelTabType.TEST:
         this.testStates = this.testStates.filter((ts) => ts.tabId !== tab.id);
+        break;
+      case PanelTabType.PAGE_EDITOR:
+        this.pageEditorStates = this.pageEditorStates.filter((pes) => pes.tabId !== tab.id);
         break;
     }
   }
