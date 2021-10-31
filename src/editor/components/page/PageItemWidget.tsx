@@ -1,7 +1,9 @@
 import { Menu, MenuItem } from '@blueprintjs/core';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
+import 'mobx-react-lite/batchingForReactDom';
 import React from 'react';
+
 import { Vector } from '../../../utils/Vector';
 import { PageItem } from '../../state/PageItem';
 
@@ -21,7 +23,7 @@ export class PageItemWidget extends React.Component<Props> {
   private dragOffset = new Vector();
 
   public render() {
-    const { pageItem, selected, onDelete } = this.props;
+    const { pageItem, selected, onClick, onDelete } = this.props;
 
     const selectedClass = selected ? 'selected' : 'unselected';
     const classNames = ['page-item-widget', selectedClass];

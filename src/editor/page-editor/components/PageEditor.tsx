@@ -1,4 +1,3 @@
-import { Button } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { PageEditorState } from '../state/PageEditorState';
@@ -40,7 +39,7 @@ export class PageEditor extends React.Component<Props> {
                 pageItem={item}
                 selected={selectedPage.isItemSelected(item.id)}
                 onClick={() => console.log('clicked widget')}
-                onDelete={() => console.log('delete widget')}
+                onDelete={selectedPage.deleteSelectedItem}
               />
             ))}
           </div>
