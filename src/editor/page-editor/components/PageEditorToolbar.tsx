@@ -1,6 +1,7 @@
 import { Button } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { StandardButton } from '../../../common/buttons/StandardButton';
 import { PageSelector } from '../../editor-root/components/navbar/PageSelector';
 import { PageEditorState } from '../state/PageEditorState';
 
