@@ -2,7 +2,6 @@ import { action, observable } from 'mobx';
 import { CSSProperties } from 'react';
 import { ColorResult } from 'react-color';
 import { EnumUtils } from '../../utils/EnumUtils';
-//import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
 
 export enum TextAlign {
   START = 'start',
@@ -111,7 +110,7 @@ export class TextSettings {
     // Size is relative to page width
     //const pageBounds = pageDisplayUtil.getPageDisplayBounds();
     // const w = pageBounds.width;
-    const s = parseFloat(size);
+    //const s = parseFloat(size);
 
     // const fontSizePx = (w / 100) * s;
 

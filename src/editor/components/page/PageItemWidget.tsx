@@ -1,5 +1,6 @@
 import { Menu, MenuItem } from '@blueprintjs/core';
 import { ContextMenu2 } from '@blueprintjs/popover2';
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import 'mobx-react-lite/batchingForReactDom';
 import React from 'react';
@@ -21,9 +22,27 @@ interface Props {
 export class PageItemWidget extends React.Component<Props> {
   private pageItemRef = React.createRef<HTMLDivElement>();
   private dragOffset = new Vector();
+  private pageResizeObserver: ResizeObserver;
+  @observable fontSize = 0;
+
+  constructor(props: Props) {
+    super(props);
+
+    // Setup page width
+  }
+
+  componentDidMount() {
+    const { pageDiv } = this.props;
+
+    this.pageResizeObserver = new ResizeObserver((_entries: ResizeObserverEntry[]) => {
+      console.log('page resized');
+    });
+
+    this.pageResizeObserver.observe(pageDiv);
+  }
 
   public render() {
-    const { pageItem, selected, onClick, onDelete } = this.props;
+    const { pageItem, selected, onDelete } = this.props;
 
     const selectedClass = selected ? 'selected' : 'unselected';
     const classNames = ['page-item-widget', selectedClass];
@@ -39,7 +58,10 @@ export class PageItemWidget extends React.Component<Props> {
           style={{ ...pageItem.settings }}
         >
           <div className={'page-item-content'} draggable={'false'}>
-            <div className={'page-item-text'} style={{ ...pageItem.textSettings.settings }}>
+            <div
+              className={'page-item-text'}
+              style={{ ...pageItem.textSettings.settings, fontSize: this.getFontSize() }}
+            >
               {pageItem.textSettings.text}
             </div>
 
@@ -48,6 +70,19 @@ export class PageItemWidget extends React.Component<Props> {
         </div>
       </WidgetContextMenu>
     );
+  }
+
+  private getFontSize() {
+    const { pageDiv, pageItem } = this.props;
+
+    // Page item 'size' prop is percentage of page width
+    const pageRect = pageDiv.getBoundingClientRect();
+    const w = pageRect.width;
+    const s = parseFloat(pageItem.textSettings.size);
+
+    const fontSize = (w / 100) * s;
+
+    return fontSize + 'px';
   }
 
   private onItemMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {

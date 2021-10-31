@@ -86,6 +86,7 @@
     background-color: $mainBackgroundColor;
     border: 1px solid $mainBorderColor;
     position: relative;
+    overflow: hidden;
 
     &.hover-backdrop {
       &::after {
