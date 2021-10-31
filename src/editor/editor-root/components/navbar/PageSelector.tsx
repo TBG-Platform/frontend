@@ -31,6 +31,7 @@ export class PageSelector extends React.Component<Props> {
   ) => {
     return (
       <MenuItem
+        key={'page-select-' + page.id}
         active={modifiers.active}
         disabled={modifiers.disabled}
         onClick={handleClick}

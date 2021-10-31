@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { PageEditorState } from '../state/PageEditorState';
 import { PageEditorToolbar } from './PageEditorToolbar';
+import { PageItemWidget } from '../../components/page/PageItemWidget';
 
 import './page-editor.scss';
 
@@ -12,6 +13,14 @@ interface Props {
 
 @observer
 export class PageEditor extends React.Component<Props> {
+  private pageRef = React.createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    if (this.pageRef.current) {
+      this.props.pageEditorState.setPageDiv(this.pageRef.current);
+    }
+  }
+
   public render() {
     const { pageEditorState } = this.props;
 
@@ -23,7 +32,17 @@ export class PageEditor extends React.Component<Props> {
           <PageEditorToolbar pageEditorState={pageEditorState} />
         </div>
         <div className={'page-edit-area'}>
-          <div className={'page-display'}></div>
+          <div ref={this.pageRef} className={'page-display'}>
+            {selectedPage.items.map((item) => (
+              <PageItemWidget
+                key={`item-` + item.id}
+                pageItem={item}
+                selected={selectedPage.isItemSelected(item.id)}
+                onClick={() => console.log('clicked widget')}
+                onDelete={() => console.log('delete widget')}
+              />
+            ))}
+          </div>
         </div>
       </div>
     );

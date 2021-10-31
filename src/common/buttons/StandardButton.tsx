@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 interface Props {
-  icon?: IconName;
+  icon: IconName;
   onClick?: () => void;
   text?: string;
   minimal?: boolean;
@@ -16,16 +16,29 @@ interface Props {
   rightIcon?: IconName;
 }
 
-export const StandardButton: React.FC<Props> = observer((props) => {
-  return (
-    <Tooltip2
-      hoverOpenDelay={500}
-      position={Position.RIGHT}
-      content={props.tooltipText}
-      disabled={props.tooltipText === undefined}
-      renderTarget={({ isOpen: isTooltipOpen, ref: ref1, ...tooltipProps }) => (
-        <Button {...props} {...tooltipProps} elementRef={ref1} />
-      )}
-    />
-  );
-});
+export const StandardButton: React.FC<Props> = observer(
+  ({ icon, onClick, text, minimal, outlined, small, large, tooltipText, className, rightIcon }) => {
+    return (
+      <Tooltip2
+        hoverOpenDelay={500}
+        position={Position.RIGHT}
+        content={tooltipText}
+        disabled={tooltipText === undefined}
+        renderTarget={({ isOpen: isTooltipOpen, ref: ref1, ...tooltipProps }) => (
+          <Button
+            className={className}
+            icon={icon}
+            text={text}
+            onClick={onClick}
+            minimal={minimal}
+            outlined={outlined}
+            large={large}
+            small={small}
+            {...tooltipProps}
+            elementRef={ref1}
+          />
+        )}
+      />
+    );
+  }
+);

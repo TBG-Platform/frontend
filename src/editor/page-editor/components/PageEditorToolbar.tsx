@@ -1,7 +1,8 @@
-import { Button } from '@blueprintjs/core';
+import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StandardButton } from '../../../common/buttons/StandardButton';
+import { StandardDivider } from '../../../common/dividers/StandardDivider';
 import { PageSelector } from '../../editor-root/components/navbar/PageSelector';
 import { PageEditorState } from '../state/PageEditorState';
 
@@ -26,6 +27,12 @@ export class PageEditorToolbar extends React.Component<Props> {
             <Button text={selectedPage.name} minimal outlined small rightIcon={'chevron-down'} />
           }
         />
+
+        <StandardDivider />
+
+        <ButtonGroup minimal>
+          <StandardButton icon={'widget'} small tooltipText={'Add page item'} />
+        </ButtonGroup>
       </div>
     );
   }
