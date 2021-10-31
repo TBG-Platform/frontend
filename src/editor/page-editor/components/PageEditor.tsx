@@ -36,6 +36,7 @@ export class PageEditor extends React.Component<Props> {
             {selectedPage.items.map((item) => (
               <PageItemWidget
                 key={`item-` + item.id}
+                pageDiv={pageEditorState.pageDiv}
                 pageItem={item}
                 selected={selectedPage.isItemSelected(item.id)}
                 onClick={() => console.log('clicked widget')}

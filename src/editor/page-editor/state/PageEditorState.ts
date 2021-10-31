@@ -7,8 +7,8 @@ export class PageEditorState {
   public tabId: string;
   @observable public pages: Page[];
   @observable.ref public selectedPage: Page;
+  public pageDiv: HTMLDivElement;
 
-  private pageDiv: HTMLDivElement;
   private addingPageWidget = false;
 
   constructor(tabId: string, pages: Page[]) {

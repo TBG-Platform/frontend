@@ -45,6 +45,7 @@ export class PageDisplay extends React.Component<Props> {
         <div ref={this.pageRef} className={'page-display'}>
           {page.items.map((item) => (
             <PageItemWidget
+              pageDiv={new HTMLDivElement()}
               key={'item-' + item.id}
               pageItem={item}
               selected={page.isItemSelected(item.id)}

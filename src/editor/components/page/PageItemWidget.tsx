@@ -2,13 +2,13 @@ import { Menu, MenuItem } from '@blueprintjs/core';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 import React from 'react';
-//import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
 import { Vector } from '../../../utils/Vector';
 import { PageItem } from '../../state/PageItem';
 
 import './page-item-widget.scss';
 
 interface Props {
+  pageDiv: HTMLDivElement;
   pageItem: PageItem;
   selected: boolean;
   onClick: () => void;
@@ -75,22 +75,22 @@ export class PageItemWidget extends React.Component<Props> {
   };
 
   private updateItemPos(mousePos: Vector) {
-    const { pageItem } = this.props;
+    const { pageDiv, pageItem } = this.props;
 
     // Get mouse pos relative to page pos
-    // const pageRect = pageDisplayUtil.getPageDisplayBounds();
-    // const pagePos = new Vector(pageRect.left, pageRect.top);
-    // mousePos.sub(pagePos);
+    const pageRect = pageDiv.getBoundingClientRect();
+    const pagePos = new Vector(pageRect.left, pageRect.top);
+    mousePos.sub(pagePos);
 
-    // // Adjust by drag offset
-    // mousePos.sub(this.dragOffset);
+    // Adjust by drag offset
+    mousePos.sub(this.dragOffset);
 
-    // // Get position as percentage values
-    // const leftPercent = (mousePos.x / pageRect.width) * 100;
-    // const topPercent = (mousePos.y / pageRect.height) * 100;
+    // Get position as percentage values
+    const leftPercent = (mousePos.x / pageRect.width) * 100;
+    const topPercent = (mousePos.y / pageRect.height) * 100;
 
-    // pageItem.setLeft(leftPercent.toFixed(3));
-    // pageItem.setTop(topPercent.toFixed(3));
+    pageItem.setLeft(leftPercent.toFixed(3));
+    pageItem.setTop(topPercent.toFixed(3));
   }
 
   private onResizeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -102,22 +102,22 @@ export class PageItemWidget extends React.Component<Props> {
   };
 
   private onResize = (e: MouseEvent) => {
-    const { pageItem } = this.props;
+    const { pageDiv, pageItem } = this.props;
 
-    // // Mouse pos - item left is new width
-    // const itemRect = this.pageItemRef.current.getBoundingClientRect();
-    // const itemPos = new Vector(itemRect.x, itemRect.y);
+    // Mouse pos - item left is new width
+    const itemRect = this.pageItemRef.current.getBoundingClientRect();
+    const itemPos = new Vector(itemRect.x, itemRect.y);
 
-    // const mousePos = new Vector(e.clientX, e.clientY);
-    // mousePos.sub(itemPos);
+    const mousePos = new Vector(e.clientX, e.clientY);
+    mousePos.sub(itemPos);
 
-    // // Get size as percentage
-    // const pageRect = pageDisplayUtil.getPageDisplayBounds();
-    // const widthPercent = (mousePos.x / pageRect.width) * 100;
-    // const heightPercent = (mousePos.y / pageRect.height) * 100;
+    // Get size as percentage
+    const pageRect = pageDiv.getBoundingClientRect();
+    const widthPercent = (mousePos.x / pageRect.width) * 100;
+    const heightPercent = (mousePos.y / pageRect.height) * 100;
 
-    // pageItem.setWidth(widthPercent.toFixed(3));
-    // pageItem.setHeight(heightPercent.toFixed(3));
+    pageItem.setWidth(widthPercent.toFixed(3));
+    pageItem.setHeight(heightPercent.toFixed(3));
   };
 
   private onResizeEnd = () => {
