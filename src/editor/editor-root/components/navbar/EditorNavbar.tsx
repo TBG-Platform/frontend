@@ -90,6 +90,10 @@ export class EditorNavbar extends React.Component<Props> {
         content={
           <Menu>
             <MenuItem
+              text={'Two column'}
+              onClick={() => editorState.dockableUiState.setFlatLayout(2)}
+            />
+            <MenuItem
               text={'Three column'}
               onClick={() => editorState.dockableUiState.setFlatLayout(3)}
             />

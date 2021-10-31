@@ -1,0 +1,8 @@
+@import '../../../common/tbg-palette.scss';
+
+.page-inspector-toolbar {
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid $mainBorderColor;
+  background-color: white;
+}
