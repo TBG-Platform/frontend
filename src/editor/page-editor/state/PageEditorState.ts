@@ -19,6 +19,7 @@ export class PageEditorState {
 
   public setPageDiv(div: HTMLDivElement) {
     this.pageDiv = div;
+    console.log('set div');
   }
 
   public toggleAddingPageWidget = () => {
@@ -36,8 +37,10 @@ export class PageEditorState {
   };
 
   @action public addPageItem = (mousePos: Vector) => {
+    console.log('add item', this.pageDiv);
     const pageRect = this.pageDiv.getBoundingClientRect();
     const pagePos = new Vector(pageRect.left, pageRect.top);
+    mousePos.sub(pagePos);
 
     // Position on page as percentage
     const leftPercent = (mousePos.x / pageRect.width) * 100;

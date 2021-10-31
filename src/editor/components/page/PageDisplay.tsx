@@ -3,7 +3,7 @@ import React, { MouseEvent } from 'react';
 
 import { StoryEditorState } from '../../state/StoryEditorState';
 import { PageItemWidget } from './PageItemWidget';
-import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
+//import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
 import { DetailsPanelFocus } from '../../state/DetailsPanelState';
 
 //import './page-display.scss';
@@ -22,10 +22,10 @@ export class PageDisplay extends React.Component<Props> {
 
   componentDidMount() {
     if (this.pageRef.current) {
-      pageDisplayUtil.setPageDisplay(this.pageRef.current);
+      //pageDisplayUtil.setPageDisplay(this.pageRef.current);
 
       this.resizeObserver = new ResizeObserver((_entries: ResizeObserverEntry[]) => {
-        pageDisplayUtil.onPageDisplayResize();
+        // pageDisplayUtil.onPageDisplayResize();
       });
 
       this.resizeObserver.observe(this.pageRef.current);
@@ -33,7 +33,7 @@ export class PageDisplay extends React.Component<Props> {
   }
 
   componentWillUnmount() {
-    pageDisplayUtil.clearPageDisplay();
+    // pageDisplayUtil.clearPageDisplay();
   }
 
   public render() {

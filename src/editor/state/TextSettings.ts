@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { CSSProperties } from 'react';
 import { ColorResult } from 'react-color';
 import { EnumUtils } from '../../utils/EnumUtils';
-import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
+//import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
 
 export enum TextAlign {
   START = 'start',
@@ -31,7 +31,7 @@ export class TextSettings {
   constructor() {
     this.setDefaultValues();
 
-    pageDisplayUtil.addResizeListener(this.onPageResize);
+    //pageDisplayUtil.addResizeListener(this.onPageResize);
   }
 
   public updateSettings(settings: CSSProperties, text: string) {
@@ -109,14 +109,14 @@ export class TextSettings {
 
   @action public setSize = (size: string) => {
     // Size is relative to page width
-    const pageBounds = pageDisplayUtil.getPageDisplayBounds();
-    const w = pageBounds.width;
+    //const pageBounds = pageDisplayUtil.getPageDisplayBounds();
+    // const w = pageBounds.width;
     const s = parseFloat(size);
 
-    const fontSizePx = (w / 100) * s;
+    // const fontSizePx = (w / 100) * s;
 
     this.size = size;
-    this.settings.fontSize = fontSizePx + 'px';
+    // this.settings.fontSize = fontSizePx + 'px';
   };
 
   @action public setDefaultValues() {

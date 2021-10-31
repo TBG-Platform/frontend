@@ -31,7 +31,12 @@ export class PageEditorToolbar extends React.Component<Props> {
         <StandardDivider />
 
         <ButtonGroup minimal>
-          <StandardButton icon={'widget'} small tooltipText={'Add page item'} />
+          <StandardButton
+            icon={'widget'}
+            small
+            tooltipText={'Add page item'}
+            onClick={pageEditorState.toggleAddingPageWidget}
+          />
         </ButtonGroup>
       </div>
     );

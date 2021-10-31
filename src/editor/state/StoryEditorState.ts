@@ -1,6 +1,5 @@
 import { action, observable } from 'mobx';
 import { keyboardObserver } from '../../utils/KeyboardObserver';
-import { pageDisplayUtil } from '../../utils/PageDisplayUtils';
 import { Vector } from '../../utils/Vector';
 import { DetailsPanelFocus, DetailsPanelState } from './DetailsPanelState';
 import { Page } from './Page';
@@ -36,29 +35,29 @@ export class StoryEditorState {
   @action public toggleAddTextBlock = () => {
     this.addingTextBlock = !this.addingTextBlock;
 
-    const pageDisplay = pageDisplayUtil.getPageDisplay();
+    //const pageDisplay = pageDisplayUtil.getPageDisplay();
     if (this.addingTextBlock) {
       keyboardObserver.addSpecificKeyListener(this.handleKeyPress, ['Escape']);
-      pageDisplay.addEventListener('click', this.onClick);
-      pageDisplay.style.cursor = 'pointer';
+      // pageDisplay.addEventListener('click', this.onClick);
+      //  pageDisplay.style.cursor = 'pointer';
     } else {
       keyboardObserver.removeSpecificKeyListener(this.handleKeyPress, ['Escape']);
-      pageDisplay.removeEventListener('click', this.onClick);
-      pageDisplay.style.cursor = 'default';
+      // pageDisplay.removeEventListener('click', this.onClick);
+      // pageDisplay.style.cursor = 'default';
     }
   };
 
   @action public addPageItem = (mousePos: Vector) => {
-    const pageRect = pageDisplayUtil.getPageDisplayBounds();
-    const pagePos = new Vector(pageRect.left, pageRect.top);
-    mousePos.sub(pagePos);
+    // const pageRect = pageDisplayUtil.getPageDisplayBounds();
+    // const pagePos = new Vector(pageRect.left, pageRect.top);
+    // mousePos.sub(pagePos);
 
     // Position as percentage value
-    const leftPercent = (mousePos.x / pageRect.width) * 100;
-    const topPercent = (mousePos.y / pageRect.height) * 100;
+    // const leftPercent = (mousePos.x / pageRect.width) * 100;
+    // const topPercent = (mousePos.y / pageRect.height) * 100;
 
-    const pos = new Vector(leftPercent, topPercent);
-    this.story.selectedPage.addTextBlock(pos);
+    // const pos = new Vector(leftPercent, topPercent);
+    //  this.story.selectedPage.addTextBlock(pos);
     this.detailsPanelState.setFocus(DetailsPanelFocus.PAGE_ITEM);
   };
 
