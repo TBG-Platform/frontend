@@ -66,7 +66,11 @@ export class EditorNavbar extends React.Component<Props> {
               text={'Page editor'}
               onClick={() => editorState.addTab(PanelTabType.PAGE_EDITOR)}
             />
-            <MenuItem text={'Details inspector'} disabled />
+            <MenuItem
+              icon={'search-template'}
+              text={'Page inspector'}
+              onClick={() => editorState.addTab(PanelTabType.PAGE_INSPECTOR)}
+            />
           </Menu>
         }
       >

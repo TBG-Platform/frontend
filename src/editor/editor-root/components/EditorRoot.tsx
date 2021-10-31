@@ -55,6 +55,11 @@ export class EditorRoot extends React.Component<Props> {
           text={'Page editor'}
           onClick={() => editorState.addTab(PanelTabType.PAGE_EDITOR, panelId)}
         />
+        <MenuItem
+          icon={'search-template'}
+          text={'Page inspector'}
+          onClick={() => editorState.addTab(PanelTabType.PAGE_INSPECTOR, panelId)}
+        />
       </>
     );
   };

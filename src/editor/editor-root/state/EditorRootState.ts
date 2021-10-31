@@ -2,6 +2,7 @@ import { RandomUtils } from '../../../utils/RandomUtils';
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
 import { PageEditorState } from '../../page-editor/state/PageEditorState';
+import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
 import { Page } from '../../state/Page';
 import { Story } from '../../state/Story';
 import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
@@ -16,6 +17,7 @@ export class EditorRootState {
   public story: Story;
   public storyGraphState = new StoryGraphState();
   public pageEditorStates: PageEditorState[] = [];
+  public pageInspectorStates: PageInspectorState[] = [];
   public dockableUiState: DockableUIState;
   public testStates: TestState[] = [];
   private tabMap = new Map<string, PanelTab>();
@@ -57,12 +59,22 @@ export class EditorRootState {
     // Create whatever state this tab component requires
     switch (tab.type) {
       case PanelTabType.TEST:
-        const testState = new TestState(tab.id);
-        this.testStates.push(testState);
+        {
+          const testState = new TestState(tab.id);
+          this.testStates.push(testState);
+        }
         break;
       case PanelTabType.PAGE_EDITOR:
-        const pageEditState = new PageEditorState(tab.id, this.story.pages);
-        this.pageEditorStates.push(pageEditState);
+        {
+          const pageEditState = new PageEditorState(tab.id, this.story.pages);
+          this.pageEditorStates.push(pageEditState);
+        }
+        break;
+      case PanelTabType.PAGE_INSPECTOR:
+        {
+          const pageInspectorState = new PageInspectorState(tab.id, this.story.pages);
+          this.pageInspectorStates.push(pageInspectorState);
+        }
         break;
     }
   }
@@ -84,6 +96,9 @@ export class EditorRootState {
         break;
       case PanelTabType.PAGE_EDITOR:
         this.pageEditorStates = this.pageEditorStates.filter((pes) => pes.tabId !== tab.id);
+        break;
+      case PanelTabType.PAGE_INSPECTOR:
+        this.pageInspectorStates = this.pageEditorStates.filter((pis) => pis.tabId !== tab.id);
         break;
     }
   }

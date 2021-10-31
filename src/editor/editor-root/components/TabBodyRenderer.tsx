@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageEditor } from '../../page-editor/components/PageEditor';
+import { PageInspector } from '../../page-inspector/components/PageInspector';
 import { StoryGraph } from '../../story-graph/components/StoryGraphDetails';
 import { EditorRootState, PanelTab } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
@@ -21,6 +22,13 @@ export class TabBodyRenderer {
         if (pageEditorState) {
           return <PageEditor pageEditorState={pageEditorState} />;
         }
+        break;
+      case PanelTabType.PAGE_INSPECTOR:
+        const inspectorState = editorState.pageInspectorStates.find((pis) => pis.tabId === tab.id);
+        if (inspectorState) {
+          return <PageInspector inspectorState={inspectorState} />;
+        }
+        break;
     }
 
     // If there was no state or component for this tab type
