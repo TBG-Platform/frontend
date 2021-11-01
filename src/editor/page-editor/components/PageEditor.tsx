@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { PageEditorState } from '../state/PageEditorState';
 import { PageEditorToolbar } from './PageEditorToolbar';
-import { PageItemWidget } from '../../components/page/PageItemWidget';
+import { PageItemWidget } from './PageItemWidget';
 
 import './page-editor.scss';
 
