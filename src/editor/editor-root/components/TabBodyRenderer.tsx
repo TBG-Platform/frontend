@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageEditor } from '../../page-editor/components/PageEditor';
 import { PageInspector } from '../../page-inspector/components/PageInspector';
-import { StoryGraph } from '../../story-graph/components/StoryGraphDetails';
+import { StoryGraph } from '../../story-graph/components/StoryGraph';
 import { EditorRootState, PanelTab } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
 import { TestWidget } from './TestWidget';
