@@ -124,11 +124,15 @@ export class PageItemDetails extends React.Component<Props> {
       <div className={'section content'}>
         <div className={'section-title'}>Content</div>
         <div className={'section-content'}>
-          <TextAreaInput
-            label={'Text'}
-            text={pageItem.textSettings.text}
-            onChange={pageItem.textSettings.setText}
-          />
+          <Observer>
+            {() => (
+              <TextAreaInput
+                label={'Text'}
+                text={pageItem.textSettings.text}
+                onChange={pageItem.textSettings.setText}
+              />
+            )}
+          </Observer>
           <div className={'text-settings-row'}>
             <ButtonGroup minimal>
               <Button
