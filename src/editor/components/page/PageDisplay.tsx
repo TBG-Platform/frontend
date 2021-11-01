@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import React, { MouseEvent } from 'react';
 
 import { StoryEditorState } from '../../state/StoryEditorState';
-import { PageItemWidget } from './PageItemWidget';
+//import { PageItemWidget } from './PageItemWidget';
 //import { pageDisplayUtil } from '../../../utils/PageDisplayUtils';
 import { DetailsPanelFocus } from '../../state/DetailsPanelState';
 
@@ -10,6 +10,7 @@ import { DetailsPanelFocus } from '../../state/DetailsPanelState';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { Menu, MenuItem } from '@blueprintjs/core';
 import { Vector } from '../../../utils/Vector';
+import { PageItemWidget } from '../../page-editor/components/PageItemWidget';
 
 interface Props {
   storyEditorState: StoryEditorState;
