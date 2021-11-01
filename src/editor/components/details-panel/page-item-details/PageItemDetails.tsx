@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Divider, NonIdealState } from '@blueprintjs/core';
-import { observer } from 'mobx-react';
+import { Observer, observer } from 'mobx-react';
 import React from 'react';
 
 import { ColorPicker } from '../../../../common/inputs/color-picker/ColorPicker';
@@ -18,6 +18,8 @@ interface Props {
 export class PageItemDetails extends React.Component<Props> {
   public render() {
     const { pageItem } = this.props;
+
+    console.log('pageItemDetails render');
 
     if (!pageItem) {
       return <div className={'page-item-details'}>{this.renderNoItemSelected()}</div>;
@@ -50,32 +52,48 @@ export class PageItemDetails extends React.Component<Props> {
         <div className={'section-title'}>Transform (%)</div>
         <div className={'section-content'}>
           <div className={'section-column'}>
-            <NumberInput
-              label={'W'}
-              value={pageItem.width}
-              onChange={pageItem.setWidth}
-              size={NumberInputSize.MEDIUM}
-            />
-            <NumberInput
-              label={'H'}
-              value={pageItem.height}
-              onChange={pageItem.setHeight}
-              size={NumberInputSize.MEDIUM}
-            />
+            <Observer>
+              {() => (
+                <NumberInput
+                  label={'W'}
+                  value={pageItem.width}
+                  onChange={pageItem.setWidth}
+                  size={NumberInputSize.MEDIUM}
+                />
+              )}
+            </Observer>
+            <Observer>
+              {() => (
+                <NumberInput
+                  label={'H'}
+                  value={pageItem.height}
+                  onChange={pageItem.setHeight}
+                  size={NumberInputSize.MEDIUM}
+                />
+              )}
+            </Observer>
           </div>
           <div className={'section-column'}>
-            <NumberInput
-              label={'X'}
-              value={pageItem.left}
-              onChange={pageItem.setLeft}
-              size={NumberInputSize.MEDIUM}
-            />
-            <NumberInput
-              label={'Y'}
-              value={pageItem.top}
-              onChange={pageItem.setTop}
-              size={NumberInputSize.MEDIUM}
-            />
+            <Observer>
+              {() => (
+                <NumberInput
+                  label={'X'}
+                  value={pageItem.left}
+                  onChange={pageItem.setLeft}
+                  size={NumberInputSize.MEDIUM}
+                />
+              )}
+            </Observer>
+            <Observer>
+              {() => (
+                <NumberInput
+                  label={'Y'}
+                  value={pageItem.top}
+                  onChange={pageItem.setTop}
+                  size={NumberInputSize.MEDIUM}
+                />
+              )}
+            </Observer>
           </div>
         </div>
       </div>

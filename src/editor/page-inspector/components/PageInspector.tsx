@@ -18,6 +18,8 @@ export class PageInspector extends React.Component<Props> {
 
     const selectedPage = inspectorState.selectedPage;
 
+    console.log('pageInspector render');
+
     return (
       <div className={'page-inspector'}>
         <div className={'inspector-toolbar-area'}>
