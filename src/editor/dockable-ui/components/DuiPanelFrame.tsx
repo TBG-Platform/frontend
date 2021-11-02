@@ -1,13 +1,14 @@
-import { Menu, MenuItem, Button, Divider, Icon } from '@blueprintjs/core';
-import { Popover2 } from '@blueprintjs/popover2';
-import { observer } from 'mobx-react';
+import './dui-panel-frame.scss';
+
 import React from 'react';
+import { Button, Divider, Icon, Menu, MenuItem } from '@blueprintjs/core';
+import { Popover2 } from '@blueprintjs/popover2';
 import { Position } from 'react-flow-renderer';
+import { observer } from 'mobx-react';
+
 import { DockableUIState } from '../state/DockableUIState';
 import { DuiPanel, DuiPanelTab } from '../state/DuiPanel';
 import { DuiPanelContainerFlow } from '../state/DuiPanelContainer';
-
-import './dui-panel-frame.scss';
 
 interface TabDragData {
   tabId: string;

@@ -1,10 +1,11 @@
-import { observer } from 'mobx-react';
+import './dockable-ui.scss';
+
 import React from 'react';
+import { observer } from 'mobx-react';
+
 import { DockableUIState } from '../state/DockableUIState';
 import { DuiPanelContainerRenderer } from './DuiPanelContainerRenderer';
 import { DuiPanelFrame } from './DuiPanelFrame';
-
-import './dockable-ui.scss';
 
 interface Props {
   duiState: DockableUIState;

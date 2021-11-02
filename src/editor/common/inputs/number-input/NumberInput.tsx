@@ -1,8 +1,8 @@
+import './number-input.scss';
+
+import React from 'react';
 import { NumericInput } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
-
-import './number-input.scss';
 
 export enum NumberInputSize {
   SMALL = 'small',

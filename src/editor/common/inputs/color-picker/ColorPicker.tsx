@@ -1,10 +1,10 @@
+import './color-picker.scss';
+
+import React from 'react';
 import { Button } from '@blueprintjs/core';
+import { ColorResult, SketchPicker } from 'react-color';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
-import React from 'react';
-import { ColorResult, SketchPicker } from 'react-color';
-
-import './color-picker.scss';
 
 interface Props {
   label?: string;

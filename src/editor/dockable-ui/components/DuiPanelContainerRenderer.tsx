@@ -1,10 +1,11 @@
-import { observer } from 'mobx-react';
-import React, { CSSProperties } from 'react';
-import { DockableUIState } from '../state/DockableUIState';
-import { DuiPanelResizer } from './DuiPanelResizer';
-import { DuiPanelContainer, DuiPanelContainerChild } from '../state/DuiPanelContainer';
-
 import './dui-panel-container-renderer.scss';
+
+import React, { CSSProperties } from 'react';
+import { observer } from 'mobx-react';
+
+import { DockableUIState } from '../state/DockableUIState';
+import { DuiPanelContainer, DuiPanelContainerChild } from '../state/DuiPanelContainer';
+import { DuiPanelResizer } from './DuiPanelResizer';
 
 interface Props {
   duiPanelContainer: DuiPanelContainer;

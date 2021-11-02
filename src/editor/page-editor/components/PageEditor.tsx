@@ -1,14 +1,14 @@
 import './page-editor.scss';
 
-import { Menu, MenuItem } from '@blueprintjs/core';
-
+import React from 'react';
 import { ContextMenu2 } from '@blueprintjs/popover2';
+import { Menu, MenuItem } from '@blueprintjs/core';
+import { observer } from 'mobx-react';
+
 import { PageEditorState } from '../state/PageEditorState';
 import { PageEditorToolbar } from './PageEditorToolbar';
 import { PageItemWidget } from './PageItemWidget';
-import React from 'react';
 import { Vector } from '../../../utils/Vector';
-import { observer } from 'mobx-react';
 
 interface Props {
   pageEditorState: PageEditorState;

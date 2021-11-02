@@ -1,11 +1,12 @@
+import './editable-text.scss';
+
+import React from 'react';
 import { Icon } from '@blueprintjs/core';
 import { IconName } from '@blueprintjs/icons';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import React from 'react';
-import { FitTextInput } from '../fit-text-input/FitTextInput';
 
-import './editable-text.scss';
+import { FitTextInput } from '../fit-text-input/FitTextInput';
 
 interface Props {
   text: string;

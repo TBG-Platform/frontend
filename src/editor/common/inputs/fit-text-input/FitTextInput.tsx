@@ -1,8 +1,8 @@
+import './fit-text-input.scss';
+
+import React from 'react';
 import { InputGroup } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
-
-import './fit-text-input.scss';
 
 interface Props {
   text: string;

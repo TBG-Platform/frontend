@@ -1,9 +1,10 @@
 import React from 'react';
+
+import { EditorRootState, PanelTab } from '../state/EditorRootState';
 import { PageEditor } from '../../page-editor/components/PageEditor';
 import { PageInspector } from '../../page-inspector/components/PageInspector';
-import { StoryGraph } from '../../story-graph/components/StoryGraph';
-import { EditorRootState, PanelTab } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
+import { StoryGraph } from '../../story-graph/components/StoryGraph';
 import { TestWidget } from './TestWidget';
 
 export class TabBodyRenderer {

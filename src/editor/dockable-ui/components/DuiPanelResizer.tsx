@@ -1,7 +1,8 @@
-import React from 'react';
-import { DuiPanelContainer, DuiPanelContainerFlow } from '../state/DuiPanelContainer';
-
 import './dui-panel-resizer.scss';
+
+import React from 'react';
+
+import { DuiPanelContainer, DuiPanelContainerFlow } from '../state/DuiPanelContainer';
 
 interface Props {
   container: DuiPanelContainer;

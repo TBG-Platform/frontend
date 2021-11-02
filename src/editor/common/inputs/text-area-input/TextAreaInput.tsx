@@ -1,8 +1,8 @@
+import './text-area-input.scss';
+
+import React from 'react';
 import { Text, TextArea } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
-
-import './text-area-input.scss';
 
 interface Props {
   label: string;

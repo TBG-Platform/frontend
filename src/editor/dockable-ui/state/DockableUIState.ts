@@ -1,7 +1,8 @@
 import { action, observable } from 'mobx';
-import { RandomUtils } from '../../../utils/RandomUtils';
+
 import { DuiPanel, DuiPanelTab } from './DuiPanel';
 import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';
+import { RandomUtils } from '../../../utils/RandomUtils';
 
 type DockableUIEvent = 'close-tab';
 

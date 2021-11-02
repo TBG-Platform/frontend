@@ -1,7 +1,7 @@
+import React from 'react';
 import { Button, IconName, Position } from '@blueprintjs/core';
 import { Tooltip2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
-import React from 'react';
 
 interface Props {
   icon: IconName;

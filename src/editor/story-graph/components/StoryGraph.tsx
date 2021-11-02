@@ -1,10 +1,11 @@
-import { observer } from 'mobx-react';
+import './story-graph.scss';
+
 import React from 'react';
 import ReactFlow from 'react-flow-renderer';
+import { observer } from 'mobx-react';
+
 import { StoryGraphState } from '../state/StoryGraphState';
 import { StoryGraphToolbar } from './StoryGraphToolbar';
-
-import './story-graph.scss';
 
 interface Props {
   storyGraphState: StoryGraphState;
