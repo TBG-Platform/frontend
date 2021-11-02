@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Divider, NonIdealState } from '@blueprintjs/core';
 import { Observer, observer } from 'mobx-react';
 import React from 'react';
 
-import { ColorPicker } from '../../../../common/inputs/color-picker/ColorPicker';
+import { ColorPicker } from '../../../common/inputs/color-picker/ColorPicker';
 import { NumberInput, NumberInputSize } from '../../../../common/inputs/number-input/NumberInput';
 import { TextAreaInput } from '../../../../common/inputs/text-area-input/TextAreaInput';
 import { PageItem } from '../../../state/PageItem';
