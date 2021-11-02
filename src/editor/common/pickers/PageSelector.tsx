@@ -1,7 +1,8 @@
-import { MenuItem } from '@blueprintjs/core';
-import { ItemRenderer, Select } from '@blueprintjs/select';
 import React from 'react';
-import { Page } from '../../../state/Page';
+import { ItemRenderer, Select } from '@blueprintjs/select';
+import { MenuItem } from '@blueprintjs/core';
+
+import { Page } from '../../state/Page';
 
 const PageSelect = Select.ofType<Page>();
 

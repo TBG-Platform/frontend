@@ -1,13 +1,13 @@
+import './page-editor-toolbar.scss';
+
+import React from 'react';
 import { Button, ButtonGroup } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
 
+import { PageEditorState } from '../state/PageEditorState';
+import { PageSelector } from '../../common/pickers/PageSelector';
 import { StandardButton } from '../../common/buttons/StandardButton';
 import { StandardDivider } from '../../common/dividers/StandardDivider';
-import { PageSelector } from '../../editor-root/components/navbar/PageSelector';
-import { PageEditorState } from '../state/PageEditorState';
-
-import './page-editor-toolbar.scss';
 
 interface Props {
   pageEditorState: PageEditorState;

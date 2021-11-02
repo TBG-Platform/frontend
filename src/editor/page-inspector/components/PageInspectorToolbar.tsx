@@ -1,11 +1,11 @@
+import './page-inspector-toolbar.scss';
+
+import React from 'react';
 import { Button } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
-import { PageSelector } from '../../editor-root/components/navbar/PageSelector';
 
 import { PageInspectorState } from '../state/PageInspectorState';
-
-import './page-inspector-toolbar.scss';
+import { PageSelector } from '../../common/pickers/PageSelector';
 
 interface Props {
   inspectorState: PageInspectorState;
