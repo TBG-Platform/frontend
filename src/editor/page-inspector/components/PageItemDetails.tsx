@@ -6,8 +6,8 @@ import { Observer, observer } from 'mobx-react';
 
 import { ColorPicker } from '../../common/inputs/color-picker/ColorPicker';
 import { NumberInput, NumberInputSize } from '../../common/inputs/number-input/NumberInput';
-import { PageItem } from '../../state/PageItem';
-import { TextAlign, TextDecoration } from '../../state/TextSettings';
+import { PageItem } from '../../common/state/PageItem';
+import { TextAlign, TextDecoration } from '../../common/state/TextSettings';
 import { TextAreaInput } from '../../common/inputs/text-area-input/TextAreaInput';
 
 interface Props {

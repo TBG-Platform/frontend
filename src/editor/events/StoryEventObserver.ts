@@ -1,4 +1,4 @@
-import { Page } from '../state/Page';
+import { Page } from '../common/state/Page';
 
 export enum StoryEventType {
   ANY = 'event-any', // encompasses all event types

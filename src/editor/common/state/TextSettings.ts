@@ -1,7 +1,8 @@
-import { action, observable } from 'mobx';
 import { CSSProperties } from 'react';
 import { ColorResult } from 'react-color';
-import { EnumUtils } from '../../utils/EnumUtils';
+import { action, observable } from 'mobx';
+
+import { EnumUtils } from '../../../utils/EnumUtils';
 
 export enum TextAlign {
   START = 'start',

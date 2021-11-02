@@ -1,12 +1,12 @@
-import { RandomUtils } from '../../../utils/RandomUtils';
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
+import { Page } from '../../common/state/Page';
 import { PageEditorState } from '../../page-editor/state/PageEditorState';
 import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
-import { Page } from '../../state/Page';
-import { Story } from '../../state/Story';
-import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
 import { PanelTabType } from './PanelTabType';
+import { RandomUtils } from '../../../utils/RandomUtils';
+import { Story } from '../../common/state/Story';
+import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
 import { TestState } from './TestState';
 
 export interface PanelTab extends DuiPanelTab {

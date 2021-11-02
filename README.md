@@ -24,7 +24,7 @@ The structure of the repo has a few conventions.
 
 Under `src/` are the high-level folders for the apps within the repo, for the game editor, game player and website.
 
-At each level under src, there should be a `common` folder which holds components common to that level (e.g the editor has a common folder which holds inputs used between various editor sub-folders).
+At each level under src, there should be a `common` folder which holds components and/or state common to that level (e.g the editor has a common folder which holds inputs used between various editor sub-folders).
 
 For each sub-folder within a high-level folder, there should be `components` and `state` folders to hold .tsx & .scss and .ts files respectively.
 

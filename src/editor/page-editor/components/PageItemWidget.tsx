@@ -1,14 +1,15 @@
-import { Menu, MenuItem } from '@blueprintjs/core';
-import { ContextMenu2 } from '@blueprintjs/popover2';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
 import 'mobx-react-lite/batchingForReactDom';
-import React from 'react';
-
-import { Vector } from '../../../utils/Vector';
-import { PageItem } from '../../state/PageItem';
 
 import './page-item-widget.scss';
+
+import React from 'react';
+import { ContextMenu2 } from '@blueprintjs/popover2';
+import { Menu, MenuItem } from '@blueprintjs/core';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
+
+import { PageItem } from '../../common/state/PageItem';
+import { Vector } from '../../../utils/Vector';
 
 interface Props {
   pageDiv: HTMLDivElement;

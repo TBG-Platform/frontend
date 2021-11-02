@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
-import { StoryEventType, storyObserver } from '../events/StoryEventObserver';
+
 import { Page } from './Page';
+import { StoryEventType, storyObserver } from '../../events/StoryEventObserver';
 
 export class Story {
   @observable public name = 'Untitled_story';

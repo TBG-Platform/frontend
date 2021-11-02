@@ -1,7 +1,8 @@
 import { action, observable } from 'mobx';
-import { keyboardObserver } from '../../../utils/KeyboardObserver';
+
+import { Page } from '../../common/state/Page';
 import { Vector } from '../../../utils/Vector';
-import { Page } from '../../state/Page';
+import { keyboardObserver } from '../../../utils/KeyboardObserver';
 
 export class PageEditorState {
   public tabId: string;

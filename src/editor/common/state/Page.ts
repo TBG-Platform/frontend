@@ -1,8 +1,9 @@
 import { action, observable } from 'mobx';
-import { keyboardObserver } from '../../utils/KeyboardObserver';
-import { RandomUtils } from '../../utils/RandomUtils';
-import { Vector } from '../../utils/Vector';
+
 import { PageItem } from './PageItem';
+import { RandomUtils } from '../../../utils/RandomUtils';
+import { Vector } from '../../../utils/Vector';
+import { keyboardObserver } from '../../../utils/KeyboardObserver';
 
 export class Page {
   public id = RandomUtils.createId();

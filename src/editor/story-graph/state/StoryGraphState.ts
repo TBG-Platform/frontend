@@ -1,7 +1,8 @@
-import { action, observable } from 'mobx';
 import { FlowElement, Node } from 'react-flow-renderer';
-import { storyObserver, StoryEvent, StoryEventType } from '../../events/StoryEventObserver';
-import { Page } from '../../state/Page';
+import { action, observable } from 'mobx';
+
+import { Page } from '../../common/state/Page';
+import { StoryEvent, StoryEventType, storyObserver } from '../../events/StoryEventObserver';
 
 export class StoryGraphState {
   @observable.ref public elements: FlowElement[] = [];

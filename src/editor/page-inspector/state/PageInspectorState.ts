@@ -1,5 +1,6 @@
 import { observable } from 'mobx';
-import { Page } from '../../state/Page';
+
+import { Page } from '../../common/state/Page';
 
 export class PageInspectorState {
   public tabId: string;
