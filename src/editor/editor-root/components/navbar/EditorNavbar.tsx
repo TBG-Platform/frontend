@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 
 import { DuiPanelContainerFlow } from '../../../dockable-ui/state/DuiPanelContainer';
 import { EditorRootState } from '../../state/EditorRootState';
-import { PageSelector } from '../../../common/pickers/PageSelector';
+import { PageSelector } from '../../../common/inputs/page-selector/PageSelector';
 import { PanelTabType } from '../../state/PanelTabType';
 
 interface Props {
