@@ -81,7 +81,7 @@ One thing to be aware of - you cannot have a component that observes an observab
 
 Other than the above point, MobX is pretty easy to use! Their documentation is here if you want to find out more: https://mobx.js.org/README.html
 
-Using MobX means we can keep all logic outside of our components as much as possible. You should avoid having functions inside your react components; each major component should have its own ComponentState.ts which holds the callbacks and state values for components. A major benefit to this system is that if we choose to swap out components the business logic in unaffected; you can drop in new components or make major changes this way without having to worry about losing any logic which should remain the same.
+Using MobX means we can keep all logic outside of our components as much as possible. You should avoid having functions inside your react components; each major component should have its own ComponentState.ts which holds the callbacks and state values for the component. A major benefit to this system is that if we choose to swap out components the business logic in unaffected; you can drop in new components or make major changes this way without having to worry about losing any logic which should remain the same.
 
 # Editor
 
