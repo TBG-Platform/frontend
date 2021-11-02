@@ -1,12 +1,12 @@
+import './page-navbar.scss';
+
+import React from 'react';
 import { Button, ButtonGroup, Divider } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
-import { StandardButton } from '../../../common/buttons/StandardButton';
+
 import { EditableText } from '../../../common/inputs/editable-text/EditableText';
-
+import { StandardButton } from '../../../common/buttons/StandardButton';
 import { StoryEditorState } from '../../../state/StoryEditorState';
-
-import './page-navbar.scss';
 
 interface Props {
   storyEditorState: StoryEditorState;
