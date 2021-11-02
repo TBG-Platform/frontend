@@ -5,10 +5,10 @@ import { Menu, MenuItem, Position } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 
-import { DuiPanelContainerFlow } from '../../../dockable-ui/state/DuiPanelContainer';
-import { EditorRootState } from '../../state/EditorRootState';
-import { PageSelector } from '../../../common/inputs/page-selector/PageSelector';
-import { PanelTabType } from '../../state/PanelTabType';
+import { DuiPanelContainerFlow } from '../../dockable-ui/state/DuiPanelContainer';
+import { EditorRootState } from '../state/EditorRootState';
+import { PageSelector } from '../../common/inputs/page-selector/PageSelector';
+import { PanelTabType } from '../state/PanelTabType';
 
 interface Props {
   editorState: EditorRootState;

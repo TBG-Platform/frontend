@@ -1,14 +1,14 @@
+import './editor-root.scss';
+
+import React from 'react';
 import { Button, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
 
+import { DockableUI } from '../../dockable-ui/components/DockableUI';
+import { EditorNavbar } from './EditorNavbar';
+import { EditorRootState } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
 import { TabBodyRenderer } from './TabBodyRenderer';
-import { DockableUI } from '../../dockable-ui/components/DockableUI';
-import { EditorNavbar } from './navbar/EditorNavbar';
-import { EditorRootState } from '../state/EditorRootState';
-
-import './editor-root.scss';
 
 interface Props {
   editorState: EditorRootState;
