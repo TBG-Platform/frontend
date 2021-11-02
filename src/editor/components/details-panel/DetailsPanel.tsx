@@ -1,13 +1,13 @@
+import './details-panel.scss';
+
+import React from 'react';
 import { Icon } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
-import React from 'react';
 
-import { PageItemDetails } from './page-item-details/PageItemDetails';
-import { DetailsPanelNavbar } from './DetailsPanelNavbar';
 import { DetailsPanelFocus, DetailsPanelState } from '../../state/DetailsPanelState';
+import { DetailsPanelNavbar } from './DetailsPanelNavbar';
+import { PageItemDetails } from '../../page-inspector/components/PageItemDetails';
 import { StoryEditorState } from '../../state/StoryEditorState';
-
-import './details-panel.scss';
 import { StoryGraph } from '../../story-graph/components/StoryGraph';
 
 interface Props {

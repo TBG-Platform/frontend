@@ -4,11 +4,11 @@ import React from 'react';
 import { Button, ButtonGroup, Divider, NonIdealState } from '@blueprintjs/core';
 import { Observer, observer } from 'mobx-react';
 
-import { ColorPicker } from '../../../common/inputs/color-picker/ColorPicker';
-import { NumberInput, NumberInputSize } from '../../../common/inputs/number-input/NumberInput';
-import { PageItem } from '../../../state/PageItem';
-import { TextAlign, TextDecoration } from '../../../state/TextSettings';
-import { TextAreaInput } from '../../../common/inputs/text-area-input/TextAreaInput';
+import { ColorPicker } from '../../common/inputs/color-picker/ColorPicker';
+import { NumberInput, NumberInputSize } from '../../common/inputs/number-input/NumberInput';
+import { PageItem } from '../../state/PageItem';
+import { TextAlign, TextDecoration } from '../../state/TextSettings';
+import { TextAreaInput } from '../../common/inputs/text-area-input/TextAreaInput';
 
 interface Props {
   pageItem: PageItem | undefined;

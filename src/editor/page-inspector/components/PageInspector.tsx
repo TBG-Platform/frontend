@@ -1,11 +1,11 @@
-import { observer } from 'mobx-react';
+import './page-inspector.scss';
+
 import React from 'react';
+import { observer } from 'mobx-react';
 
 import { PageInspectorState } from '../state/PageInspectorState';
 import { PageInspectorToolbar } from './PageInspectorToolbar';
-import { PageItemDetails } from '../../components/details-panel/page-item-details/PageItemDetails';
-
-import './page-inspector.scss';
+import { PageItemDetails } from './PageItemDetails';
 
 interface Props {
   inspectorState: PageInspectorState;
