@@ -63,7 +63,7 @@ export class CompState {
 }
 ```
 
-CompState has one public property, 'value', which is rendered in the above component. It is marked with the 'observable' decorator. There is also a function in there which updates the value prop. This function is marked with the 'action' decorator.
+CompState has one public property, 'value', which is rendered in the above component. It is marked with the 'observable' decorator. There is also a function in there which updates the value prop. This function is marked with the 'action' decorator. Both decorators are imported from 'mobx'.
 
 Let's look at what these decorators mean:
 
@@ -72,6 +72,14 @@ Let's look at what these decorators mean:
 - @action means that the following function touches observable properties. It also delays updates to observers until the function has finished
 
 Putting it all together - whenever an observable property is changed, any observer components that reference that property in their render method (or methods called via render) will re-render automatically.
+
+One thing to be aware of - you cannot have a component that observes an observable value which then updates that observable in its render method. This would cause an infinite loop:
+
+- render, update observable
+- oh - observable has updated, re-render
+- repeat forever
+
+Other than the above point, MobX is pretty easy to use! Their documentation is here if you want to find out more: https://mobx.js.org/README.html
 
 Using MobX means we can keep all logic outside of our components as much as possible. You should avoid having functions inside your react components; each major component should have its own ComponentState.ts which holds the callbacks and state values for components. A major benefit to this system is that if we choose to swap out components the business logic in unaffected; you can drop in new components or make major changes this way without having to worry about losing any logic which should remain the same.
 
