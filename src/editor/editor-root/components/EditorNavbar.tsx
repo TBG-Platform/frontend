@@ -1,7 +1,7 @@
 import './editor-navbar.scss';
 
 import React from 'react';
-import { Menu, MenuItem, Position } from '@blueprintjs/core';
+import { Button, Divider, Intent, Menu, MenuItem, Position } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 
@@ -22,6 +22,10 @@ export class EditorNavbar extends React.Component<Props> {
         {this.renderFilesMenu()}
         {this.renderViewMenu()}
         {this.renderLayoutMenu()}
+
+        <Divider />
+
+        {this.renderAddPage()}
       </div>
     );
   }
@@ -112,6 +116,22 @@ export class EditorNavbar extends React.Component<Props> {
       >
         <div className={'menu-root'}>Layout</div>
       </Popover2>
+    );
+  }
+
+  private renderAddPage() {
+    const { editorState } = this.props;
+
+    return (
+      <div className={'add-page-button'}>
+        <Button
+          text={'Add page'}
+          icon={'add'}
+          intent={Intent.PRIMARY}
+          small
+          onClick={editorState.startAddPage}
+        />
+      </div>
     );
   }
 }
