@@ -11,6 +11,7 @@ import { EditorDialogViewState } from '../../state/EditorDialogViewState';
 
 interface Props {
   dialogState: EditorDialogViewState;
+  addPage: (name: string) => void;
 }
 
 @observer
@@ -24,7 +25,7 @@ export class AddPageDialog extends React.Component<Props> {
       <Dialog
         isOpen={dialogState.activeDialog === EditorDialogType.ADD_PAGE}
         onOpening={this.onOpening}
-        onClose={dialogState.hideDialog}
+        onClose={this.onClose}
         onClosed={this.onClosed}
         title={'Add page'}
       >
@@ -61,11 +62,19 @@ export class AddPageDialog extends React.Component<Props> {
     this.addPageState.validate();
 
     // If still valid, can call add page
+    if (this.addPageState.isValid) {
+      this.props.addPage(this.addPageState.pageName);
+      this.onClose();
+    }
   };
 
   private onOpening = () => {
     // Create the state for the dialog
     this.addPageState = new AddPageDialogState();
+  };
+
+  private onClose = () => {
+    this.props.dialogState.hideDialog();
   };
 
   private onClosed = () => {

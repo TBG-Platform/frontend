@@ -23,7 +23,7 @@ export class EditorRoot extends React.Component<Props> {
     return (
       <div className={'editor-root'}>
         {/* Dialogs */}
-        <AddPageDialog dialogState={editorState.dialogViewState} />
+        <AddPageDialog dialogState={editorState.dialogViewState} addPage={editorState.addPage} />
 
         <div className={'editor-navbar-area'}>
           <EditorNavbar editorState={editorState} />

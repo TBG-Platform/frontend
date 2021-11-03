@@ -43,6 +43,14 @@ export class EditorRootState {
     this.dialogViewState.showDialog(EditorDialogType.ADD_PAGE);
   };
 
+  @action public addPage = (name: string) => {
+    const page = new Page();
+    page.setName(name);
+
+    this.story.addPage(page);
+    console.log('added page, story: ', this.story);
+  };
+
   public addTab = (tabType: PanelTabType, panelId?: string) => {
     // Create the tab to pass to dockable ui state
     const tabId = RandomUtils.createId();
