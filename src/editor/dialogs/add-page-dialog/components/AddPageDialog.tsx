@@ -2,6 +2,7 @@ import './add-page-dialog.scss';
 
 import React from 'react';
 import { Button, Classes, Dialog, FormGroup, InputGroup, Intent } from '@blueprintjs/core';
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 import { AddPageDialogState } from '../state/AddPageDialogState';
@@ -14,7 +15,7 @@ interface Props {
 
 @observer
 export class AddPageDialog extends React.Component<Props> {
-  private addPageState = new AddPageDialogState();
+  @observable private addPageState?: AddPageDialogState;
 
   public render() {
     const { dialogState } = this.props;
@@ -22,26 +23,53 @@ export class AddPageDialog extends React.Component<Props> {
     return (
       <Dialog
         isOpen={dialogState.activeDialog === EditorDialogType.ADD_PAGE}
+        onOpening={this.onOpening}
         onClose={dialogState.hideDialog}
+        onClosed={this.onClosed}
         title={'Add page'}
       >
-        <div className={Classes.DIALOG_BODY + ' add-page-dialog'}>
-          <FormGroup label={'Name'}>
-            <InputGroup
-              value={this.addPageState.pageName}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                this.addPageState.setName(e.target.value)
-              }
-            />
-          </FormGroup>
-        </div>
+        {this.addPageState && (
+          <>
+            <div className={Classes.DIALOG_BODY + ' add-page-dialog'}>
+              <FormGroup
+                label={'Name *'}
+                helperText={this.addPageState.isValid ? '' : 'Name must be at least 2 characters'}
+              >
+                <InputGroup
+                  intent={this.addPageState.isValid ? undefined : Intent.DANGER}
+                  value={this.addPageState.pageName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    this.addPageState.setName(e.target.value)
+                  }
+                />
+              </FormGroup>
+            </div>
 
-        <div className={Classes.DIALOG_FOOTER}>
-          <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-            <Button text={'Add'} intent={Intent.PRIMARY} />
-          </div>
-        </div>
+            <div className={Classes.DIALOG_FOOTER}>
+              <div className={Classes.DIALOG_FOOTER_ACTIONS}>
+                <Button text={'Add'} intent={Intent.PRIMARY} onClick={this.onAddPage} />
+              </div>
+            </div>
+          </>
+        )}
       </Dialog>
     );
   }
+
+  private onAddPage = () => {
+    // First, validate the input content
+    this.addPageState.validate();
+
+    // If still valid, can call add page
+  };
+
+  private onOpening = () => {
+    // Create the state for the dialog
+    this.addPageState = new AddPageDialogState();
+  };
+
+  private onClosed = () => {
+    // Clear the state for this dialog
+    this.addPageState = undefined;
+  };
 }

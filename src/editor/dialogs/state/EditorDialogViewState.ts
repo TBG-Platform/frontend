@@ -5,11 +5,11 @@ import { EditorDialogType } from './EditorDialogTypes';
 export class EditorDialogViewState {
   @observable.ref public activeDialog?: EditorDialogType;
 
-  @action showDialog(dialog: EditorDialogType) {
+  @action public showDialog(dialog: EditorDialogType) {
     this.activeDialog = dialog;
   }
 
-  @action hideDialog = () => {
+  @action public hideDialog = () => {
     this.activeDialog = undefined;
   };
 }
