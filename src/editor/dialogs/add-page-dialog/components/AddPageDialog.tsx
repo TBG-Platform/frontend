@@ -1,5 +1,3 @@
-import './add-page-dialog.scss';
-
 import React from 'react';
 import { Button, Classes, Dialog, FormGroup, InputGroup, Intent } from '@blueprintjs/core';
 import { observable } from 'mobx';
