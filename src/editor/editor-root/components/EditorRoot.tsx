@@ -4,6 +4,7 @@ import React from 'react';
 import { Button, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
+import { AddPageDialog } from '../../dialogs/add-page-dialog/AddPageDialog';
 import { DockableUI } from '../../dockable-ui/components/DockableUI';
 import { EditorNavbar } from './EditorNavbar';
 import { EditorRootState } from '../state/EditorRootState';
@@ -21,6 +22,9 @@ export class EditorRoot extends React.Component<Props> {
 
     return (
       <div className={'editor-root'}>
+        {/* Dialogs */}
+        <AddPageDialog dialogState={editorState.dialogViewState} />
+
         <div className={'editor-navbar-area'}>
           <EditorNavbar editorState={editorState} />
         </div>

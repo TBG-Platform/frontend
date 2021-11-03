@@ -1,5 +1,9 @@
+import { action } from 'mobx';
+
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
+import { EditorDialogType } from '../../dialogs/state/EditorDialogTypes';
+import { EditorDialogViewState } from '../../dialogs/state/EditorDialogViewState';
 import { Page } from '../../common/state/Page';
 import { PageEditorState } from '../../page-editor/state/PageEditorState';
 import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
@@ -19,6 +23,7 @@ export class EditorRootState {
   public pageEditorStates: PageEditorState[] = [];
   public pageInspectorStates: PageInspectorState[] = [];
   public dockableUiState: DockableUIState;
+  public dialogViewState = new EditorDialogViewState();
   public testStates: TestState[] = [];
   private tabMap = new Map<string, PanelTab>();
 
@@ -33,6 +38,10 @@ export class EditorRootState {
     this.dockableUiState = new DockableUIState();
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
   }
+
+  @action public startAddPage = () => {
+    this.dialogViewState.showDialog(EditorDialogType.ADD_PAGE);
+  };
 
   public addTab = (tabType: PanelTabType, panelId?: string) => {
     // Create the tab to pass to dockable ui state
