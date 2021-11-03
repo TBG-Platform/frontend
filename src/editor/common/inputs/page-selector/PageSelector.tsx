@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemRenderer, Select } from '@blueprintjs/select';
+import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/select';
 import { MenuItem } from '@blueprintjs/core';
 
 import { Page } from '../../state/Page';
@@ -20,6 +20,8 @@ export class PageSelector extends React.Component<Props> {
         items={pages}
         itemRenderer={this.pageItemRenderer}
         onItemSelect={this.onPageItemSelect}
+        itemPredicate={this.filterPages}
+        noResults={<MenuItem text={'No matching pages!'} disabled />}
       >
         {target}
       </PageSelect>
@@ -43,5 +45,9 @@ export class PageSelector extends React.Component<Props> {
 
   private onPageItemSelect = (page: Page) => {
     console.log('selected page', page.name);
+  };
+
+  private filterPages: ItemPredicate<Page> = (query: string, page: Page) => {
+    return page.name.toLowerCase().includes(query.toLowerCase());
   };
 }
