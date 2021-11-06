@@ -11,7 +11,7 @@ import { PanelTabType } from './PanelTabType';
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { Story } from '../../common/state/Story';
 import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
-import { TestState } from './TestState';
+import { TabBaseState } from './TabBaseState';
 
 export interface PanelTab extends DuiPanelTab {
   type: PanelTabType;
@@ -20,12 +20,10 @@ export interface PanelTab extends DuiPanelTab {
 export class EditorRootState {
   public story: Story;
   public storyGraphState = new StoryGraphState();
-  public pageEditorStates: PageEditorState[] = [];
-  public pageInspectorStates: PageInspectorState[] = [];
-  public dockableUiState: DockableUIState;
+  public dockableUiState = new DockableUIState();
   public dialogViewState = new EditorDialogViewState();
-  public testStates: TestState[] = [];
   private tabMap = new Map<string, PanelTab>();
+  public tabStatesMap = new Map<string, TabBaseState>();
 
   constructor() {
     // Setup story - will be done elsewhere later and passed into constructor
@@ -35,7 +33,6 @@ export class EditorRootState {
     story.addPage(firstPage);
     this.story = story;
 
-    this.dockableUiState = new DockableUIState();
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
   }
 
@@ -52,7 +49,7 @@ export class EditorRootState {
   };
 
   public addTab = (tabType: PanelTabType, panelId?: string) => {
-    // Create the tab to pass to dockable ui state
+    // Create the tab
     const tabId = RandomUtils.createId();
     const tab: PanelTab = {
       id: tabId,
@@ -75,22 +72,16 @@ export class EditorRootState {
   private createTabState(tab: PanelTab) {
     // Create whatever state this tab component requires
     switch (tab.type) {
-      case PanelTabType.TEST:
-        {
-          const testState = new TestState(tab.id);
-          this.testStates.push(testState);
-        }
-        break;
       case PanelTabType.PAGE_EDITOR:
         {
-          const pageEditState = new PageEditorState(tab.id, this.story.pages);
-          this.pageEditorStates.push(pageEditState);
+          const pageEditState = new PageEditorState(tab, this.story.pages);
+          this.tabStatesMap.set(tab.id, pageEditState);
         }
         break;
       case PanelTabType.PAGE_INSPECTOR:
         {
-          const pageInspectorState = new PageInspectorState(tab.id, this.story.pages);
-          this.pageInspectorStates.push(pageInspectorState);
+          const pageInspectorState = new PageInspectorState(tab, this.story.pages);
+          this.tabStatesMap.set(tab.id, pageInspectorState);
         }
         break;
     }
@@ -98,25 +89,9 @@ export class EditorRootState {
 
   private onCloseTab = (tabId: string) => {
     // Remove any states made for this tab
-    const tab = this.tabMap.get(tabId);
-    this.removeTabState(tab);
+    this.tabStatesMap.delete(tabId);
 
     // Then remove the tab from the map
     this.tabMap.delete(tabId);
   };
-
-  private removeTabState(tab: PanelTab) {
-    // Remove any lazy-loaded states for the tab just closed
-    switch (tab.type) {
-      case PanelTabType.TEST:
-        this.testStates = this.testStates.filter((ts) => ts.tabId !== tab.id);
-        break;
-      case PanelTabType.PAGE_EDITOR:
-        this.pageEditorStates = this.pageEditorStates.filter((pes) => pes.tabId !== tab.id);
-        break;
-      case PanelTabType.PAGE_INSPECTOR:
-        this.pageInspectorStates = this.pageEditorStates.filter((pis) => pis.tabId !== tab.id);
-        break;
-    }
-  }
 }

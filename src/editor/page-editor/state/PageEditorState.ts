@@ -3,17 +3,20 @@ import { action, observable } from 'mobx';
 import { Page } from '../../common/state/Page';
 import { Vector } from '../../../utils/Vector';
 import { keyboardObserver } from '../../../utils/KeyboardObserver';
+import { TabBaseState } from '../../editor-root/state/TabBaseState';
+import { PanelTabType } from '../../editor-root/state/PanelTabType';
+import { PanelTab } from '../../editor-root/state/EditorRootState';
 
-export class PageEditorState {
-  public tabId: string;
+export class PageEditorState extends TabBaseState {
   @observable public pages: Page[];
   @observable.ref public selectedPage: Page;
   public pageDiv: HTMLDivElement;
 
   private addingPageWidget = false;
 
-  constructor(tabId: string, pages: Page[]) {
-    this.tabId = tabId;
+  constructor(tab: PanelTab, pages: Page[]) {
+    super(tab);
+
     this.pages = pages;
     this.selectedPage = this.pages[0];
   }

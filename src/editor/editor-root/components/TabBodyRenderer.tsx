@@ -5,34 +5,26 @@ import { PageEditor } from '../../page-editor/components/PageEditor';
 import { PageInspector } from '../../page-inspector/components/PageInspector';
 import { PanelTabType } from '../state/PanelTabType';
 import { StoryGraph } from '../../story-graph/components/StoryGraph';
-import { TestWidget } from './TestWidget';
+import { PageEditorState } from '../../page-editor/state/PageEditorState';
+import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
 
 export class TabBodyRenderer {
-  public static getTabBody(tab: PanelTab, editorState: EditorRootState) {
+  public static makeTabRenderer(tab: PanelTab, editorState: EditorRootState) {
     switch (tab.type) {
-      case PanelTabType.TEST:
-        const testState = editorState.testStates.find((ts) => ts.tabId === tab.id);
-        if (testState) {
-          return <TestWidget testState={testState} />;
-        }
-        break;
       case PanelTabType.STORY_GRAPH:
         return <StoryGraph storyGraphState={editorState.storyGraphState} />;
       case PanelTabType.PAGE_EDITOR:
-        const pageEditorState = editorState.pageEditorStates.find((pes) => pes.tabId === tab.id);
-        if (pageEditorState) {
-          return <PageEditor pageEditorState={pageEditorState} />;
+        const pes = editorState.tabStatesMap.get(tab.id);
+        if (pes) {
+          return <PageEditor pageEditorState={pes as PageEditorState} />;
         }
         break;
       case PanelTabType.PAGE_INSPECTOR:
-        const inspectorState = editorState.pageInspectorStates.find((pis) => pis.tabId === tab.id);
-        if (inspectorState) {
-          return <PageInspector inspectorState={inspectorState} />;
+        const pis = editorState.tabStatesMap.get(tab.id);
+        if (pis) {
+          return <PageInspector inspectorState={pis as PageInspectorState} />;
         }
         break;
     }
-
-    // If there was no state or component for this tab type
-    return <div>No state or component</div>;
   }
 }

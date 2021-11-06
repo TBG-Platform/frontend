@@ -46,10 +46,6 @@ export class EditorRoot extends React.Component<Props> {
     return (
       <>
         <MenuItem
-          text={'Add test tab'}
-          onClick={() => editorState.addTab(PanelTabType.TEST, panelId)}
-        />
-        <MenuItem
           icon={'diagram-tree'}
           text={'Story graph'}
           onClick={() => editorState.addTab(PanelTabType.STORY_GRAPH, panelId)}
@@ -78,7 +74,7 @@ export class EditorRoot extends React.Component<Props> {
     }
 
     // Get the component for this tab type
-    const content = TabBodyRenderer.getTabBody(tab, editorState);
+    const content = TabBodyRenderer.makeTabRenderer(tab, editorState);
 
     return <div className={'tab-body'}>{content}</div>;
   };
