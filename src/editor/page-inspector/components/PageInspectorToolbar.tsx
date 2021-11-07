@@ -22,6 +22,7 @@ export class PageInspectorToolbar extends React.Component<Props> {
       <div className={'page-inspector-toolbar'}>
         <PageSelector
           pages={inspectorState.pages}
+          onSelect={inspectorState.setSelectedPage}
           target={
             <Button text={selectedPage.name} minimal outlined small rightIcon={'chevron-down'} />
           }

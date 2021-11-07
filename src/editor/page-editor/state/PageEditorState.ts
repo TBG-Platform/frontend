@@ -25,6 +25,10 @@ export class PageEditorState extends TabBaseState {
     this.pageDiv = div;
   }
 
+  @action public setSelectedPage = (page: Page) => {
+    this.selectedPage = page;
+  };
+
   public toggleAddingPageWidget = () => {
     this.addingPageWidget = !this.addingPageWidget;
 

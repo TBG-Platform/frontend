@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 import { Page } from '../../common/state/Page';
 import { PanelTab } from '../../editor-root/state/EditorRootState';
@@ -17,4 +17,8 @@ export class PageInspectorState extends TabBaseState {
     // TODO - editorRootstate should detect which page is being edited
     // and send that in this constructor when creating the tab
   }
+
+  @action public setSelectedPage = (page: Page) => {
+    this.selectedPage = page;
+  };
 }

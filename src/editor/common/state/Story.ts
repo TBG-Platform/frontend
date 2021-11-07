@@ -14,6 +14,7 @@ export class Story {
 
   @action public addPage = (page: Page) => {
     this.pages.push(page);
+    console.log('added page');
 
     storyObserver.fireEvent({ type: StoryEventType.NEW_PAGE, page });
   };

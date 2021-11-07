@@ -45,7 +45,6 @@ export class EditorRootState {
     page.setName(name);
 
     this.story.addPage(page);
-    console.log('added page, story: ', this.story);
   };
 
   public addTab = (tabType: PanelTabType, panelId?: string) => {
