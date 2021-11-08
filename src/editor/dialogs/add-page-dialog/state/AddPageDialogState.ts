@@ -16,6 +16,6 @@ export class AddPageDialogState {
 
   @action public validate() {
     this.firstValidation = true;
-    this.isValid = this.pageName.length > 2;
+    this.isValid = this.pageName.length > 1;
   }
 }
