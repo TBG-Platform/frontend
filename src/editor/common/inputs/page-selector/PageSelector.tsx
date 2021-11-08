@@ -1,6 +1,7 @@
 import React from 'react';
 import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/select';
 import { MenuItem } from '@blueprintjs/core';
+import { observer } from 'mobx-react';
 
 import { Page } from '../../state/Page';
 
@@ -9,8 +10,10 @@ const PageSelect = Select.ofType<Page>();
 interface Props {
   pages: Page[];
   target: JSX.Element;
+  onSelect: (page: Page) => void;
 }
 
+@observer
 export class PageSelector extends React.Component<Props> {
   public render() {
     const { pages, target } = this.props;
@@ -28,10 +31,7 @@ export class PageSelector extends React.Component<Props> {
     );
   }
 
-  private pageItemRenderer: ItemRenderer<Page> = (
-    page: Page,
-    { handleClick, modifiers, query }
-  ) => {
+  private pageItemRenderer: ItemRenderer<Page> = (page: Page, { handleClick, modifiers }) => {
     return (
       <MenuItem
         key={'page-select-' + page.id}
@@ -44,7 +44,7 @@ export class PageSelector extends React.Component<Props> {
   };
 
   private onPageItemSelect = (page: Page) => {
-    console.log('selected page', page.name);
+    this.props.onSelect(page);
   };
 
   private filterPages: ItemPredicate<Page> = (query: string, page: Page) => {

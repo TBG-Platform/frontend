@@ -23,7 +23,9 @@ export class PageEditorToolbar extends React.Component<Props> {
     return (
       <div className={'page-editor-toolbar'}>
         <PageSelector
+          key={`page-editor-selector-${pageEditorState.pages.length}`}
           pages={pageEditorState.pages}
+          onSelect={pageEditorState.setSelectedPage}
           target={
             <Button text={selectedPage.name} minimal outlined small rightIcon={'chevron-down'} />
           }
