@@ -19,8 +19,6 @@ export class PageItemDetails extends React.Component<Props> {
   public render() {
     const { pageItem } = this.props;
 
-    console.log('pageItemDetails render');
-
     if (!pageItem) {
       return <div className={'page-item-details'}>{this.renderNoItemSelected()}</div>;
     }
