@@ -27,8 +27,6 @@ export class PageEditor extends React.Component<Props> {
   public render() {
     const { pageEditorState } = this.props;
 
-    const selectedPage = pageEditorState.selectedPage;
-
     return (
       <div className={'page-editor'}>
         <div className={'page-editor-toolbar-area'}>
@@ -37,21 +35,35 @@ export class PageEditor extends React.Component<Props> {
         <div className={'page-edit-area'}>
           <PageContextMenu onAddItem={pageEditorState.addPageItem}>
             <div ref={this.pageRef} className={'page-display'}>
-              {selectedPage.items.map((item) => (
-                <PageItemWidget
-                  key={`item-` + item.id}
-                  pageDiv={pageEditorState.pageDiv}
-                  pageItem={item}
-                  selected={selectedPage.isItemSelected(item.id)}
-                  onClick={() => console.log('clicked widget')}
-                  onDelete={selectedPage.deleteSelectedItem}
-                />
-              ))}
+              {this.renderPageItems()}
             </div>
           </PageContextMenu>
         </div>
       </div>
     );
+  }
+
+  private renderPageItems() {
+    const { pageEditorState } = this.props;
+
+    const selectedPage = pageEditorState.selectedPage;
+
+    // Cannot render page items with the ref to the page display (after the editor mounts)
+    if (pageEditorState.pageDiv) {
+      return selectedPage.items.map((item) => (
+        <PageItemWidget
+          key={`item-` + item.id}
+          pageDiv={pageEditorState.pageDiv}
+          pageItem={item}
+          selected={selectedPage.isItemSelected(item.id)}
+          onClick={() => console.log('clicked widget')}
+          onDelete={selectedPage.deleteSelectedItem}
+        />
+      ));
+    }
+
+    // Return nothing until page editor ref is given
+    return undefined;
   }
 }
 

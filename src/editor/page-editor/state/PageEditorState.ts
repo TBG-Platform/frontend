@@ -1,16 +1,16 @@
 import { action, observable } from 'mobx';
 
 import { Page } from '../../common/state/Page';
+import { PanelTab } from '../../editor-root/state/EditorRootState';
+import { PanelTabType } from '../../editor-root/state/PanelTabType';
+import { TabBaseState } from '../../editor-root/state/TabBaseState';
 import { Vector } from '../../../utils/Vector';
 import { keyboardObserver } from '../../../utils/KeyboardObserver';
-import { TabBaseState } from '../../editor-root/state/TabBaseState';
-import { PanelTabType } from '../../editor-root/state/PanelTabType';
-import { PanelTab } from '../../editor-root/state/EditorRootState';
 
 export class PageEditorState extends TabBaseState {
   @observable public pages: Page[];
   @observable.ref public selectedPage: Page;
-  public pageDiv: HTMLDivElement;
+  @observable.ref public pageDiv: HTMLDivElement;
 
   private addingPageWidget = false;
 
