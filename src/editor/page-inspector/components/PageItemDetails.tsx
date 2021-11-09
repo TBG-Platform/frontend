@@ -1,12 +1,13 @@
 import './page-item-details.scss';
 
 import React from 'react';
-import { Button, ButtonGroup, Divider, NonIdealState } from '@blueprintjs/core';
+import { Button, ButtonGroup, NonIdealState } from '@blueprintjs/core';
 import { Observer, observer } from 'mobx-react';
 
 import { ColorPicker } from '../../common/inputs/color-picker/ColorPicker';
 import { NumberInput, NumberInputSize } from '../../common/inputs/number-input/NumberInput';
 import { PageItem } from '../../common/state/PageItem';
+import { StandardDivider } from '../../common/dividers/StandardDivider';
 import { TextAlign, TextDecoration } from '../../common/state/TextSettings';
 import { TextAreaInput } from '../../common/inputs/text-area-input/TextAreaInput';
 
@@ -150,7 +151,7 @@ export class PageItemDetails extends React.Component<Props> {
               />
             </ButtonGroup>
 
-            <Divider className={'divider'} />
+            <StandardDivider />
 
             <ButtonGroup minimal>
               <Button
