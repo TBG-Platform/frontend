@@ -33,7 +33,19 @@
     gap: 20px;
   }
 
-  .content .section-content {
+  .transform-content {
+    display: flex;
+    gap: 20px;
+
+    .section-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+
+  .item-content {
     display: flex;
     flex-direction: column;
     gap: 5px;

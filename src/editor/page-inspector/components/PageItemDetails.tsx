@@ -48,55 +48,57 @@ export class PageItemDetails extends React.Component<Props> {
     const { pageItem } = this.props;
 
     return (
-      <div className={'section transform'}>
-        <div className={'section-title'}>Transform (%)</div>
-        <div className={'section-content'}>
-          <div className={'section-column'}>
-            <Observer>
-              {() => (
-                <NumberInput
-                  label={'W'}
-                  value={pageItem.width}
-                  onChange={pageItem.setWidth}
-                  size={NumberInputSize.MEDIUM}
-                />
-              )}
-            </Observer>
-            <Observer>
-              {() => (
-                <NumberInput
-                  label={'H'}
-                  value={pageItem.height}
-                  onChange={pageItem.setHeight}
-                  size={NumberInputSize.MEDIUM}
-                />
-              )}
-            </Observer>
+      <DetailsSection
+        title={'Transform (%)'}
+        content={
+          <div className={'transform-content'}>
+            <div className={'section-column'}>
+              <Observer>
+                {() => (
+                  <NumberInput
+                    label={'W'}
+                    value={pageItem.width}
+                    onChange={pageItem.setWidth}
+                    size={NumberInputSize.MEDIUM}
+                  />
+                )}
+              </Observer>
+              <Observer>
+                {() => (
+                  <NumberInput
+                    label={'H'}
+                    value={pageItem.height}
+                    onChange={pageItem.setHeight}
+                    size={NumberInputSize.MEDIUM}
+                  />
+                )}
+              </Observer>
+            </div>
+            <div className={'section-column'}>
+              <Observer>
+                {() => (
+                  <NumberInput
+                    label={'X'}
+                    value={pageItem.left}
+                    onChange={pageItem.setLeft}
+                    size={NumberInputSize.MEDIUM}
+                  />
+                )}
+              </Observer>
+              <Observer>
+                {() => (
+                  <NumberInput
+                    label={'Y'}
+                    value={pageItem.top}
+                    onChange={pageItem.setTop}
+                    size={NumberInputSize.MEDIUM}
+                  />
+                )}
+              </Observer>
+            </div>
           </div>
-          <div className={'section-column'}>
-            <Observer>
-              {() => (
-                <NumberInput
-                  label={'X'}
-                  value={pageItem.left}
-                  onChange={pageItem.setLeft}
-                  size={NumberInputSize.MEDIUM}
-                />
-              )}
-            </Observer>
-            <Observer>
-              {() => (
-                <NumberInput
-                  label={'Y'}
-                  value={pageItem.top}
-                  onChange={pageItem.setTop}
-                  size={NumberInputSize.MEDIUM}
-                />
-              )}
-            </Observer>
-          </div>
-        </div>
-      </div>
+        }
+      />
     );
   }
 
@@ -121,96 +123,101 @@ export class PageItemDetails extends React.Component<Props> {
     const { pageItem } = this.props;
 
     return (
-      <div className={'section content'}>
-        <div className={'section-title'}>Content</div>
-        <div className={'section-content'}>
-          <Observer>
-            {() => (
-              <TextAreaInput
-                label={'Text'}
-                text={pageItem.textSettings.text}
-                onChange={pageItem.textSettings.setText}
-              />
-            )}
-          </Observer>
-          <div className={'text-settings-row'}>
-            <ButtonGroup minimal>
-              <Button
-                icon={'alignment-left'}
-                outlined={pageItem.textSettings.isXAlignSelected(TextAlign.START)}
-                onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.START)}
-              />
-              <Button
-                icon={'alignment-horizontal-center'}
-                outlined={pageItem.textSettings.isXAlignSelected(TextAlign.CENTER)}
-                onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.CENTER)}
-              />
-              <Button
-                icon={'alignment-right'}
-                outlined={pageItem.textSettings.isXAlignSelected(TextAlign.END)}
-                onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.END)}
-              />
-            </ButtonGroup>
+      <DetailsSection
+        title={'Content'}
+        content={
+          <div className={'item-content'}>
+            <Observer>
+              {() => (
+                <TextAreaInput
+                  label={'Text'}
+                  text={pageItem.textSettings.text}
+                  onChange={pageItem.textSettings.setText}
+                />
+              )}
+            </Observer>
+            <div className={'text-settings-row'}>
+              <ButtonGroup minimal>
+                <Button
+                  icon={'alignment-left'}
+                  outlined={pageItem.textSettings.isXAlignSelected(TextAlign.START)}
+                  onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.START)}
+                />
+                <Button
+                  icon={'alignment-horizontal-center'}
+                  outlined={pageItem.textSettings.isXAlignSelected(TextAlign.CENTER)}
+                  onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.CENTER)}
+                />
+                <Button
+                  icon={'alignment-right'}
+                  outlined={pageItem.textSettings.isXAlignSelected(TextAlign.END)}
+                  onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.END)}
+                />
+              </ButtonGroup>
 
-            <StandardDivider />
+              <StandardDivider />
 
-            <ButtonGroup minimal>
-              <Button
-                icon={'alignment-top'}
-                outlined={pageItem.textSettings.isYAlignSelected(TextAlign.START)}
-                onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.START)}
-              />
-              <Button
-                icon={'alignment-vertical-center'}
-                outlined={pageItem.textSettings.isYAlignSelected(TextAlign.CENTER)}
-                onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.CENTER)}
-              />
-              <Button
-                icon={'alignment-bottom'}
-                outlined={pageItem.textSettings.isYAlignSelected(TextAlign.END)}
-                onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.END)}
-              />
-            </ButtonGroup>
-          </div>
-          <div className={'text-settings-row'}>
-            <ButtonGroup minimal>
-              <Button
-                icon={'bold'}
-                outlined={pageItem.textSettings.bold}
-                onClick={pageItem.textSettings.toggleBold}
-              />
-              <Button
-                icon={'italic'}
-                outlined={pageItem.textSettings.italic}
-                onClick={pageItem.textSettings.toggleItalic}
-              />
-              <Button
-                icon={'underline'}
-                outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.UNDERLINE)}
-                onClick={() => pageItem.textSettings.setDecoration(TextDecoration.UNDERLINE)}
-              />
-              <Button
-                icon={'strikethrough'}
-                outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.STRIKETHROUGH)}
-                onClick={() => pageItem.textSettings.setDecoration(TextDecoration.STRIKETHROUGH)}
-              />
-            </ButtonGroup>
-          </div>
-          <div className='text-settings-row'>
-            <ColorPicker
-              color={pageItem.textSettings.color}
-              setColor={pageItem.textSettings.setColor}
-            />
+              <ButtonGroup minimal>
+                <Button
+                  icon={'alignment-top'}
+                  outlined={pageItem.textSettings.isYAlignSelected(TextAlign.START)}
+                  onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.START)}
+                />
+                <Button
+                  icon={'alignment-vertical-center'}
+                  outlined={pageItem.textSettings.isYAlignSelected(TextAlign.CENTER)}
+                  onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.CENTER)}
+                />
+                <Button
+                  icon={'alignment-bottom'}
+                  outlined={pageItem.textSettings.isYAlignSelected(TextAlign.END)}
+                  onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.END)}
+                />
+              </ButtonGroup>
+            </div>
 
-            <NumberInput
-              label={'Size %'}
-              value={pageItem.textSettings.size}
-              onChange={pageItem.textSettings.setSize}
-              size={NumberInputSize.MEDIUM}
-            />
+            <div className={'text-settings-row'}>
+              <ButtonGroup minimal>
+                <Button
+                  icon={'bold'}
+                  outlined={pageItem.textSettings.bold}
+                  onClick={pageItem.textSettings.toggleBold}
+                />
+                <Button
+                  icon={'italic'}
+                  outlined={pageItem.textSettings.italic}
+                  onClick={pageItem.textSettings.toggleItalic}
+                />
+                <Button
+                  icon={'underline'}
+                  outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.UNDERLINE)}
+                  onClick={() => pageItem.textSettings.setDecoration(TextDecoration.UNDERLINE)}
+                />
+                <Button
+                  icon={'strikethrough'}
+                  outlined={pageItem.textSettings.isDecorationSelected(
+                    TextDecoration.STRIKETHROUGH
+                  )}
+                  onClick={() => pageItem.textSettings.setDecoration(TextDecoration.STRIKETHROUGH)}
+                />
+              </ButtonGroup>
+            </div>
+            <div className='text-settings-row'>
+              <ColorPicker
+                color={pageItem.textSettings.color}
+                setColor={pageItem.textSettings.setColor}
+              />
+
+              <NumberInput
+                label={'Size %'}
+                value={pageItem.textSettings.size}
+                onChange={pageItem.textSettings.setSize}
+                size={NumberInputSize.MEDIUM}
+              />
+            </div>
           </div>
-        </div>
-      </div>
+        }
+      />
     );
   }
 }
