@@ -1,8 +1,7 @@
 import './editable-text.scss';
 
 import React from 'react';
-import { FormGroup, Icon } from '@blueprintjs/core';
-import { IconName } from '@blueprintjs/icons';
+import { FormGroup, Intent } from '@blueprintjs/core';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
@@ -11,6 +10,7 @@ import { FitTextInput } from '../fit-text-input/FitTextInput';
 interface Props {
   text: string;
   onChange: (text: string) => void;
+  minLength?: number;
   className?: string;
   label?: string;
   inline?: boolean;
@@ -20,9 +20,10 @@ interface Props {
 @observer
 export class EditableText extends React.Component<Props> {
   @observable private isEditing = false;
+  @observable private showHelp = false;
 
   public render() {
-    const { text, onChange, className, label, inline, onBlur } = this.props;
+    const { text, minLength, className, label, inline, onBlur } = this.props;
 
     let content: JSX.Element = (
       <div className={'editable-text-content'} onClick={this.onClickText}>
@@ -32,19 +33,37 @@ export class EditableText extends React.Component<Props> {
 
     if (this.isEditing) {
       content = (
-        <FitTextInput text={text} onChange={onChange} inputFieldPadding={10} onBlur={onBlur} />
+        <FitTextInput
+          text={text}
+          onChange={this.onTextChange}
+          inputFieldPadding={10}
+          onBlur={onBlur}
+          intent={this.showHelp ? Intent.DANGER : undefined}
+        />
       );
     }
 
     return (
-      <FormGroup label={label} inline={inline ?? false}>
-        <div className={'editable-text-container ' + className}>
-          {/* {label && <span className={'editable-text-label'}>{label}</span>} */}
-          {content}
-        </div>
+      <FormGroup
+        label={label}
+        inline={inline ?? false}
+        helperText={this.showHelp ? `Must be at least ${minLength} characters` : ''}
+      >
+        <div className={'editable-text-container ' + className}>{content}</div>
       </FormGroup>
     );
   }
+
+  private onTextChange = (text: string) => {
+    const { minLength, onChange } = this.props;
+
+    if (minLength !== undefined) {
+      // Is the new text value below the min width?
+      this.showHelp = text.length < minLength;
+    }
+
+    onChange(text);
+  };
 
   @action private onClickText = () => {
     this.isEditing = true;
