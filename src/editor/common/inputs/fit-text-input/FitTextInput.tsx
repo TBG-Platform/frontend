@@ -1,14 +1,16 @@
 import './fit-text-input.scss';
 
 import React from 'react';
-import { InputGroup } from '@blueprintjs/core';
+import { InputGroup, Intent } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
 interface Props {
   text: string;
   onChange: (text: string) => void;
+  onFocus?: () => void;
   inputFieldPadding: number;
   onBlur?: () => void;
+  intent?: Intent;
 }
 
 @observer
@@ -21,7 +23,7 @@ export class FitTextInput extends React.Component<Props> {
   }
 
   public render() {
-    const { text, onBlur } = this.props;
+    const { text, onFocus, onBlur, intent } = this.props;
 
     return (
       <div className={'fit-text-input'}>
@@ -32,9 +34,12 @@ export class FitTextInput extends React.Component<Props> {
           id={'fit-text-input'}
           inputRef={this.nameInputRef}
           autoFocus
+          autoComplete={'off'}
           value={text}
           onChange={this.onInputChange}
-          onBlur={onBlur ? onBlur : undefined}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          intent={intent}
         />
       </div>
     );

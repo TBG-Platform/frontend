@@ -1,0 +1,15 @@
+@import '../../../common/tbg-palette.scss';
+
+.details-section {
+  padding: 10px;
+  border-bottom: 1px solid $mainBorderColor;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .details-section-title {
+    font-weight: bold;
+    user-select: none;
+  }
+}

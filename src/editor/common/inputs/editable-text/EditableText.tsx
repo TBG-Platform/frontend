@@ -1,8 +1,7 @@
 import './editable-text.scss';
 
 import React from 'react';
-import { Icon } from '@blueprintjs/core';
-import { IconName } from '@blueprintjs/icons';
+import { FormGroup, Intent } from '@blueprintjs/core';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
@@ -11,18 +10,21 @@ import { FitTextInput } from '../fit-text-input/FitTextInput';
 interface Props {
   text: string;
   onChange: (text: string) => void;
+  minLength?: number;
   className?: string;
   label?: string;
-  labelIcon?: IconName;
+  inline?: boolean;
   onBlur?: () => void;
 }
 
 @observer
 export class EditableText extends React.Component<Props> {
   @observable private isEditing = false;
+  @observable private invalid = false;
+  private textBeforeEdit = this.props.text;
 
   public render() {
-    const { text, onChange, className, label, labelIcon, onBlur } = this.props;
+    const { text, minLength, className, label, inline } = this.props;
 
     let content: JSX.Element = (
       <div className={'editable-text-content'} onClick={this.onClickText}>
@@ -32,18 +34,57 @@ export class EditableText extends React.Component<Props> {
 
     if (this.isEditing) {
       content = (
-        <FitTextInput text={text} onChange={onChange} inputFieldPadding={10} onBlur={onBlur} />
+        <FitTextInput
+          text={text}
+          onChange={this.onTextChange}
+          onFocus={this.onFocusInput}
+          inputFieldPadding={10}
+          onBlur={this.onBlurInput}
+          intent={this.invalid ? Intent.DANGER : undefined}
+        />
       );
     }
 
     return (
-      <div className={'editable-text-container ' + className}>
-        {label && <span className={'editable-text-label'}>{label}</span>}
-        {labelIcon && <Icon icon={labelIcon} />}
-        {content}
-      </div>
+      <FormGroup
+        label={label}
+        inline={inline ?? false}
+        helperText={this.invalid ? `Must be at least ${minLength} characters` : ''}
+      >
+        <div className={'editable-text-container ' + className}>{content}</div>
+      </FormGroup>
     );
   }
+
+  private onTextChange = (text: string) => {
+    const { minLength, onChange } = this.props;
+
+    if (minLength !== undefined) {
+      // Is the new text value below the min width?
+      this.invalid = text.length < minLength;
+    }
+
+    onChange(text);
+  };
+
+  private onFocusInput = () => {
+    this.textBeforeEdit = this.props.text;
+  };
+
+  private onBlurInput = () => {
+    const { onChange, onBlur } = this.props;
+
+    if (this.invalid) {
+      // If invalid text length, call onChange with pre-edited text content
+      onChange(this.textBeforeEdit);
+      // Now valid
+      this.invalid = false;
+    }
+
+    if (onBlur) {
+      onBlur();
+    }
+  };
 
   @action private onClickText = () => {
     this.isEditing = true;
