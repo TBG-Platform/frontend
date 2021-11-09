@@ -22,7 +22,7 @@ export class PageDetails extends React.Component<Props> {
           title={'Page'}
           content={
             <div className={'page-details-content'}>
-              <EditableText text={page.name} onChange={page.setName} label={'Name'} />
+              <EditableText text={page.name} onChange={page.setName} label={'Name'} inline />
             </div>
           }
         />

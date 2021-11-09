@@ -1,7 +1,7 @@
 import './editable-text.scss';
 
 import React from 'react';
-import { Icon } from '@blueprintjs/core';
+import { FormGroup, Icon } from '@blueprintjs/core';
 import { IconName } from '@blueprintjs/icons';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -13,7 +13,7 @@ interface Props {
   onChange: (text: string) => void;
   className?: string;
   label?: string;
-  labelIcon?: IconName;
+  inline?: boolean;
   onBlur?: () => void;
 }
 
@@ -22,7 +22,7 @@ export class EditableText extends React.Component<Props> {
   @observable private isEditing = false;
 
   public render() {
-    const { text, onChange, className, label, labelIcon, onBlur } = this.props;
+    const { text, onChange, className, label, inline, onBlur } = this.props;
 
     let content: JSX.Element = (
       <div className={'editable-text-content'} onClick={this.onClickText}>
@@ -37,11 +37,12 @@ export class EditableText extends React.Component<Props> {
     }
 
     return (
-      <div className={'editable-text-container ' + className}>
-        {label && <span className={'editable-text-label'}>{label}</span>}
-        {labelIcon && <Icon icon={labelIcon} />}
-        {content}
-      </div>
+      <FormGroup label={label} inline={inline ?? false}>
+        <div className={'editable-text-container ' + className}>
+          {/* {label && <span className={'editable-text-label'}>{label}</span>} */}
+          {content}
+        </div>
+      </FormGroup>
     );
   }
 
