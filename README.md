@@ -18,6 +18,20 @@ This opens a new window in your browser, with hot-reloading enabled.
 
 As regards browsers, it is best to use Chrome for development.
 
+## Workflow - Jira and Git conventions
+
+We are using a Github extension within Jira, which allows us to track branches and commits made against a particular jira ticket.
+
+When working inside the frontend repo, follow this general workflow:
+
+- Find a Jira ticket to work on, assign it to yourself and move it to 'In progress'
+- Create a new branch for the ticket from dev, make sure to name the branch like this: `<jira-ticket-number>_<summary>` - the underscore separates the ticket number and summary text
+- E.g for this ticket: https://mattn.atlassian.net/browse/FRONT-4 I made a branch named `FRONT-4_page-details`
+- When making commits, start your commit message with `<jira-ticket-number>:<commit-message>`, e.g `FRONT-4: did the thing` - separate the jira ticket number with a colon
+- You should now see the branch and all commits from the jira ticket!
+- When ready to pull request, first pull dev into your branch and deal with any conflicts, then raise the PR against dev
+- Your PR will then be reviewed and merged; once merged, the branch will be deleted and you can move your Jira ticket to 'Done'
+
 ## Folder structure
 
 The structure of the repo has a few conventions.
@@ -82,6 +96,18 @@ One thing to be aware of - you cannot have a component that observes an observab
 Other than the above point, MobX is pretty easy to use! Their documentation is here if you want to find out more: https://mobx.js.org/README.html
 
 Using MobX means we can keep all logic outside of our components as much as possible. You should avoid having functions inside your react components; each major component should have its own ComponentState.ts which holds the callbacks and state values for the component. A major benefit to this system is that if we choose to swap out components the business logic in unaffected; you can drop in new components or make major changes this way without having to worry about losing any logic which should remain the same.
+
+## Blueprint and Styling
+
+This project makes use of the UI toolkit library, Blueprintjs: https://blueprintjs.com/docs/
+
+In general, try to use a blueprint component where possible.
+
+In some cases, we have our own wrappers for blueprint components - always check under the 'common' folders.
+
+With regards to styling, under `src/common` lives the `tbg-palette.scss` which holds common scss variables.
+
+Currently, it holds a few colours. When adding new colours or sizing values that would be reused throughout the app, put them in the palette file.
 
 # Editor
 
