@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 
 import { PageItem } from './PageItem';
 import { RandomUtils } from '../../../utils/RandomUtils';
+import { StoryEventType, storyObserver } from '../../events/StoryEventObserver';
 import { Vector } from '../../../utils/Vector';
 import { keyboardObserver } from '../../../utils/KeyboardObserver';
 
@@ -17,6 +18,11 @@ export class Page {
 
   @action public setName = (name: string) => {
     this.name = name;
+  };
+
+  public finishSetName = () => {
+    // Once finished setting the name, fire page name updated story event
+    storyObserver.fireEvent({ type: StoryEventType.RENAME_PAGE, page: this });
   };
 
   public isItemSelected(itemId: string) {

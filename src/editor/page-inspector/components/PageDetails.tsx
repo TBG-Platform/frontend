@@ -25,6 +25,7 @@ export class PageDetails extends React.Component<Props> {
               <EditableText
                 text={page.name}
                 onChange={page.setName}
+                onBlur={page.finishSetName}
                 label={'Name'}
                 inline
                 minLength={2}

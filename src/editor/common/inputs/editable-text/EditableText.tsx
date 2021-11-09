@@ -14,6 +14,7 @@ interface Props {
   className?: string;
   label?: string;
   inline?: boolean;
+  onBlur?: () => void;
 }
 
 @observer
@@ -71,13 +72,17 @@ export class EditableText extends React.Component<Props> {
   };
 
   private onBlurInput = () => {
-    console.log('onblur');
+    const { onChange, onBlur } = this.props;
 
     if (this.invalid) {
       // If invalid text length, call onChange with pre-edited text content
-      this.props.onChange(this.textBeforeEdit);
+      onChange(this.textBeforeEdit);
       // Now valid
       this.invalid = false;
+    }
+
+    if (onBlur) {
+      onBlur();
     }
   };
 

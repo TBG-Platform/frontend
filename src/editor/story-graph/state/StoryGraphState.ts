@@ -8,16 +8,21 @@ export class StoryGraphState {
   @observable.ref public elements: FlowElement[] = [];
 
   constructor() {
-    storyObserver.addGameEventListener(this.onNewPage, StoryEventType.NEW_PAGE);
+    storyObserver.addGameEventListener(this.storyEventListener);
   }
 
-  private onNewPage = (event: StoryEvent) => {
-    if (event.type !== StoryEventType.NEW_PAGE) {
-      return;
+  private storyEventListener = (event: StoryEvent) => {
+    switch (event.type) {
+      case StoryEventType.NEW_PAGE:
+        this.onNewPage(event.page);
+        break;
+      case StoryEventType.RENAME_PAGE:
+        this.onRenamePage(event.page);
+        break;
     }
+  };
 
-    const page: Page = event.page;
-
+  private onNewPage(page: Page) {
     const type = this.elements.length ? 'default' : 'input';
 
     const node: Node = {
@@ -30,7 +35,20 @@ export class StoryGraphState {
     this.elements.push(node);
 
     this.elements = [...this.elements];
-  };
+  }
+
+  @action public onRenamePage(page: Page) {
+    this.elements = this.elements.map((el) => {
+      if (el.id === page.id) {
+        el.data = {
+          ...el.data,
+          label: page.name,
+        };
+      }
+
+      return el;
+    });
+  }
 
   @action public addPageNode(id: string, name: string) {
     // Only first node is of type input
@@ -47,18 +65,5 @@ export class StoryGraphState {
 
     // Must overwrite elements to update renderer
     this.elements = this.elements.map((el) => el);
-  }
-
-  @action public updatePageNodeName(id: string, name: string) {
-    this.elements = this.elements.map((el) => {
-      if (el.id === id) {
-        el.data = {
-          ...el.data,
-          label: name,
-        };
-      }
-
-      return el;
-    });
   }
 }
