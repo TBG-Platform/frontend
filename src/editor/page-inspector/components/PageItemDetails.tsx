@@ -5,6 +5,7 @@ import { Button, ButtonGroup, NonIdealState } from '@blueprintjs/core';
 import { Observer, observer } from 'mobx-react';
 
 import { ColorPicker } from '../../common/inputs/color-picker/ColorPicker';
+import { DetailsSection } from '../../common/dividers/DetailsSection';
 import { NumberInput, NumberInputSize } from '../../common/inputs/number-input/NumberInput';
 import { PageItem } from '../../common/state/PageItem';
 import { StandardDivider } from '../../common/dividers/StandardDivider';
@@ -103,16 +104,16 @@ export class PageItemDetails extends React.Component<Props> {
     const { pageItem } = this.props;
 
     return (
-      <div className={'section background'}>
-        <div className={'section-title'}>Background</div>
-        <div className={'section-content'}>
+      <DetailsSection
+        title={'Background'}
+        content={
           <ColorPicker
             label={'Fill'}
             color={pageItem.settings.backgroundColor}
             setColor={pageItem.setBackgroundColor}
           />
-        </div>
-      </div>
+        }
+      />
     );
   }
 
