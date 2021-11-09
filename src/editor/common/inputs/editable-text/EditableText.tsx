@@ -14,16 +14,16 @@ interface Props {
   className?: string;
   label?: string;
   inline?: boolean;
-  onBlur?: () => void;
 }
 
 @observer
 export class EditableText extends React.Component<Props> {
   @observable private isEditing = false;
-  @observable private showHelp = false;
+  @observable private invalid = false;
+  private textBeforeEdit = this.props.text;
 
   public render() {
-    const { text, minLength, className, label, inline, onBlur } = this.props;
+    const { text, minLength, className, label, inline } = this.props;
 
     let content: JSX.Element = (
       <div className={'editable-text-content'} onClick={this.onClickText}>
@@ -36,9 +36,10 @@ export class EditableText extends React.Component<Props> {
         <FitTextInput
           text={text}
           onChange={this.onTextChange}
+          onFocus={this.onFocusInput}
           inputFieldPadding={10}
-          onBlur={onBlur}
-          intent={this.showHelp ? Intent.DANGER : undefined}
+          onBlur={this.onBlurInput}
+          intent={this.invalid ? Intent.DANGER : undefined}
         />
       );
     }
@@ -47,7 +48,7 @@ export class EditableText extends React.Component<Props> {
       <FormGroup
         label={label}
         inline={inline ?? false}
-        helperText={this.showHelp ? `Must be at least ${minLength} characters` : ''}
+        helperText={this.invalid ? `Must be at least ${minLength} characters` : ''}
       >
         <div className={'editable-text-container ' + className}>{content}</div>
       </FormGroup>
@@ -59,10 +60,25 @@ export class EditableText extends React.Component<Props> {
 
     if (minLength !== undefined) {
       // Is the new text value below the min width?
-      this.showHelp = text.length < minLength;
+      this.invalid = text.length < minLength;
     }
 
     onChange(text);
+  };
+
+  private onFocusInput = () => {
+    this.textBeforeEdit = this.props.text;
+  };
+
+  private onBlurInput = () => {
+    console.log('onblur');
+
+    if (this.invalid) {
+      // If invalid text length, call onChange with pre-edited text content
+      this.props.onChange(this.textBeforeEdit);
+      // Now valid
+      this.invalid = false;
+    }
   };
 
   @action private onClickText = () => {

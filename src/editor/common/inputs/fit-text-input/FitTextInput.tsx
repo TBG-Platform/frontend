@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 interface Props {
   text: string;
   onChange: (text: string) => void;
+  onFocus?: () => void;
   inputFieldPadding: number;
   onBlur?: () => void;
   intent?: Intent;
@@ -22,7 +23,7 @@ export class FitTextInput extends React.Component<Props> {
   }
 
   public render() {
-    const { text, onBlur, intent } = this.props;
+    const { text, onFocus, onBlur, intent } = this.props;
 
     return (
       <div className={'fit-text-input'}>
@@ -36,8 +37,9 @@ export class FitTextInput extends React.Component<Props> {
           autoComplete={'off'}
           value={text}
           onChange={this.onInputChange}
-          onBlur={onBlur ? onBlur : undefined}
-          intent={intent ?? undefined}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          intent={intent}
         />
       </div>
     );
