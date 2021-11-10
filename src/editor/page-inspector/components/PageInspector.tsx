@@ -29,7 +29,12 @@ export class PageInspector extends React.Component<Props> {
             <PageDetails page={selectedPage} />
           </div>
           <div className={'sub-details-area'}>
-            <PageItemDetails pageItem={selectedPage.selectedItem} />
+            <PageItemDetails
+              pageItem={selectedPage.selectedItem}
+              linkablePages={inspectorState.getLinkablePages()}
+              onLinkPageItem={inspectorState.onLinkPageItem}
+              onUnlinkPageItem={inspectorState.onUnlinkPageItem}
+            />
           </div>
         </div>
       </div>

@@ -7,13 +7,18 @@ import { Observer, observer } from 'mobx-react';
 import { ColorPicker } from '../../common/inputs/color-picker/ColorPicker';
 import { DetailsSection } from '../../common/dividers/DetailsSection';
 import { NumberInput, NumberInputSize } from '../../common/inputs/number-input/NumberInput';
+import { Page } from '../../common/state/Page';
 import { PageItem } from '../../common/state/PageItem';
+import { PageSelector } from '../../common/inputs/page-selector/PageSelector';
 import { StandardDivider } from '../../common/dividers/StandardDivider';
 import { TextAlign, TextDecoration } from '../../common/state/TextSettings';
 import { TextAreaInput } from '../../common/inputs/text-area-input/TextAreaInput';
 
 interface Props {
   pageItem: PageItem | undefined;
+  linkablePages: Page[];
+  onLinkPageItem: (itemId: string, toId: string) => void;
+  onUnlinkPageItem: (itemId: string) => void;
 }
 
 @observer
@@ -30,6 +35,7 @@ export class PageItemDetails extends React.Component<Props> {
         {this.renderTransformSettings()}
         {this.renderBackgroundSettings()}
         {this.renderContentSettings()}
+        {this.renderLinkSettings()}
       </div>
     );
   }
@@ -215,6 +221,41 @@ export class PageItemDetails extends React.Component<Props> {
                 size={NumberInputSize.MEDIUM}
               />
             </div>
+          </div>
+        }
+      />
+    );
+  }
+
+  private renderLinkSettings() {
+    const { linkablePages, pageItem, onLinkPageItem, onUnlinkPageItem } = this.props;
+
+    const linkedPage = pageItem.linkedPage?.name ?? 'No linked page';
+
+    return (
+      <DetailsSection
+        title={'Linked page'}
+        content={
+          <div className={'link-content'}>
+            <PageSelector
+              pages={linkablePages}
+              onSelect={(page: Page) => {
+                pageItem.setLinkedPage(page);
+                onLinkPageItem(pageItem.id, page.id);
+              }}
+              noResultsText={'No other pages to link!'}
+              target={<Button text={linkedPage} minimal outlined rightIcon={'chevron-down'} />}
+            />
+            <Button
+              text={'Unlink'}
+              minimal
+              outlined
+              disabled={pageItem.linkedPage === undefined}
+              onClick={() => {
+                pageItem.unlinkPage();
+                onUnlinkPageItem(pageItem.id);
+              }}
+            />
           </div>
         }
       />

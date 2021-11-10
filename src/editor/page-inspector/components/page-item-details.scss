@@ -6,32 +6,6 @@
   display: flex;
   flex-direction: column;
 
-  .section {
-    padding: 10px;
-    border-bottom: 1px solid $mainBorderColor;
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    .section-title {
-      font-weight: bold;
-      user-select: none;
-    }
-
-    .section-column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-    }
-  }
-
-  .transform .section-content {
-    display: flex;
-    gap: 20px;
-  }
-
   .transform-content {
     display: flex;
     gap: 20px;
@@ -56,7 +30,7 @@
     }
   }
 
-  .background .section-content {
+  .link-content {
     display: flex;
     gap: 5px;
   }
