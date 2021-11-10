@@ -85,6 +85,14 @@ export class EditorNavbar extends React.Component<Props> {
   private renderLayoutMenu() {
     const { editorState } = this.props;
 
+    const layoutOptions = editorState.editorStorage.layouts.map((layout, idx) => (
+      <MenuItem
+        key={`layout-${idx}`}
+        text={layout.name}
+        onClick={() => console.log('clicked layout', layout.name)}
+      />
+    ));
+
     return (
       <Popover2
         position={Position.BOTTOM}
@@ -92,19 +100,16 @@ export class EditorNavbar extends React.Component<Props> {
         className={'menu-root-wrapper'}
         content={
           <Menu>
+            {layoutOptions.length > 0 && (
+              <>
+                {layoutOptions}
+                <Divider />
+              </>
+            )}
+
             <MenuItem
               text={'Two column'}
               onClick={() => editorState.dockableUiState.setFlatLayout(2)}
-            />
-            <MenuItem
-              text={'Three column'}
-              onClick={() => editorState.dockableUiState.setFlatLayout(3)}
-            />
-            <MenuItem
-              text={'Three row'}
-              onClick={() =>
-                editorState.dockableUiState.setFlatLayout(3, DuiPanelContainerFlow.COLUMN)
-              }
             />
             <MenuItem
               text={'Nested 3'}
