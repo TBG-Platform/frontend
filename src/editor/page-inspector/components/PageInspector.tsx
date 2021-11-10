@@ -32,7 +32,8 @@ export class PageInspector extends React.Component<Props> {
             <PageItemDetails
               pageItem={selectedPage.selectedItem}
               linkablePages={inspectorState.getLinkablePages()}
-              onLinkPage={inspectorState.onLinkPage}
+              onLinkPageItem={inspectorState.onLinkPageItem}
+              onUnlinkPageItem={inspectorState.onUnlinkPageItem}
             />
           </div>
         </div>

@@ -8,7 +8,7 @@ import { Vector } from '../../../utils/Vector';
 
 export class StoryGraphState {
   @observable.ref public elements: FlowElement[] = [];
-  private lastNodePos = new Vector(100, 20);
+  private lastNodePos = new Vector(100, -80);
 
   constructor() {
     storyObserver.addGameEventListener(this.storyEventListener);
@@ -22,9 +22,11 @@ export class StoryGraphState {
       case StoryEventType.RENAME_PAGE:
         this.onRenamePage(event.page);
         break;
-      case StoryEventType.LINK_PAGES:
-        this.onLinkPages(event.fromId, event.toId);
+      case StoryEventType.LINK_PAGE_ITEM:
+        this.onLinkPages(event.itemId, event.fromId, event.toId);
         break;
+      case StoryEventType.UNLINK_PAGE_ITEM:
+        this.onUnlinkPages(event.itemId);
     }
   };
 
@@ -58,9 +60,9 @@ export class StoryGraphState {
     });
   }
 
-  @action public onLinkPages(fromId: string, toId: string) {
+  @action public onLinkPages(linkId: string, fromId: string, toId: string) {
     const edge: Edge = {
-      id: RandomUtils.createId(),
+      id: linkId,
       source: fromId,
       target: toId,
     };
@@ -68,5 +70,9 @@ export class StoryGraphState {
     this.elements.push(edge);
 
     this.elements = [...this.elements];
+  }
+
+  @action public onUnlinkPages(linkId: string) {
+    this.elements = this.elements.filter((element) => element.id !== linkId);
   }
 }

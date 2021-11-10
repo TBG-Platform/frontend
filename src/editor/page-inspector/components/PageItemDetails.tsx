@@ -17,7 +17,8 @@ import { TextAreaInput } from '../../common/inputs/text-area-input/TextAreaInput
 interface Props {
   pageItem: PageItem | undefined;
   linkablePages: Page[];
-  onLinkPage: (toId: string) => void;
+  onLinkPageItem: (itemId: string, toId: string) => void;
+  onUnlinkPageItem: (itemId: string) => void;
 }
 
 @observer
@@ -227,7 +228,7 @@ export class PageItemDetails extends React.Component<Props> {
   }
 
   private renderLinkSettings() {
-    const { linkablePages, pageItem, onLinkPage } = this.props;
+    const { linkablePages, pageItem, onLinkPageItem, onUnlinkPageItem } = this.props;
 
     const linkedPage = pageItem.linkedPage?.name ?? 'No linked page';
 
@@ -240,7 +241,7 @@ export class PageItemDetails extends React.Component<Props> {
               pages={linkablePages}
               onSelect={(page: Page) => {
                 pageItem.setLinkedPage(page);
-                onLinkPage(page.id);
+                onLinkPageItem(pageItem.id, page.id);
               }}
               noResultsText={'No other pages to link!'}
               target={<Button text={linkedPage} minimal outlined rightIcon={'chevron-down'} />}
@@ -250,7 +251,10 @@ export class PageItemDetails extends React.Component<Props> {
               minimal
               outlined
               disabled={pageItem.linkedPage === undefined}
-              onClick={pageItem.unlinkPage}
+              onClick={() => {
+                pageItem.unlinkPage();
+                onUnlinkPageItem(pageItem.id);
+              }}
             />
           </div>
         }

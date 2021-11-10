@@ -28,12 +28,20 @@ export class PageInspectorState extends TabBaseState {
     this.selectedPage = page;
   };
 
-  public onLinkPage = (toId: string) => {
+  public onLinkPageItem = (itemId: string, toId: string) => {
     // The 'from' page is the currently selected page
     storyObserver.fireEvent({
-      type: StoryEventType.LINK_PAGES,
+      type: StoryEventType.LINK_PAGE_ITEM,
+      itemId,
       fromId: this.selectedPage.id,
       toId,
+    });
+  };
+
+  public onUnlinkPageItem = (itemId: string) => {
+    storyObserver.fireEvent({
+      type: StoryEventType.UNLINK_PAGE_ITEM,
+      itemId,
     });
   };
 }
