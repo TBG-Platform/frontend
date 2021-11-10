@@ -4,6 +4,7 @@ import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
 import { EditorDialogType } from '../../dialogs/state/EditorDialogTypes';
 import { EditorDialogViewState } from '../../dialogs/state/EditorDialogViewState';
+import { EditorRootStorage } from './EditorRootStorage';
 import { Page } from '../../common/state/Page';
 import { PageEditorState } from '../../page-editor/state/PageEditorState';
 import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
@@ -21,6 +22,7 @@ export class EditorRootState {
   public story: Story;
   public storyGraphState = new StoryGraphState();
   public dockableUiState = new DockableUIState();
+  public editorStorage = new EditorRootStorage();
   public dialogViewState = new EditorDialogViewState();
   private tabMap = new Map<string, PanelTab>();
   public tabStatesMap = new Map<string, TabBaseState>();
@@ -45,6 +47,13 @@ export class EditorRootState {
     page.setName(name);
 
     this.story.addPage(page);
+  };
+
+  public saveLayout = () => {
+    const layoutModel = this.dockableUiState.getLayout();
+    console.log('layoutModel:', layoutModel);
+
+    //localStorage.setItem('layout', JSON.stringify(layoutModel));
   };
 
   public addTab = (tabType: PanelTabType, panelId?: string) => {

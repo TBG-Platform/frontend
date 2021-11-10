@@ -1,5 +1,7 @@
 import { action, observable } from 'mobx';
 
+import { DuiPanelModel } from '../model/PanelLayoutModel';
+
 export interface DuiPanelTab {
   id: string;
   label: string;
@@ -12,6 +14,10 @@ export class DuiPanel {
 
   constructor(id: string) {
     this.id = id;
+  }
+
+  public toModel(): DuiPanelModel {
+    return { id: this.id };
   }
 
   public getTab(id: string) {

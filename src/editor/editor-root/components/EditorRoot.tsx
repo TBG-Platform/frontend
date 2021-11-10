@@ -45,6 +45,7 @@ export class EditorRoot extends React.Component<Props> {
 
     return (
       <>
+        <MenuItem text={'Get layout'} onClick={editorState.saveLayout} />
         <MenuItem
           icon={'diagram-tree'}
           text={'Story graph'}

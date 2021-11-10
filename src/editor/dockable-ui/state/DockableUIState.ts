@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 
+import { DuiLayoutModel } from '../model/PanelLayoutModel';
 import { DuiPanel, DuiPanelTab } from './DuiPanel';
 import { DuiPanelContainer, DuiPanelContainerFlow } from './DuiPanelContainer';
 import { RandomUtils } from '../../../utils/RandomUtils';
@@ -22,6 +23,21 @@ export class DockableUIState {
         this.onDeleteTab = callback;
         break;
     }
+  }
+
+  public getLayout(): DuiLayoutModel {
+    if (!this.rootContainer) {
+      return;
+    }
+
+    const containers = Array.from(this.containerMap.values()).map((cont) => cont.toModel());
+    const panels = Array.from(this.panelMap.values()).map((panel) => panel.toModel());
+
+    return {
+      rootContainerId: this.rootContainer.id,
+      containers,
+      panels,
+    };
   }
 
   public getContainer(id: string): DuiPanelContainer | undefined {
