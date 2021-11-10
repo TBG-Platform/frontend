@@ -2,6 +2,7 @@ import { action, observable } from 'mobx';
 
 import { Page } from '../../common/state/Page';
 import { PanelTab } from '../../editor-root/state/EditorRootState';
+import { StoryEventType, storyObserver } from '../../events/StoryEventObserver';
 import { TabBaseState } from '../../editor-root/state/TabBaseState';
 
 export class PageInspectorState extends TabBaseState {
@@ -25,5 +26,14 @@ export class PageInspectorState extends TabBaseState {
 
   @action public setSelectedPage = (page: Page) => {
     this.selectedPage = page;
+  };
+
+  public onLinkPage = (toId: string) => {
+    // The 'from' page is the currently selected page
+    storyObserver.fireEvent({
+      type: StoryEventType.LINK_PAGES,
+      fromId: this.selectedPage.id,
+      toId,
+    });
   };
 }

@@ -4,11 +4,13 @@ export enum StoryEventType {
   ANY = 'event-any', // encompasses all event types
   NEW_PAGE = 'event-new-page',
   RENAME_PAGE = 'event-rename-page',
+  LINK_PAGES = 'event-link-pages',
 }
 
 export type StoryEvent =
   | { type: StoryEventType.NEW_PAGE; page: Page }
-  | { type: StoryEventType.RENAME_PAGE; page: Page };
+  | { type: StoryEventType.RENAME_PAGE; page: Page }
+  | { type: StoryEventType.LINK_PAGES; fromId: string; toId: string };
 
 type StoryEventListener = (event: StoryEvent) => void;
 
