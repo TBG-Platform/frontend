@@ -83,7 +83,7 @@ export class EditorRootState {
     this.editorStorage.saveLayout(layoutModel);
   };
 
-  public loadLayout(layoutModel: DuiLayoutModel) {
+  public loadLayout(layoutModel: LayoutModel) {
     // Create the states for all tabs in layout
     const tabs: PanelTab[] = [];
     layoutModel.panels.forEach((pModel) => {

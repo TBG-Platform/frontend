@@ -20,6 +20,14 @@ export interface DuiPanelModel {
   tabs: DuiPanelTab[];
 }
 
+/**
+ * In order to keep a separation between the dockable ui stuff and the app which uses it,
+ * the editor, we have two models. The base model above is just enough info for the dockable
+ * ui to function. The model below has extra info made outside of the dockable ui.
+ *
+ * This does mean a bit more code when saving and loading layouts though!
+ */
+
 export interface LayoutModel extends DuiLayoutModel {
   name: string;
   panels: PanelModel[];
