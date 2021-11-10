@@ -3,41 +3,43 @@ import { Button, Classes, Dialog, FormGroup, InputGroup, Intent } from '@bluepri
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { AddPageDialogState } from '../state/AddPageDialogState';
 import { EditorDialogType, EditorDialogViewState } from '../../state/EditorDialogViewState';
+import { SaveLayoutDialogState } from '../state/SaveLayoutDialogState';
 
 interface Props {
   dialogViewState: EditorDialogViewState;
-  addPage: (name: string) => void;
+  saveLayout: (name: string) => void;
 }
 
 @observer
-export class AddPageDialog extends React.Component<Props> {
-  @observable private addPageState?: AddPageDialogState;
+export class SaveLayoutDialog extends React.Component<Props> {
+  @observable private saveLayoutState?: SaveLayoutDialogState;
 
   public render() {
     const { dialogViewState } = this.props;
 
     return (
       <Dialog
-        isOpen={dialogViewState.activeDialog === EditorDialogType.ADD_PAGE}
+        isOpen={dialogViewState.activeDialog === EditorDialogType.SAVE_LAYOUT}
         onOpening={this.onOpening}
         onClose={this.onClose}
         onClosed={this.onClosed}
-        title={'Add page'}
+        title={'Save layout'}
       >
-        {this.addPageState && (
+        {this.saveLayoutState && (
           <>
             <div className={Classes.DIALOG_BODY}>
               <FormGroup
                 label={'Name *'}
-                helperText={this.addPageState.isValid ? '' : 'Name must be at least 2 characters'}
+                helperText={
+                  this.saveLayoutState.isValid ? '' : 'Name must be at least 2 characters'
+                }
               >
                 <InputGroup
-                  intent={this.addPageState.isValid ? undefined : Intent.DANGER}
-                  value={this.addPageState.pageName}
+                  intent={this.saveLayoutState.isValid ? undefined : Intent.DANGER}
+                  value={this.saveLayoutState.layoutName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    this.addPageState.setName(e.target.value)
+                    this.saveLayoutState.setName(e.target.value)
                   }
                 />
               </FormGroup>
@@ -45,7 +47,7 @@ export class AddPageDialog extends React.Component<Props> {
 
             <div className={Classes.DIALOG_FOOTER}>
               <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-                <Button text={'Add'} intent={Intent.PRIMARY} onClick={this.onAddPage} />
+                <Button text={'Save'} intent={Intent.PRIMARY} onClick={this.onSaveLayout} />
               </div>
             </div>
           </>
@@ -54,20 +56,19 @@ export class AddPageDialog extends React.Component<Props> {
     );
   }
 
-  private onAddPage = () => {
-    // First, validate the input content
-    this.addPageState.validate();
+  private onSaveLayout = () => {
+    // First, validate the name
+    this.saveLayoutState.validate();
 
-    // If still valid, can call add page
-    if (this.addPageState.isValid) {
-      this.props.addPage(this.addPageState.pageName);
+    // If still valid, can now save layout
+    if (this.saveLayoutState.isValid) {
+      this.props.saveLayout(this.saveLayoutState.layoutName);
       this.onClose();
     }
   };
 
   private onOpening = () => {
-    // Create the state for the dialog
-    this.addPageState = new AddPageDialogState();
+    this.saveLayoutState = new SaveLayoutDialogState();
   };
 
   private onClose = () => {
@@ -75,7 +76,6 @@ export class AddPageDialog extends React.Component<Props> {
   };
 
   private onClosed = () => {
-    // Clear the state for this dialog
-    this.addPageState = undefined;
+    this.saveLayoutState = undefined;
   };
 }

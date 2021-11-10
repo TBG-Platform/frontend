@@ -25,6 +25,10 @@ export class DockableUIState {
     }
   }
 
+  public hasLayout() {
+    return this.rootContainer !== undefined;
+  }
+
   public getLayout(): DuiLayoutModel {
     if (!this.rootContainer) {
       return;
@@ -34,6 +38,7 @@ export class DockableUIState {
     const panels = Array.from(this.panelMap.values()).map((panel) => panel.toModel());
 
     return {
+      name: '',
       rootContainerId: this.rootContainer.id,
       containers,
       panels,

@@ -1,6 +1,7 @@
 import { DuiPanelContainerChild, DuiPanelContainerFlow } from '../state/DuiPanelContainer';
 
 export interface DuiLayoutModel {
+  name: string;
   rootContainerId: string;
   containers: DuiPanelContainerModel[];
   panels: DuiPanelModel[];
