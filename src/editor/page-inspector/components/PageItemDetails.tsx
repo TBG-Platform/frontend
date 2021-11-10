@@ -220,4 +220,8 @@ export class PageItemDetails extends React.Component<Props> {
       />
     );
   }
+
+  private renderLinkSettings() {
+    return <DetailsSection title={'Link'} content={<div className={'link-content'}></div>} />;
+  }
 }
