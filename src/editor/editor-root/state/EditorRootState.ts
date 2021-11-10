@@ -24,8 +24,8 @@ export class EditorRootState {
   public dockableUiState = new DockableUIState();
   public editorStorage = new EditorRootStorage();
   public dialogViewState = new EditorDialogViewState();
-  private tabMap = new Map<string, PanelTab>();
   public tabStatesMap = new Map<string, TabBaseState>();
+  private tabMap = new Map<string, PanelTab>();
 
   constructor() {
     // Setup story - will be done elsewhere later and passed into constructor
@@ -51,9 +51,7 @@ export class EditorRootState {
 
   public saveLayout = () => {
     const layoutModel = this.dockableUiState.getLayout();
-    console.log('layoutModel:', layoutModel);
-
-    //localStorage.setItem('layout', JSON.stringify(layoutModel));
+    this.editorStorage.saveLayout(layoutModel);
   };
 
   public addTab = (tabType: PanelTabType, panelId?: string) => {
