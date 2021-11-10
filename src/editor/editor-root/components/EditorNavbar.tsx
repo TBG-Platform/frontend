@@ -89,7 +89,7 @@ export class EditorNavbar extends React.Component<Props> {
       <MenuItem
         key={`layout-${idx}`}
         text={layout.name}
-        onClick={() => editorState.dockableUiState.setLayout(layout)}
+        onClick={() => editorState.loadLayout(layout)}
       />
     ));
 

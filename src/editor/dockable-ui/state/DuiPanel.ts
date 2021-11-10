@@ -17,11 +17,19 @@ export class DuiPanel {
   }
 
   public toModel(): DuiPanelModel {
-    return { id: this.id };
+    return { id: this.id, tabs: this.tabs };
   }
 
   public static fromModel(model: DuiPanelModel) {
-    return new DuiPanel(model.id);
+    const panel = new DuiPanel(model.id);
+    panel.tabs = model.tabs;
+
+    // Select first tab by default
+    if (panel.tabs.length) {
+      panel.selectedTab = panel.tabs[0];
+    }
+
+    return panel;
   }
 
   public getTab(id: string) {

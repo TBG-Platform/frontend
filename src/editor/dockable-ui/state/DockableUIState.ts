@@ -38,7 +38,6 @@ export class DockableUIState {
     const panels = Array.from(this.panelMap.values()).map((panel) => panel.toModel());
 
     return {
-      name: '',
       rootContainerId: this.rootContainer.id,
       containers,
       panels,

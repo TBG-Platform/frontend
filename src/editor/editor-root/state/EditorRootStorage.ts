@@ -1,12 +1,12 @@
 import { observable } from 'mobx';
 
-import { DuiLayoutModel } from '../../dockable-ui/model/PanelLayoutModel';
+import { DuiLayoutModel, LayoutModel } from '../../dockable-ui/model/PanelLayoutModel';
 
 /**
  * Local storage solution for editor properties.
  */
 export class EditorRootStorage {
-  @observable.ref public layouts: DuiLayoutModel[] = [];
+  @observable.ref public layouts: LayoutModel[] = [];
   private readonly layoutsKey = 'LAYOUTS';
 
   constructor() {
@@ -25,7 +25,7 @@ export class EditorRootStorage {
     console.log('loaded layouts: ', this.layouts);
   }
 
-  public saveLayout(layout: DuiLayoutModel) {
+  public saveLayout(layout: LayoutModel) {
     this.layouts = [...this.layouts, layout];
 
     // Overwrite all layouts in localStorage with those in memory

@@ -1,6 +1,7 @@
 import { action } from 'mobx';
 
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
+import { DuiLayoutModel, LayoutModel, PanelModel } from '../../dockable-ui/model/PanelLayoutModel';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
 import { EditorDialogType, EditorDialogViewState } from '../../dialogs/state/EditorDialogViewState';
 import { EditorRootStorage } from './EditorRootStorage';
@@ -53,11 +54,46 @@ export class EditorRootState {
   };
 
   public saveLayout = (name: string) => {
-    const layoutModel = this.dockableUiState.getLayout();
-    layoutModel.name = name;
+    // Get panel layout from dockable ui
+    const panelLayout = this.dockableUiState.getLayout();
 
+    // Extend the DuiPanelModel to use PanelModel
+    const panelModels: PanelModel[] = [];
+    panelLayout.panels.forEach((pModel) => {
+      // PanelModel uses PanelTabs instead of DuiPanelTabs
+      const panelTabs: PanelTab[] = [];
+
+      pModel.tabs.forEach((pModelTab) => {
+        const tab = this.tabMap.get(pModelTab.id);
+        if (tab) {
+          panelTabs.push(tab);
+        }
+      });
+
+      panelModels.push({ id: pModel.id, tabs: panelTabs });
+    });
+
+    const layoutModel: LayoutModel = {
+      ...panelLayout,
+      name,
+      panels: panelModels,
+    };
+
+    // Then save the layout
     this.editorStorage.saveLayout(layoutModel);
   };
+
+  public loadLayout(layoutModel: DuiLayoutModel) {
+    // Create the states for all tabs in layout
+    const tabs: PanelTab[] = [];
+    layoutModel.panels.forEach((pModel) => {
+      pModel.tabs.forEach((tab) => {
+        tabs.push();
+      });
+    });
+
+    this.dockableUiState.setLayout(layoutModel);
+  }
 
   public addTab = (tabType: PanelTabType, panelId?: string) => {
     // Create the tab
