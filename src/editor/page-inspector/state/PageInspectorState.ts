@@ -18,6 +18,11 @@ export class PageInspectorState extends TabBaseState {
     // and send that in this constructor when creating the tab
   }
 
+  public getLinkablePages() {
+    // For the inspected page link items link options - cannot link to same page
+    return this.pages.filter((page) => page.id !== this.selectedPage.id);
+  }
+
   @action public setSelectedPage = (page: Page) => {
     this.selectedPage = page;
   };

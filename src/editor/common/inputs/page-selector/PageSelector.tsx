@@ -11,12 +11,13 @@ interface Props {
   pages: Page[];
   target: JSX.Element;
   onSelect: (page: Page) => void;
+  noResultsText?: string;
 }
 
 @observer
 export class PageSelector extends React.Component<Props> {
   public render() {
-    const { pages, target } = this.props;
+    const { pages, target, noResultsText } = this.props;
 
     return (
       <PageSelect
@@ -24,7 +25,7 @@ export class PageSelector extends React.Component<Props> {
         itemRenderer={this.pageItemRenderer}
         onItemSelect={this.onPageItemSelect}
         itemPredicate={this.filterPages}
-        noResults={<MenuItem text={'No matching pages!'} disabled />}
+        noResults={<MenuItem text={noResultsText ?? 'No matching pages!'} disabled />}
       >
         {target}
       </PageSelect>
