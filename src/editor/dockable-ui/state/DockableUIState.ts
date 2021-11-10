@@ -53,6 +53,75 @@ export class DockableUIState {
     return this.panelMap.get(id);
   }
 
+  public setLayout(layoutModel: DuiLayoutModel) {
+    this.clearLayoutData();
+
+    // Build up the container map
+    layoutModel.containers.forEach((cModel) => {
+      const container = DuiPanelContainer.fromModel(cModel);
+      this.containerMap.set(container.id, container);
+    });
+
+    // Then the panel map
+    layoutModel.panels.forEach((pModel) => {
+      const panel = DuiPanel.fromModel(pModel);
+      this.panelMap.set(panel.id, panel);
+    });
+
+    // Then set the root container
+    this.rootContainer = this.containerMap.get(layoutModel.rootContainerId);
+  }
+
+  @action public setFlatLayout(panelCount: number, flow?: DuiPanelContainerFlow) {
+    this.clearLayoutData();
+
+    const container = new DuiPanelContainer(RandomUtils.createId(), '');
+    if (flow) {
+      container.flow = flow;
+    }
+
+    for (let i = 0; i < panelCount; i++) {
+      const panelId = RandomUtils.createId();
+      const panel = new DuiPanel(panelId);
+      this.panelMap.set(panelId, panel);
+      container.addChild(panelId);
+    }
+
+    this.rootContainer = container;
+    this.containerMap.set(this.rootContainer.id, this.rootContainer);
+  }
+
+  @action public setNestedLayout() {
+    this.clearLayoutData();
+
+    // Root container
+    const rootContainer = new DuiPanelContainer(RandomUtils.createId(), '');
+
+    // Left side is a panel
+    const leftPanelId = RandomUtils.createId();
+    const leftPanel = new DuiPanel(leftPanelId);
+    this.panelMap.set(leftPanelId, leftPanel);
+    rootContainer.addChild(leftPanelId);
+
+    // Right side is a container with two panels
+    const rightContainer = new DuiPanelContainer(RandomUtils.createId(), rootContainer.id);
+    rightContainer.flow = DuiPanelContainerFlow.COLUMN;
+
+    for (let i = 0; i < 2; i++) {
+      const panelId = RandomUtils.createId();
+      const panel = new DuiPanel(panelId);
+      this.panelMap.set(panelId, panel);
+      rightContainer.addChild(panelId);
+    }
+
+    rootContainer.addChild(rightContainer.id);
+
+    this.containerMap.set(rootContainer.id, rootContainer);
+    this.containerMap.set(rightContainer.id, rightContainer);
+
+    this.rootContainer = rootContainer;
+  }
+
   public selectPanel(panelId: string) {
     if (this.panelMap.has(panelId)) {
       this.selectedPanelId = panelId;
@@ -174,56 +243,6 @@ export class DockableUIState {
     }
   }
 
-  @action public setFlatLayout(panelCount: number, flow?: DuiPanelContainerFlow) {
-    this.clearLayoutData();
-
-    const container = new DuiPanelContainer(RandomUtils.createId(), '');
-    if (flow) {
-      container.flow = flow;
-    }
-
-    for (let i = 0; i < panelCount; i++) {
-      const panelId = RandomUtils.createId();
-      const panel = new DuiPanel(panelId);
-      this.panelMap.set(panelId, panel);
-      container.addChild(panelId);
-    }
-
-    this.rootContainer = container;
-    this.containerMap.set(this.rootContainer.id, this.rootContainer);
-  }
-
-  @action public setNestedLayout() {
-    this.clearLayoutData();
-
-    // Root container
-    const rootContainer = new DuiPanelContainer(RandomUtils.createId(), '');
-
-    // Left side is a panel
-    const leftPanelId = RandomUtils.createId();
-    const leftPanel = new DuiPanel(leftPanelId);
-    this.panelMap.set(leftPanelId, leftPanel);
-    rootContainer.addChild(leftPanelId);
-
-    // Right side is a container with two panels
-    const rightContainer = new DuiPanelContainer(RandomUtils.createId(), rootContainer.id);
-    rightContainer.flow = DuiPanelContainerFlow.COLUMN;
-
-    for (let i = 0; i < 2; i++) {
-      const panelId = RandomUtils.createId();
-      const panel = new DuiPanel(panelId);
-      this.panelMap.set(panelId, panel);
-      rightContainer.addChild(panelId);
-    }
-
-    rootContainer.addChild(rightContainer.id);
-
-    this.containerMap.set(rootContainer.id, rootContainer);
-    this.containerMap.set(rightContainer.id, rightContainer);
-
-    this.rootContainer = rootContainer;
-  }
-
   @action private deleteContainer(container: DuiPanelContainer) {
     this.containerMap.delete(container.id);
 
@@ -247,5 +266,6 @@ export class DockableUIState {
     this.rootContainer = undefined;
     this.containerMap.clear();
     this.panelMap.clear();
+    this.selectedPanelId = '';
   }
 }

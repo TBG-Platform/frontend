@@ -20,6 +20,10 @@ export class DuiPanel {
     return { id: this.id };
   }
 
+  public static fromModel(model: DuiPanelModel) {
+    return new DuiPanel(model.id);
+  }
+
   public getTab(id: string) {
     return this.tabs.find((tab) => tab.id === id);
   }

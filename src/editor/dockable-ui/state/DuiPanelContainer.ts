@@ -34,6 +34,14 @@ export class DuiPanelContainer {
     };
   }
 
+  public static fromModel(model: DuiPanelContainerModel) {
+    const panelContainer = new DuiPanelContainer(model.id, model.parentId);
+    panelContainer.flow = model.flow;
+    panelContainer.children = model.children;
+
+    return panelContainer;
+  }
+
   public setDiv(div: HTMLDivElement) {
     this.containerDiv = div;
   }
