@@ -9,6 +9,7 @@ type DockableUIEvent = 'close-tab';
 
 export class DockableUIState {
   @observable public rootContainer?: DuiPanelContainer;
+  @observable public layoutId = RandomUtils.createId();
 
   // Overridable event callbacks
   private onDeleteTab?: (tabId: string) => void;
@@ -52,13 +53,14 @@ export class DockableUIState {
     return this.panelMap.get(id);
   }
 
-  public setLayout(layoutModel: DuiLayoutModel) {
+  @action public setLayout(layoutModel: DuiLayoutModel) {
     this.clearLayoutData();
 
     // Build up the container map
     layoutModel.containers.forEach((cModel) => {
       const container = DuiPanelContainer.fromModel(cModel);
       this.containerMap.set(container.id, container);
+      console.log('new container: ' + container.id);
     });
 
     // Then the panel map
@@ -69,6 +71,9 @@ export class DockableUIState {
 
     // Then set the root container
     this.rootContainer = this.containerMap.get(layoutModel.rootContainerId);
+
+    // Assign a new id for the layout - ensures renderers update if panel ids were the same as last layout
+    this.layoutId = RandomUtils.createId();
   }
 
   @action public setFlatLayout(panelCount: number, flow?: DuiPanelContainerFlow) {

@@ -84,14 +84,17 @@ export class EditorRootState {
   };
 
   public loadLayout(layoutModel: LayoutModel) {
-    // Create the states for all tabs in layout
+    // Pull out the tabs from the layout model
     const tabs: PanelTab[] = [];
     layoutModel.panels.forEach((pModel) => {
       pModel.tabs.forEach((tab) => {
-        tabs.push();
+        // Create the tab state for this tab
+        this.tabMap.set(tab.id, tab);
+        this.createTabState(tab);
       });
     });
 
+    // Then give the layout to dockable ui to create panels
     this.dockableUiState.setLayout(layoutModel);
   }
 
