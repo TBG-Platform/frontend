@@ -14,10 +14,12 @@ interface Props {
 @observer
 export class WebsiteRoot extends React.Component<Props> {
   public render() {
+    const { websiteState } = this.props;
+
     return (
       <div className={'website-root'}>
         <div className={'website-navbar-area'}>
-          <WebsiteNavbar />
+          <WebsiteNavbar websiteState={websiteState} />
         </div>
         <div className={'website-page-area'}>{this.getWebsitePage()}</div>
       </div>
@@ -30,6 +32,9 @@ export class WebsiteRoot extends React.Component<Props> {
     switch (websiteState.page) {
       case WebsitePage.HOME:
         return <HomePage />;
+
+      default:
+        return <div>no page yet!</div>;
     }
   }
 }
