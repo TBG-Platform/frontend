@@ -3,7 +3,7 @@ import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/select';
 import { MenuItem } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
-import { Page } from '../../state/Page';
+import { Page } from '../../../state/Page';
 
 const PageSelect = Select.ofType<Page>();
 
