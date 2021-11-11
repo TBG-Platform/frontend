@@ -30,8 +30,6 @@ export class TextSettings {
 
   constructor() {
     this.setDefaultValues();
-
-    //pageDisplayUtil.addResizeListener(this.onPageResize);
   }
 
   public updateSettings(settings: CSSProperties, text: string) {
@@ -108,15 +106,7 @@ export class TextSettings {
   };
 
   @action public setSize = (size: string) => {
-    // Size is relative to page width
-    //const pageBounds = pageDisplayUtil.getPageDisplayBounds();
-    // const w = pageBounds.width;
-    //const s = parseFloat(size);
-
-    // const fontSizePx = (w / 100) * s;
-
     this.size = size;
-    // this.settings.fontSize = fontSizePx + 'px';
   };
 
   @action public setDefaultValues() {
@@ -147,9 +137,4 @@ export class TextSettings {
     const size = settings.fontSize as string;
     this.size = size.split(this.sizeUnit)[0];
   }
-
-  private onPageResize = () => {
-    // Adjust text size
-    this.setSize(this.size);
-  };
 }

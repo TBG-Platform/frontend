@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
 
 import { PageItem } from './PageItem';
+import { PageModel } from '../model/StoryModel';
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { StoryEventType, storyObserver } from '../../events/StoryEventObserver';
 import { Vector } from '../../../utils/Vector';
@@ -14,6 +15,24 @@ export class Page {
 
   constructor() {
     keyboardObserver.addSpecificKeyListener(this.deleteSelectedItem, ['Delete']);
+  }
+
+  public static fromModel(model: PageModel): Page {
+    const page = new Page();
+
+    page.id = model.id;
+    page.name = model.name;
+    page.items = model.items.map((itemModel) => PageItem.fromModel(itemModel));
+
+    return page;
+  }
+
+  public toModel(): PageModel {
+    return {
+      id: this.id,
+      name: this.name,
+      items: this.items.map((item) => item.toModel()),
+    };
   }
 
   @action public setName = (name: string) => {
