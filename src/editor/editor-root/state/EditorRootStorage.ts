@@ -3,27 +3,38 @@ import { observable } from 'mobx';
 import { LayoutModel } from '../../dockable-ui/model/PanelLayoutModel';
 
 export class EditorRootStorage {
-  @observable.ref public layouts: LayoutModel[] = [];
+  public standardLayouts: LayoutModel[] = [];
+  @observable.ref public userLayouts: LayoutModel[] = [];
   private readonly layoutsKey = 'LAYOUTS';
 
   constructor() {
-    this.loadLayouts();
+    this.loadStandardLayouts();
+    this.loadUserLayouts();
   }
 
-  public loadLayouts() {
+  public loadStandardLayouts() {
+    const standardLayout =
+      '{"rootContainerId":"OSPO","containers":[{"id":"OSPO","parentId":"","flow":"row","children":[{"id":"qrMy","basis":70},{"id":"fACT","basis":30}]}],"panels":[{"id":"qrMy","tabs":[{"id":"SRlJ","label":"Page editor","type":"Page editor"},{"id":"Qse6","label":"Story graph","type":"Story graph"}]},{"id":"fACT","tabs":[{"id":"uv6d","label":"Page inspector","type":"Page inspector"}]}],"name":"Standard layout"}';
+
+    const stdLayout: LayoutModel = JSON.parse(standardLayout);
+
+    this.standardLayouts.push(stdLayout);
+  }
+
+  public loadUserLayouts() {
     // Read all layouts from localStorage into memory
     const layoutsData = localStorage.getItem(this.layoutsKey);
     if (!layoutsData) {
       return;
     }
 
-    this.layouts = JSON.parse(layoutsData);
+    this.userLayouts = JSON.parse(layoutsData);
   }
 
-  public saveLayout(layout: LayoutModel) {
-    this.layouts = [...this.layouts, layout];
+  public saveUserLayout(layout: LayoutModel) {
+    this.userLayouts = [...this.userLayouts, layout];
 
     // Overwrite all layouts in localStorage with those in memory
-    localStorage.setItem(this.layoutsKey, JSON.stringify(this.layouts));
+    localStorage.setItem(this.layoutsKey, JSON.stringify(this.userLayouts));
   }
 }

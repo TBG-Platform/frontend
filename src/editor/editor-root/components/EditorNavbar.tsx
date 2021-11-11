@@ -85,9 +85,19 @@ export class EditorNavbar extends React.Component<Props> {
   private renderLayoutMenu() {
     const { editorState } = this.props;
 
-    const layoutOptions = editorState.editorStorage.layouts.map((layout, idx) => (
+    // Get standard layout options
+    const standardLayoutOptions = editorState.editorStorage.standardLayouts.map((layout, idx) => (
       <MenuItem
-        key={`layout-${idx}`}
+        key={`standard-layout-${idx}`}
+        text={layout.name}
+        onClick={() => editorState.loadLayout(layout)}
+      />
+    ));
+
+    // Get user layout options
+    const userLayoutOptions = editorState.editorStorage.userLayouts.map((layout, idx) => (
+      <MenuItem
+        key={`user-layout-${idx}`}
         text={layout.name}
         onClick={() => editorState.loadLayout(layout)}
       />
@@ -100,23 +110,19 @@ export class EditorNavbar extends React.Component<Props> {
         className={'menu-root-wrapper'}
         content={
           <Menu>
-            {layoutOptions.length > 0 && (
+            {userLayoutOptions.length > 0 && (
               <>
-                {layoutOptions}
+                {userLayoutOptions}
                 <Divider />
               </>
             )}
 
-            <MenuItem
-              text={'Two column'}
-              onClick={() => editorState.dockableUiState.setFlatLayout(2)}
-            />
-            <MenuItem
-              text={'Nested 3'}
-              onClick={() => editorState.dockableUiState.setNestedLayout()}
-            />
-
-            <Divider />
+            {standardLayoutOptions.length > 0 && (
+              <>
+                {standardLayoutOptions}
+                <Divider />
+              </>
+            )}
 
             <MenuItem
               text={'Save layout'}

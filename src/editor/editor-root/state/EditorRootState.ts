@@ -80,7 +80,7 @@ export class EditorRootState {
     };
 
     // Then save the layout
-    this.editorStorage.saveLayout(layoutModel);
+    this.editorStorage.saveUserLayout(layoutModel);
   };
 
   public loadLayout(layoutModel: LayoutModel) {
