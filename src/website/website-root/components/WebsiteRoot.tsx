@@ -4,6 +4,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 
 import { HomePage } from '../../home-page/components/HomePage';
+import { MyStoriesPage } from '../../my-stories-page/components/MyStoriesPage';
 import { WebsiteNavbar } from './WebsiteNavbar';
 import { WebsitePage, WebsiteRootState } from '../state/WebsiteRootState';
 
@@ -32,7 +33,8 @@ export class WebsiteRoot extends React.Component<Props> {
     switch (websiteState.page) {
       case WebsitePage.HOME:
         return <HomePage />;
-
+      case WebsitePage.MY_STORIES:
+        return <MyStoriesPage />;
       default:
         return <div>no page yet!</div>;
     }
