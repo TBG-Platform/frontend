@@ -36,6 +36,8 @@ export class EditorRootState {
     this.story = story;
 
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
+
+    this.loadEditor();
   }
 
   public startAddPage = () => {
@@ -117,6 +119,12 @@ export class EditorRootState {
 
   public getTab(id: string): PanelTab | undefined {
     return this.tabMap.get(id);
+  }
+
+  private loadEditor() {
+    // Load the initial layout
+    const layout = this.editorStorage.getInitialLayout();
+    this.loadLayout(layout);
   }
 
   private createTabState(tab: PanelTab) {

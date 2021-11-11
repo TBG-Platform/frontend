@@ -60,7 +60,6 @@ export class DockableUIState {
     layoutModel.containers.forEach((cModel) => {
       const container = DuiPanelContainer.fromModel(cModel);
       this.containerMap.set(container.id, container);
-      console.log('new container: ' + container.id);
     });
 
     // Then the panel map
