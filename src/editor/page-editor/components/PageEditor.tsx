@@ -56,7 +56,7 @@ export class PageEditor extends React.Component<Props> {
           pageDiv={pageEditorState.pageDiv}
           pageItem={item}
           selected={selectedPage.isItemSelected(item.id)}
-          onClick={() => console.log('clicked widget')}
+          onClick={() => selectedPage.selectItem(item.id)}
           onDelete={selectedPage.deleteSelectedItem}
         />
       ));
