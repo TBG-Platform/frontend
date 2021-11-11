@@ -4,15 +4,18 @@ import React from 'react';
 import { Button, ButtonGroup, NonIdealState } from '@blueprintjs/core';
 import { Observer, observer } from 'mobx-react';
 
-import { ColorPicker } from '../../common/inputs/color-picker/ColorPicker';
-import { DetailsSection } from '../../common/dividers/DetailsSection';
-import { NumberInput, NumberInputSize } from '../../common/inputs/number-input/NumberInput';
+import { ColorPicker } from '../../common/components/inputs/color-picker/ColorPicker';
+import { DetailsSection } from '../../common/components/dividers/DetailsSection';
+import {
+  NumberInput,
+  NumberInputSize,
+} from '../../common/components/inputs/number-input/NumberInput';
 import { Page } from '../../common/state/Page';
 import { PageItem } from '../../common/state/PageItem';
-import { PageSelector } from '../../common/inputs/page-selector/PageSelector';
-import { StandardDivider } from '../../common/dividers/StandardDivider';
+import { PageSelector } from '../../common/components/inputs/page-selector/PageSelector';
+import { StandardDivider } from '../../common/components/dividers/StandardDivider';
 import { TextAlign, TextDecoration } from '../../common/state/TextSettings';
-import { TextAreaInput } from '../../common/inputs/text-area-input/TextAreaInput';
+import { TextAreaInput } from '../../common/components/inputs/text-area-input/TextAreaInput';
 
 interface Props {
   pageItem: PageItem | undefined;

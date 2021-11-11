@@ -5,7 +5,7 @@ import { Button } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
 import { PageInspectorState } from '../state/PageInspectorState';
-import { PageSelector } from '../../common/inputs/page-selector/PageSelector';
+import { PageSelector } from '../../common/components/inputs/page-selector/PageSelector';
 
 interface Props {
   inspectorState: PageInspectorState;

@@ -12,6 +12,7 @@ import { PanelTabType } from './PanelTabType';
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { Story } from '../../common/state/Story';
 import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
+import { StoryModel } from '../../common/model/StoryModel';
 import { TabBaseState } from './TabBaseState';
 
 export interface PanelTab extends DuiPanelTab {
@@ -38,6 +39,27 @@ export class EditorRootState {
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
 
     this.loadEditor();
+  }
+
+  public loadStory(model: StoryModel) {
+    // TODO - should the fromModels be firing events for the story graph, or all at once at end?
+    const story = Story.fromModel(model);
+
+    // Now that the story is made, can assign page refs to items with linked pages
+    story.pages.forEach((page) => {
+      // Loop over all items
+      page.items.forEach((item) => {
+        // If this has a linkedPageId, find the page for it and assign
+        if (!item.linkedPageId) {
+          return;
+        }
+
+        const linkedPage = story.pages.find((p) => p.id === item.linkedPageId);
+        item.linkedPage = linkedPage;
+      });
+    });
+
+    this.story = story;
   }
 
   public startAddPage = () => {

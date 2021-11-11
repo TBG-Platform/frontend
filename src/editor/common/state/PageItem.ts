@@ -3,6 +3,7 @@ import { ColorResult } from 'react-color';
 import { action, observable } from 'mobx';
 
 import { Page } from './Page';
+import { PageItemModel } from '../model/StoryModel';
 import { RandomUtils } from '../../../utils/RandomUtils';
 import { TextSettings } from './TextSettings';
 
@@ -15,12 +16,41 @@ export class PageItem {
   @observable.ref public width: string;
   @observable.ref public height: string;
   @observable.ref public linkedPage?: Page;
+  public linkedPageId = '';
 
   constructor(left = '0', top = '0', width = '0', height = '0') {
     this.setLeft(left);
     this.setTop(top);
     this.setWidth(width);
     this.setHeight(height);
+  }
+
+  public static fromModel(model: PageItemModel): PageItem {
+    const item = new PageItem();
+
+    const extractCssValue = (strVal: any, delimeter: string) => {
+      return (strVal as string).split(delimeter)[0];
+    };
+
+    item.id = model.id;
+    item.setLeft(extractCssValue(model.settings.left, '%'));
+    item.setTop(extractCssValue(model.settings.top, '%'));
+    item.setWidth(extractCssValue(model.settings.width, '%'));
+    item.setHeight(extractCssValue(model.settings.height, '%'));
+    item.textSettings.updateSettings(model.textSettings, model.text);
+    item.linkedPageId = model.linkedPageId;
+
+    return item;
+  }
+
+  public toModel(): PageItemModel {
+    return {
+      id: this.id,
+      settings: this.settings,
+      textSettings: this.textSettings.settings,
+      text: this.textSettings.text,
+      linkedPageId: this.linkedPage?.id ?? '',
+    };
   }
 
   @action public setLeft = (left: string) => {
@@ -50,9 +80,11 @@ export class PageItem {
 
   @action public setLinkedPage = (page: Page) => {
     this.linkedPage = page;
+    this.linkedPageId = page.id;
   };
 
   @action public unlinkPage = () => {
     this.linkedPage = undefined;
+    this.linkedPageId = '';
   };
 }

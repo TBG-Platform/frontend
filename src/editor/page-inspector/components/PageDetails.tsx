@@ -3,8 +3,8 @@ import './page-details.scss';
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import { DetailsSection } from '../../common/dividers/DetailsSection';
-import { EditableText } from '../../common/inputs/editable-text/EditableText';
+import { DetailsSection } from '../../common/components/dividers/DetailsSection';
+import { EditableText } from '../../common/components/inputs/editable-text/EditableText';
 import { Page } from '../../common/state/Page';
 
 interface Props {

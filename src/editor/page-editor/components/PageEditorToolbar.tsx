@@ -5,9 +5,9 @@ import { Button, ButtonGroup } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
 import { PageEditorState } from '../state/PageEditorState';
-import { PageSelector } from '../../common/inputs/page-selector/PageSelector';
-import { StandardButton } from '../../common/buttons/StandardButton';
-import { StandardDivider } from '../../common/dividers/StandardDivider';
+import { PageSelector } from '../../common/components/inputs/page-selector/PageSelector';
+import { StandardButton } from '../../common/components/buttons/StandardButton';
+import { StandardDivider } from '../../common/components/dividers/StandardDivider';
 
 interface Props {
   pageEditorState: PageEditorState;

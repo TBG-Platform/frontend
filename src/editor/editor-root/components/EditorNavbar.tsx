@@ -5,7 +5,6 @@ import { Button, Divider, Intent, Menu, MenuItem, Position } from '@blueprintjs/
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 
-import { DuiPanelContainerFlow } from '../../dockable-ui/state/DuiPanelContainer';
 import { EditorRootState } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
 
