@@ -86,6 +86,9 @@ export class EditorRootState {
   };
 
   public loadLayout(layoutModel: LayoutModel) {
+    // Before loading this new layout, clear any state from the previous layout
+    this.resetLayoutState();
+
     // Pull out the tabs from the layout model
     const tabs: PanelTab[] = [];
     layoutModel.panels.forEach((pModel) => {
@@ -125,6 +128,11 @@ export class EditorRootState {
     // Load the initial layout
     const layout = this.editorStorage.getInitialLayout();
     this.loadLayout(layout);
+  }
+
+  private resetLayoutState() {
+    this.tabMap.clear();
+    this.tabStatesMap.clear();
   }
 
   private createTabState(tab: PanelTab) {
