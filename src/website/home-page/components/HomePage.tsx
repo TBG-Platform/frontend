@@ -6,6 +6,6 @@ import { observer } from 'mobx-react';
 @observer
 export class HomePage extends React.Component {
   public render() {
-    return <div className={'home-page'}></div>;
+    return <div className={'home-page'}>home</div>;
   }
 }

@@ -1,0 +1,29 @@
+@import '../../../common/tbg-palette.scss';
+
+.website-navbar {
+  width: 100%;
+  height: 100%;
+  padding-right: 10px;
+  border-bottom: 2px solid $mainBorderColor;
+
+  display: flex;
+  justify-content: space-between;
+
+  .left-group {
+    flex: 0 0 auto;
+    height: 100%;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .right-group {
+    flex: 0 0 auto;
+    height: 100%;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}

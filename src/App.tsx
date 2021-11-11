@@ -17,7 +17,7 @@ export class App extends React.PureComponent {
   public getAppScreen() {
     switch (this.appState.appScreen) {
       case AppScreen.WEBSITE:
-        return <WebsiteRoot />;
+        return <WebsiteRoot websiteState={this.appState.websiteRootState} />;
       case AppScreen.EDITOR:
         return <EditorRoot editorState={this.appState.editorRootState} />;
     }
