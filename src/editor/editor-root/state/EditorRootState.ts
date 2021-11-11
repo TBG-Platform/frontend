@@ -1,9 +1,10 @@
 import { action } from 'mobx';
 
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
+import { DuiLayoutModel, LayoutModel, PanelModel } from '../../dockable-ui/model/PanelLayoutModel';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
-import { EditorDialogType } from '../../dialogs/state/EditorDialogTypes';
-import { EditorDialogViewState } from '../../dialogs/state/EditorDialogViewState';
+import { EditorDialogType, EditorDialogViewState } from '../../dialogs/state/EditorDialogViewState';
+import { EditorRootStorage } from './EditorRootStorage';
 import { Page } from '../../common/state/Page';
 import { PageEditorState } from '../../page-editor/state/PageEditorState';
 import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
@@ -21,9 +22,10 @@ export class EditorRootState {
   public story: Story;
   public storyGraphState = new StoryGraphState();
   public dockableUiState = new DockableUIState();
+  public editorStorage = new EditorRootStorage();
   public dialogViewState = new EditorDialogViewState();
-  private tabMap = new Map<string, PanelTab>();
   public tabStatesMap = new Map<string, TabBaseState>();
+  private tabMap = new Map<string, PanelTab>();
 
   constructor() {
     // Setup story - will be done elsewhere later and passed into constructor
@@ -34,9 +36,11 @@ export class EditorRootState {
     this.story = story;
 
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
+
+    this.loadEditor();
   }
 
-  @action public startAddPage = () => {
+  public startAddPage = () => {
     this.dialogViewState.showDialog(EditorDialogType.ADD_PAGE);
   };
 
@@ -46,6 +50,58 @@ export class EditorRootState {
 
     this.story.addPage(page);
   };
+
+  public startSaveLayout = () => {
+    this.dialogViewState.showDialog(EditorDialogType.SAVE_LAYOUT);
+  };
+
+  public saveLayout = (name: string) => {
+    // Get panel layout from dockable ui
+    const panelLayout = this.dockableUiState.getLayout();
+
+    // Extend the DuiPanelModel to use PanelModel
+    const panelModels: PanelModel[] = [];
+    panelLayout.panels.forEach((pModel) => {
+      // PanelModel uses PanelTabs instead of DuiPanelTabs
+      const panelTabs: PanelTab[] = [];
+
+      pModel.tabs.forEach((pModelTab) => {
+        const tab = this.tabMap.get(pModelTab.id);
+        if (tab) {
+          panelTabs.push(tab);
+        }
+      });
+
+      panelModels.push({ id: pModel.id, tabs: panelTabs });
+    });
+
+    const layoutModel: LayoutModel = {
+      ...panelLayout,
+      name,
+      panels: panelModels,
+    };
+
+    // Then save the layout
+    this.editorStorage.saveUserLayout(layoutModel);
+  };
+
+  public loadLayout(layoutModel: LayoutModel) {
+    // Before loading this new layout, clear any state from the previous layout
+    this.resetLayoutState();
+
+    // Pull out the tabs from the layout model
+    const tabs: PanelTab[] = [];
+    layoutModel.panels.forEach((pModel) => {
+      pModel.tabs.forEach((tab) => {
+        // Create the tab state for this tab
+        this.tabMap.set(tab.id, tab);
+        this.createTabState(tab);
+      });
+    });
+
+    // Then give the layout to dockable ui to create panels
+    this.dockableUiState.setLayout(layoutModel);
+  }
 
   public addTab = (tabType: PanelTabType, panelId?: string) => {
     // Create the tab
@@ -66,6 +122,17 @@ export class EditorRootState {
 
   public getTab(id: string): PanelTab | undefined {
     return this.tabMap.get(id);
+  }
+
+  private loadEditor() {
+    // Load the initial layout
+    const layout = this.editorStorage.getInitialLayout();
+    this.loadLayout(layout);
+  }
+
+  private resetLayoutState() {
+    this.tabMap.clear();
+    this.tabStatesMap.clear();
   }
 
   private createTabState(tab: PanelTab) {

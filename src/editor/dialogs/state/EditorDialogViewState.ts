@@ -1,6 +1,9 @@
 import { action, observable } from 'mobx';
 
-import { EditorDialogType } from './EditorDialogTypes';
+export enum EditorDialogType {
+  ADD_PAGE = 'add-page',
+  SAVE_LAYOUT = 'save-layout',
+}
 
 export class EditorDialogViewState {
   @observable.ref public activeDialog?: EditorDialogType;

@@ -1,5 +1,7 @@
 import { action, observable } from 'mobx';
 
+import { DuiPanelContainerModel } from '../model/PanelLayoutModel';
+
 export enum DuiPanelContainerFlow {
   ROW = 'row',
   COLUMN = 'column',
@@ -21,6 +23,23 @@ export class DuiPanelContainer {
   constructor(id: string, parentId: string) {
     this.id = id;
     this.parentId = parentId;
+  }
+
+  public toModel(): DuiPanelContainerModel {
+    return {
+      id: this.id,
+      parentId: this.parentId,
+      flow: this.flow,
+      children: this.children,
+    };
+  }
+
+  public static fromModel(model: DuiPanelContainerModel) {
+    const panelContainer = new DuiPanelContainer(model.id, model.parentId);
+    panelContainer.flow = model.flow;
+    panelContainer.children = model.children;
+
+    return panelContainer;
   }
 
   public setDiv(div: HTMLDivElement) {

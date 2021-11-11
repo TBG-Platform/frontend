@@ -86,6 +86,7 @@ export class DuiPanelContainerRenderer extends React.Component<Props> {
       // Render another container
       childBody = (
         <DuiPanelContainerRenderer
+          key={`dpcr-${container.id}`}
           duiPanelContainer={container}
           duiState={duiState}
           renderPanel={renderPanel}

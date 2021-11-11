@@ -9,6 +9,7 @@ import { DockableUI } from '../../dockable-ui/components/DockableUI';
 import { EditorNavbar } from './EditorNavbar';
 import { EditorRootState } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
+import { SaveLayoutDialog } from '../../dialogs/save-layout-dialog/components/SaveLayoutDialog';
 import { TabBodyRenderer } from './TabBodyRenderer';
 
 interface Props {
@@ -23,7 +24,14 @@ export class EditorRoot extends React.Component<Props> {
     return (
       <div className={'editor-root'}>
         {/* Dialogs */}
-        <AddPageDialog dialogState={editorState.dialogViewState} addPage={editorState.addPage} />
+        <AddPageDialog
+          dialogViewState={editorState.dialogViewState}
+          addPage={editorState.addPage}
+        />
+        <SaveLayoutDialog
+          dialogViewState={editorState.dialogViewState}
+          saveLayout={editorState.saveLayout}
+        />
 
         <div className={'editor-navbar-area'}>
           <EditorNavbar editorState={editorState} />

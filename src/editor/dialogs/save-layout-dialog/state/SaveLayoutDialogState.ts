@@ -1,12 +1,12 @@
 import { action, observable } from 'mobx';
 
-export class AddPageDialogState {
-  @observable public pageName = '';
+export class SaveLayoutDialogState {
+  @observable public layoutName = '';
   @observable public isValid = true;
   private firstValidation = false;
 
   @action public setName(name: string) {
-    this.pageName = name;
+    this.layoutName = name;
 
     if (this.firstValidation) {
       this.validate();
@@ -15,6 +15,6 @@ export class AddPageDialogState {
 
   @action public validate() {
     this.firstValidation = true;
-    this.isValid = this.pageName.length > 1;
+    this.isValid = this.layoutName.length > 1;
   }
 }
