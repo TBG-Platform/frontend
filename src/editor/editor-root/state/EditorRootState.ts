@@ -14,6 +14,7 @@ import { Story } from '../../common/state/Story';
 import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
 import { StoryModel } from '../../common/model/StoryModel';
 import { TabBaseState } from './TabBaseState';
+import { toastManager } from '../../../utils/ToastManager';
 
 export interface PanelTab extends DuiPanelTab {
   type: PanelTabType;
@@ -71,6 +72,8 @@ export class EditorRootState {
     page.setName(name);
 
     this.story.addPage(page);
+
+    toastManager.successToast('Created new page ' + name);
   };
 
   public startSaveLayout = () => {
@@ -105,6 +108,8 @@ export class EditorRootState {
 
     // Then save the layout
     this.editorStorage.saveUserLayout(layoutModel);
+
+    toastManager.successToast('Saved layout ' + name);
   };
 
   public loadLayout(layoutModel: LayoutModel) {
