@@ -34,7 +34,10 @@ export class WebsiteRoot extends React.Component<Props> {
       case WebsitePage.HOME:
         return <HomePage />;
       case WebsitePage.MY_STORIES:
-        return <MyStoriesPage />;
+        if (websiteState.myStoriesState) {
+          return <MyStoriesPage myStoriesState={websiteState.myStoriesState} />;
+        }
+
       default:
         return <div>no page yet!</div>;
     }

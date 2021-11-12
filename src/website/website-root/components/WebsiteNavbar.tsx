@@ -34,7 +34,7 @@ export class WebsiteNavbar extends React.Component<Props> {
     const active = websiteState.page === page ? 'active' : 'inactive';
 
     return (
-      <div className={'page-link ' + active} onClick={() => websiteState.setPage(page)}>
+      <div className={'page-link ' + active} onClick={() => websiteState.toPage(page)}>
         <Text>{this.getPageName(page)}</Text>
       </div>
     );
