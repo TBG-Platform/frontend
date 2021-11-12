@@ -3,6 +3,7 @@ import { CSSProperties } from 'react';
 export interface StoryModel {
   id: string;
   name: string;
+  firstPageId: string;
   pages: PageModel[];
 }
 

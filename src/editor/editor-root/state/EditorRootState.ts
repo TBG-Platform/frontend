@@ -34,10 +34,12 @@ export class EditorRootState {
 
   constructor() {
     // Setup story - will be done elsewhere later and passed into constructor
-    const story = new Story();
     const firstPage = new Page();
     firstPage.setName('First page');
+
+    const story = new Story();
     story.addPage(firstPage);
+    story.firstPageId = firstPage.id;
     this.story = story;
 
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);

@@ -1,5 +1,7 @@
+import './game-player-dialog.scss';
+
 import React from 'react';
-import { Classes, Dialog } from '@blueprintjs/core';
+import { Dialog } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
 import {
@@ -21,12 +23,11 @@ export class GamePlayerDialog extends React.Component<Props> {
 
     return (
       <Dialog
+        className={'game-player-dialog'}
         isOpen={dialogViewState.activeDialog === EditorDialogType.GAME_PLAYER}
         onClose={this.onClose}
       >
-        <div className={'game-player-dialog ' + Classes.DIALOG_BODY}>
-          {gameState && <GamePlayerRoot gameState={gameState} />}
-        </div>
+        {gameState && <GamePlayerRoot gameState={gameState} />}
       </Dialog>
     );
   }

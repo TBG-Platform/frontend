@@ -37,6 +37,7 @@ export class GameStoryFactory {
     const storyProps: GameStoryProps = {
       id: storyModel.id,
       name: storyModel.name,
+      firstPageId: storyModel.firstPageId,
       pages: gamePages,
     };
 
