@@ -18,5 +18,6 @@ export interface PageItemModel {
   settings: CSSProperties;
   textSettings: CSSProperties;
   text: string;
+  fontSizePercent: string;
   linkedPageId: string;
 }

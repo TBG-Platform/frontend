@@ -11,5 +11,20 @@
     background-color: white;
     aspect-ratio: 16/9;
     overflow: hidden;
+
+    .game-page {
+      width: 100%;
+      height: 100%;
+
+      .game-page-item {
+        position: absolute;
+
+        .game-page-item-text {
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+        }
+      }
+    }
   }
 }

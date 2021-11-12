@@ -5,6 +5,7 @@ export interface GamePageItemProps {
   settings: CSSProperties;
   textSettings: CSSProperties;
   text: string;
+  fontSizePercent: string;
   linkedPageId: string;
 }
 
@@ -13,6 +14,7 @@ export class GamePageItem {
   public settings: CSSProperties;
   public textSettings: CSSProperties;
   public text: string;
+  public fontSizePercent: string;
   public linkedPageId: string;
 
   constructor(props: GamePageItemProps) {
@@ -20,6 +22,7 @@ export class GamePageItem {
     this.settings = props.settings;
     this.textSettings = props.textSettings;
     this.text = props.text;
+    this.fontSizePercent = props.fontSizePercent;
     this.linkedPageId = props.linkedPageId;
   }
 }
