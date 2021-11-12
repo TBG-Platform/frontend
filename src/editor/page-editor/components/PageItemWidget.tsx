@@ -75,14 +75,16 @@ export class PageItemWidget extends React.Component<Props> {
   }
 
   private getFontSize() {
-    const { pageDiv, pageItem } = this.props;
+    const { pageItem } = this.props;
 
-    // Page item 'size' prop is percentage of page width
-    //    const pageRect = pageDiv.getBoundingClientRect();
     const w = this.pageWidth;
     const s = parseFloat(pageItem.textSettings.size);
 
+    console.log('w: width', w);
+
     const fontSize = (w / 100) * s;
+
+    console.log('w: fontSize', fontSize);
 
     return fontSize + 'px';
   }

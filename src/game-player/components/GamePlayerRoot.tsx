@@ -22,8 +22,6 @@ export class GamePlayerRoot extends React.Component<Props> {
   componentDidMount() {
     this.resizeObserver = new ResizeObserver(this.onResizeRoot);
     this.resizeObserver.observe(this.rootRef.current);
-
-    this.stageWidth = this.stageRef.current.getBoundingClientRect().width;
   }
 
   public render() {
@@ -31,16 +29,21 @@ export class GamePlayerRoot extends React.Component<Props> {
 
     console.log('game rendering', gameState);
 
+    if (this.stageRef.current) {
+      console.log('gameRender, stageWidth: ', this.stageRef.current.getBoundingClientRect().width);
+    }
+
     return (
       <div ref={this.rootRef} className={'game-player-root'}>
         <div ref={this.stageRef} className={'game-stage'}>
-          {this.renderCurrentPage()}
+          {this.stageWidth !== 0 && this.renderCurrentPage()}
         </div>
       </div>
     );
   }
 
   private renderCurrentPage() {
+    console.log('render current page');
     return <div className={'game-page'}>{this.renderPageItems()}</div>;
   }
 
@@ -60,8 +63,8 @@ export class GamePlayerRoot extends React.Component<Props> {
   }
 
   @action private onResizeRoot = () => {
+    console.log('onresize');
     if (!this.rootRef.current || !this.stageRef.current) {
-      console.log('refs no longer currnet');
       return;
     }
 
@@ -74,13 +77,18 @@ export class GamePlayerRoot extends React.Component<Props> {
     stage.style.height = isTall ? 'auto' : '100%';
 
     this.stageWidth = stage.getBoundingClientRect().width;
+    console.log('stageWidth', this.stageWidth);
   };
 
   private getFontSize = (gpi: GamePageItem) => {
     const w = this.stageWidth;
     const s = parseFloat(gpi.fontSizePercent);
 
+    console.log('width', w);
+
     const fontSize = (w / 100) * s;
+
+    console.log('fontSize', fontSize);
 
     return fontSize + 'px';
   };
