@@ -2,20 +2,38 @@
   width: 100%;
   height: 100%;
 
-  .section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .stories-toolbar-area {
+    flex: 0 0 50px;
+    width: 100%;
+
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .section-heading {
-      font-weight: bold;
-      font-size: 2vw;
-    }
+  .stories-sections {
+    flex: 1 1 100%;
+    width: 100%;
 
-    .section-list {
+    .section {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 10px;
+
+      .section-heading {
+        font-weight: bold;
+        font-size: 2vw;
+      }
+
+      .section-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
     }
   }
 }
