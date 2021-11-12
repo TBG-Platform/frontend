@@ -151,6 +151,10 @@ export class EditorRootState {
     return this.tabMap.get(id);
   }
 
+  public startGamePlayer = () => {
+    this.dialogViewState.showDialog(EditorDialogType.GAME_PLAYER);
+  };
+
   private loadEditor() {
     // Load the initial layout
     const layout = this.editorStorage.getInitialLayout();

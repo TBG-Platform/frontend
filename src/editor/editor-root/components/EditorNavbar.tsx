@@ -157,9 +157,16 @@ export class EditorNavbar extends React.Component<Props> {
   }
 
   private renderPlayButton() {
+    const { editorState } = this.props;
+
     return (
       <div className={'navbar-button play'}>
-        <Button text={'Play'} icon={'play'} intent={Intent.WARNING} />
+        <Button
+          text={'Play'}
+          icon={'play'}
+          intent={Intent.WARNING}
+          onClick={editorState.startGamePlayer}
+        />
       </div>
     );
   }
