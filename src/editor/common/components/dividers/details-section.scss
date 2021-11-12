@@ -6,10 +6,18 @@
 
   display: flex;
   flex-direction: column;
-  gap: 5px;
 
   .details-section-title {
     font-weight: bold;
     user-select: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .details-section-content {
+    margin-top: 5px;
   }
 }

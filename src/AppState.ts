@@ -20,6 +20,7 @@ export class AppState {
 
   // Used in development; quick way to route to a location in the app
   private devOnlyRoute() {
-    this.websiteRootState.toPage(WebsitePage.MY_STORIES);
+    this.appScreen = AppScreen.EDITOR;
+    //this.websiteRootState.toPage(WebsitePage.MY_STORIES);
   }
 }

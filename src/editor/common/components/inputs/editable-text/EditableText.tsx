@@ -50,6 +50,7 @@ export class EditableText extends React.Component<Props> {
         label={label}
         inline={inline ?? false}
         helperText={this.invalid ? `Must be at least ${minLength} characters` : ''}
+        style={{ margin: '0' }}
       >
         <div className={'editable-text-container ' + className}>{content}</div>
       </FormGroup>
