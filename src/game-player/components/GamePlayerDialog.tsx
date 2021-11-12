@@ -7,15 +7,17 @@ import {
   EditorDialogViewState,
 } from '../../editor/dialogs/state/EditorDialogViewState';
 import { GamePlayerRoot } from './GamePlayerRoot';
+import { GamePlayerRootState } from '../state/GamePlayerRootState';
 
 interface Props {
   dialogViewState: EditorDialogViewState;
+  gameState?: GamePlayerRootState;
 }
 
 @observer
 export class GamePlayerDialog extends React.Component<Props> {
   public render() {
-    const { dialogViewState } = this.props;
+    const { dialogViewState, gameState } = this.props;
 
     return (
       <Dialog
@@ -23,7 +25,7 @@ export class GamePlayerDialog extends React.Component<Props> {
         onClose={this.onClose}
       >
         <div className={'game-player-dialog ' + Classes.DIALOG_BODY}>
-          <GamePlayerRoot />
+          {gameState && <GamePlayerRoot gameState={gameState} />}
         </div>
       </Dialog>
     );
