@@ -29,6 +29,7 @@ When working inside the frontend repo, follow this general workflow:
 - E.g for this ticket: https://mattn.atlassian.net/browse/FRONT-4 I made a branch named `FRONT-4_page-details`
 - When making commits, start your commit message with `<jira-ticket-number>:<commit-message>`, e.g `FRONT-4: did the thing` - separate the jira ticket number with a colon
 - You should now see the branch and all commits from the jira ticket!
+- Write any unit tests necessary, run `npm test` to make sure you didn't break any existing tests
 - When ready to pull request, first pull dev into your branch and deal with any conflicts, then raise the PR against dev
 - Your PR will then be reviewed and merged; once merged, the branch will be deleted and you can move your Jira ticket to 'Done'
 
