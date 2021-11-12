@@ -6,6 +6,7 @@ import {
   EditorDialogType,
   EditorDialogViewState,
 } from '../../editor/dialogs/state/EditorDialogViewState';
+import { GamePlayerRoot } from './GamePlayerRoot';
 
 interface Props {
   dialogViewState: EditorDialogViewState;
@@ -21,7 +22,9 @@ export class GamePlayerDialog extends React.Component<Props> {
         isOpen={dialogViewState.activeDialog === EditorDialogType.GAME_PLAYER}
         onClose={this.onClose}
       >
-        <div className={'game-player-dialog ' + Classes.DIALOG_BODY}>hello there</div>
+        <div className={'game-player-dialog ' + Classes.DIALOG_BODY}>
+          <GamePlayerRoot />
+        </div>
       </Dialog>
     );
   }
