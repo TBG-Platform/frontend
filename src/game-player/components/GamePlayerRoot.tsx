@@ -47,8 +47,7 @@ export class GamePlayerRoot extends React.Component<Props> {
 
     return (
       <div className={'debug-controls'}>
-        <Card className={'debug-content'}>
-          <Button minimal icon={'double-chevron-up'} />
+        <Card className={'debug-content'} elevation={2}>
           <PageSelector
             key={`game-page-selector`}
             pages={gameState.story.pages}
