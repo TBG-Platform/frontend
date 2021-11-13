@@ -5,6 +5,7 @@ import { Button, Divider, Intent, Menu, MenuItem, Position } from '@blueprintjs/
 import { Popover2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 
+import { EditorDialogType } from '../../dialogs/state/EditorDialogViewState';
 import { EditorRootState } from '../state/EditorRootState';
 import { PanelTabType } from '../state/PanelTabType';
 
@@ -131,6 +132,12 @@ export class EditorNavbar extends React.Component<Props> {
               text={'Save layout'}
               onClick={editorState.startSaveLayout}
               disabled={!editorState.dockableUiState.hasLayout()}
+            />
+            <MenuItem
+              text={'Manage layouts'}
+              onClick={() =>
+                editorState.dialogViewState.showDialog(EditorDialogType.MANAGE_LAYOUTS)
+              }
             />
           </Menu>
         }
