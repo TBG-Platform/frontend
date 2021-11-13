@@ -39,6 +39,7 @@ export class DockableUIState {
     const panels = Array.from(this.panelMap.values()).map((panel) => panel.toModel());
 
     return {
+      id: this.layoutId,
       rootContainerId: this.rootContainer.id,
       containers,
       panels,
@@ -72,7 +73,7 @@ export class DockableUIState {
     this.rootContainer = this.containerMap.get(layoutModel.rootContainerId);
 
     // Assign a new id for the layout - ensures renderers update if panel ids were the same as last layout
-    this.layoutId = RandomUtils.createId();
+    this.layoutId = layoutModel.id;
   }
 
   @action public setFlatLayout(panelCount: number, flow?: DuiPanelContainerFlow) {

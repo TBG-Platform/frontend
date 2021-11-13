@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 import { LayoutModel } from '../../dockable-ui/model/PanelLayoutModel';
 
@@ -38,9 +38,22 @@ export class EditorRootStorage {
   }
 
   public saveUserLayout(layout: LayoutModel) {
+    // Add the layout to array in memory
     this.userLayouts = [...this.userLayouts, layout];
 
     // Overwrite all layouts in localStorage with those in memory
+    this.saveUserLayouts();
+  }
+
+  @action public deleteLayout(id: string) {
+    // Delete the layout in memory
+    this.userLayouts = this.userLayouts.filter((layout) => layout.id !== id);
+
+    // Then overwrite local storage with new layouts array
+    this.saveUserLayouts();
+  }
+
+  private saveUserLayouts() {
     localStorage.setItem(this.layoutsKey, JSON.stringify(this.userLayouts));
   }
 }

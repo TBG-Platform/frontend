@@ -1,7 +1,7 @@
 import './manage-layouts-dialog.scss';
 
 import React from 'react';
-import { Button, Card, Classes, Dialog, FormGroup } from '@blueprintjs/core';
+import { Button, Card, Classes, Dialog, FormGroup, NonIdealState } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
 import { EditorDialogType, EditorDialogViewState } from '../state/EditorDialogViewState';
@@ -24,14 +24,7 @@ export class ManageLayoutsDialog extends React.Component<Props> {
       >
         <div className={'manage-layouts-dialog ' + Classes.DIALOG_BODY}>
           <FormGroup className={'layouts-list'} label={'Saved layouts'}>
-            <Card>
-              {editorStorage.userLayouts.map((layout) => (
-                <div className={'layout-item'}>
-                  {layout.name}
-                  <Button className={'actions'} icon={'trash'} minimal outlined small />
-                </div>
-              ))}
-            </Card>
+            <Card>{this.renderLayouts()}</Card>
           </FormGroup>
         </div>
 
@@ -42,5 +35,33 @@ export class ManageLayoutsDialog extends React.Component<Props> {
         </div>
       </Dialog>
     );
+  }
+
+  private renderLayouts() {
+    const { editorStorage } = this.props;
+
+    if (!editorStorage.userLayouts.length) {
+      return (
+        <NonIdealState
+          icon={'clean'}
+          title={'No saved layouts'}
+          description={'You have no saved layouts!'}
+        />
+      );
+    }
+
+    return editorStorage.userLayouts.map((layout) => (
+      <div className={'layout-item'}>
+        {layout.name}
+        <Button
+          className={'actions'}
+          icon={'trash'}
+          minimal
+          outlined
+          small
+          onClick={() => editorStorage.deleteLayout(layout.id)}
+        />
+      </div>
+    ));
   }
 }
