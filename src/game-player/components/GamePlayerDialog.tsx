@@ -2,6 +2,7 @@ import './game-player-dialog.scss';
 
 import React from 'react';
 import { Dialog } from '@blueprintjs/core';
+import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 import {
@@ -18,6 +19,8 @@ interface Props {
 
 @observer
 export class GamePlayerDialog extends React.Component<Props> {
+  @observable private dialogOpened = false;
+
   public render() {
     const { dialogViewState, gameState } = this.props;
 
@@ -26,13 +29,19 @@ export class GamePlayerDialog extends React.Component<Props> {
         className={'game-player-dialog'}
         isOpen={dialogViewState.activeDialog === EditorDialogType.GAME_PLAYER}
         onClose={this.onClose}
+        onOpened={this.onOpened}
       >
-        {gameState && <GamePlayerRoot gameState={gameState} />}
+        {this.dialogOpened && gameState && <GamePlayerRoot gameState={gameState} />}
       </Dialog>
     );
   }
 
-  private onClose = () => {
+  @action private onClose = () => {
     this.props.dialogViewState.hideDialog();
+    this.dialogOpened = false;
+  };
+
+  @action private onOpened = () => {
+    this.dialogOpened = true;
   };
 }
