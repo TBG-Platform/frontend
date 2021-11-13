@@ -5,7 +5,6 @@ import './page-item-widget.scss';
 import React from 'react';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { Menu, MenuItem } from '@blueprintjs/core';
-import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 import { PageItem } from '../../common/state/PageItem';

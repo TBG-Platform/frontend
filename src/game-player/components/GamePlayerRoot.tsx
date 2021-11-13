@@ -25,8 +25,6 @@ export class GamePlayerRoot extends React.Component<Props> {
   }
 
   public render() {
-    const { gameState } = this.props;
-
     return (
       <div ref={this.rootRef} className={'game-player-root'}>
         <div ref={this.stageRef} className={'game-stage'}>
