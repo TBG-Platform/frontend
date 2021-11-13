@@ -4,13 +4,15 @@ import { GamePage } from './GamePage';
 import { GameStory } from './GameStory';
 
 export class GamePlayerRootState {
+  public debugMode = false;
   public story: GameStory;
   @observable.ref public currentPage: GamePage;
 
   private pageMap = new Map<string, GamePage>();
 
-  constructor(story: GameStory) {
+  constructor(story: GameStory, debugMode = false) {
     this.story = story;
+    this.debugMode = debugMode;
 
     // Build page map, assign item callbacks
     this.story.pages.forEach((page) => {
@@ -26,6 +28,13 @@ export class GamePlayerRootState {
 
     // Find the first page
     this.currentPage = this.pageMap.get(story.firstPageId);
+  }
+
+  @action public setPage(pageId: string) {
+    const nextPage = this.pageMap.get(pageId);
+    if (nextPage) {
+      this.currentPage = nextPage;
+    }
   }
 
   @action public onPageItemClick = (linkedPageId: string) => {

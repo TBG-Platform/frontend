@@ -1,11 +1,14 @@
 import './game-player-root.scss';
 
 import React from 'react';
+import { Button, Card, Navbar, Text } from '@blueprintjs/core';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
+import { GamePage } from '../state/GamePage';
 import { GamePageItemWidget } from './GamePageItemWidget';
 import { GamePlayerRootState } from '../state/GamePlayerRootState';
+import { PageSelector } from '../../editor/common/components/inputs/page-selector/PageSelector';
 
 interface Props {
   gameState: GamePlayerRootState;
@@ -27,9 +30,38 @@ export class GamePlayerRoot extends React.Component<Props> {
   public render() {
     return (
       <div ref={this.rootRef} className={'game-player-root'}>
+        {this.renderDebugControls()}
         <div ref={this.stageRef} className={'game-stage'}>
           {this.stageWidth !== 0 && this.renderCurrentPage()}
         </div>
+      </div>
+    );
+  }
+
+  private renderDebugControls() {
+    const { gameState } = this.props;
+
+    if (!gameState.debugMode) {
+      return undefined;
+    }
+
+    return (
+      <div className={'debug-controls'}>
+        <Card className={'debug-content'} elevation={2}>
+          <PageSelector
+            key={`game-page-selector`}
+            pages={gameState.story.pages}
+            onSelect={(page: GamePage) => gameState.setPage(page.id)}
+            target={
+              <Button
+                text={gameState.currentPage.name}
+                minimal
+                outlined
+                rightIcon={'chevron-down'}
+              />
+            }
+          />
+        </Card>
       </div>
     );
   }

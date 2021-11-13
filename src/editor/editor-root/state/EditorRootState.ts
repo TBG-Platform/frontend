@@ -1,12 +1,12 @@
 import { action, observable } from 'mobx';
 
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
-import { DuiLayoutModel, LayoutModel, PanelModel } from '../../dockable-ui/model/PanelLayoutModel';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
 import { EditorDialogType, EditorDialogViewState } from '../../dialogs/state/EditorDialogViewState';
 import { EditorRootStorage } from './EditorRootStorage';
 import { GamePlayerRootState } from '../../../game-player/state/GamePlayerRootState';
 import { GameStoryFactory } from '../../../game-player/utils/GameFactory';
+import { LayoutModel, PanelModel } from '../../dockable-ui/model/PanelLayoutModel';
 import { Page } from '../../common/state/Page';
 import { PageEditorState } from '../../page-editor/state/PageEditorState';
 import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
@@ -164,7 +164,8 @@ export class EditorRootState {
     const gameStory = GameStoryFactory.createGameStory(storyModel);
 
     // Pass this into a newly made game state
-    this.gameState = new GamePlayerRootState(gameStory);
+    const debugMode = true;
+    this.gameState = new GamePlayerRootState(gameStory, debugMode);
 
     // Can now open the game player dialog
     this.dialogViewState.showDialog(EditorDialogType.GAME_PLAYER);
