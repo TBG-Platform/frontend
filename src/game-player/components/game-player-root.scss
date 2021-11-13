@@ -1,11 +1,33 @@
 .game-player-root {
   width: 100%;
   height: 100%;
+  position: relative;
   background-color: black;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .debug-controls {
+    position: absolute;
+    z-index: 10;
+    top: 0px;
+    left: 50%;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s linear;
+    margin-top: 5px;
+
+    .debug-content {
+      height: 100%;
+      padding-left: 5px;
+      padding-right: 5px;
+
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
 
   .game-stage {
     background-color: white;
