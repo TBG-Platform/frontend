@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 import { GamePage } from './GamePage';
 import { GameStory } from './GameStory';
@@ -28,7 +28,11 @@ export class GamePlayerRootState {
     this.currentPage = this.pageMap.get(story.firstPageId);
   }
 
-  public onPageItemClick = (itemId: string) => {
-    console.log('clicked me!', itemId);
+  @action public onPageItemClick = (linkedPageId: string) => {
+    // For now, only thing items can do is go to other pages
+    const nextPage = this.pageMap.get(linkedPageId);
+    if (nextPage) {
+      this.currentPage = nextPage;
+    }
   };
 }

@@ -25,7 +25,7 @@ export class GamePageItemWidget extends React.Component<Props> {
         <div
           className={'gpi-text'}
           style={{ ...pageItem.textSettings, fontSize: this.getFontSize() }}
-          onClick={() => pageItem.onClickItem(pageItem.id)}
+          onClick={() => pageItem.onClickItem(pageItem.linkedPageId)}
         >
           {pageItem.text}
         </div>
