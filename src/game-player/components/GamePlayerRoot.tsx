@@ -5,8 +5,10 @@ import { Button, Card, Navbar, Text } from '@blueprintjs/core';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
+import { GamePage } from '../state/GamePage';
 import { GamePageItemWidget } from './GamePageItemWidget';
 import { GamePlayerRootState } from '../state/GamePlayerRootState';
+import { PageSelector } from '../../editor/common/components/inputs/page-selector/PageSelector';
 
 interface Props {
   gameState: GamePlayerRootState;
@@ -46,8 +48,20 @@ export class GamePlayerRoot extends React.Component<Props> {
     return (
       <div className={'debug-controls'}>
         <Card className={'debug-content'}>
-          <Button minimal icon={'chevron-up'} />
-          <Text>{gameState.currentPage.name}</Text>
+          <Button minimal icon={'double-chevron-up'} />
+          <PageSelector
+            key={`game-page-selector`}
+            pages={gameState.story.pages}
+            onSelect={(page: GamePage) => gameState.setPage(page.id)}
+            target={
+              <Button
+                text={gameState.currentPage.name}
+                minimal
+                outlined
+                rightIcon={'chevron-down'}
+              />
+            }
+          />
         </Card>
       </div>
     );

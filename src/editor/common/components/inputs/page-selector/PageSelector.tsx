@@ -3,14 +3,15 @@ import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/select';
 import { MenuItem } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
+import { GamePage } from '../../../../../game-player/state/GamePage';
 import { Page } from '../../../state/Page';
 
-const PageSelect = Select.ofType<Page>();
+const PageSelect = Select.ofType<Page | GamePage>();
 
 interface Props {
-  pages: Page[];
+  pages: Page[] | GamePage[];
   target: JSX.Element;
-  onSelect: (page: Page) => void;
+  onSelect: (page: Page | GamePage) => void;
   noResultsText?: string;
 }
 
@@ -32,7 +33,10 @@ export class PageSelector extends React.Component<Props> {
     );
   }
 
-  private pageItemRenderer: ItemRenderer<Page> = (page: Page, { handleClick, modifiers }) => {
+  private pageItemRenderer: ItemRenderer<Page> = (
+    page: Page | GamePage,
+    { handleClick, modifiers }
+  ) => {
     return (
       <MenuItem
         key={'page-select-' + page.id}
@@ -44,11 +48,11 @@ export class PageSelector extends React.Component<Props> {
     );
   };
 
-  private onPageItemSelect = (page: Page) => {
+  private onPageItemSelect = (page: Page | GamePage) => {
     this.props.onSelect(page);
   };
 
-  private filterPages: ItemPredicate<Page> = (query: string, page: Page) => {
+  private filterPages: ItemPredicate<Page> = (query: string, page: Page | GamePage) => {
     return page.name.toLowerCase().includes(query.toLowerCase());
   };
 }

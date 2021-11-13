@@ -30,6 +30,13 @@ export class GamePlayerRootState {
     this.currentPage = this.pageMap.get(story.firstPageId);
   }
 
+  @action public setPage(pageId: string) {
+    const nextPage = this.pageMap.get(pageId);
+    if (nextPage) {
+      this.currentPage = nextPage;
+    }
+  }
+
   @action public onPageItemClick = (linkedPageId: string) => {
     // For now, only thing items can do is go to other pages
     const nextPage = this.pageMap.get(linkedPageId);
