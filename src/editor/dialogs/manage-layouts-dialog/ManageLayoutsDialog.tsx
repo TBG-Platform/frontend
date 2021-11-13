@@ -20,6 +20,7 @@ export class ManageLayoutsDialog extends React.Component<Props> {
     return (
       <Dialog
         isOpen={dialogViewState.activeDialog === EditorDialogType.MANAGE_LAYOUTS}
+        onClose={this.onClose}
         title={'Manage layouts'}
       >
         <div className={'manage-layouts-dialog ' + Classes.DIALOG_BODY}>
@@ -30,12 +31,16 @@ export class ManageLayoutsDialog extends React.Component<Props> {
 
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-            <Button text={'Close'} onClick={() => dialogViewState.hideDialog()} />
+            <Button text={'Close'} onClick={this.onClose} />
           </div>
         </div>
       </Dialog>
     );
   }
+
+  private onClose = () => {
+    this.props.dialogViewState.hideDialog();
+  };
 
   private renderLayouts() {
     const { editorStorage } = this.props;
