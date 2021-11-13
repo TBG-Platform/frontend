@@ -170,6 +170,11 @@ export class EditorRootState {
     this.dialogViewState.showDialog(EditorDialogType.GAME_PLAYER);
   };
 
+  @action public onCloseGamePlayer = () => {
+    // Clear the previous game state
+    this.gameState = undefined;
+  };
+
   private loadEditor() {
     // Load the initial layout
     const layout = this.editorStorage.getInitialLayout();

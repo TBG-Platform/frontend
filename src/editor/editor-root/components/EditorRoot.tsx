@@ -36,6 +36,7 @@ export class EditorRoot extends React.Component<Props> {
         <GamePlayerDialog
           dialogViewState={editorState.dialogViewState}
           gameState={editorState.gameState}
+          onClose={editorState.onCloseGamePlayer}
         />
 
         <div className={'editor-navbar-area'}>

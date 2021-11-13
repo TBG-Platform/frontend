@@ -15,6 +15,7 @@ import { GamePlayerRootState } from '../state/GamePlayerRootState';
 interface Props {
   dialogViewState: EditorDialogViewState;
   gameState?: GamePlayerRootState;
+  onClose: () => void;
 }
 
 @observer
@@ -39,6 +40,7 @@ export class GamePlayerDialog extends React.Component<Props> {
   @action private onClose = () => {
     this.props.dialogViewState.hideDialog();
     this.dialogOpened = false;
+    this.props.onClose();
   };
 
   @action private onOpened = () => {
