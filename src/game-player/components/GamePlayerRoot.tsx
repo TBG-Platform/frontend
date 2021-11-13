@@ -1,6 +1,7 @@
 import './game-player-root.scss';
 
 import React from 'react';
+import { Button, Card, Navbar, Text } from '@blueprintjs/core';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
@@ -27,9 +28,27 @@ export class GamePlayerRoot extends React.Component<Props> {
   public render() {
     return (
       <div ref={this.rootRef} className={'game-player-root'}>
+        {this.renderDebugControls()}
         <div ref={this.stageRef} className={'game-stage'}>
           {this.stageWidth !== 0 && this.renderCurrentPage()}
         </div>
+      </div>
+    );
+  }
+
+  private renderDebugControls() {
+    const { gameState } = this.props;
+
+    if (!gameState.debugMode) {
+      return undefined;
+    }
+
+    return (
+      <div className={'debug-controls'}>
+        <Card className={'debug-content'}>
+          <Button minimal icon={'chevron-up'} />
+          <Text>{gameState.currentPage.name}</Text>
+        </Card>
       </div>
     );
   }
