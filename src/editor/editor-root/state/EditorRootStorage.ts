@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
 
 import { LayoutModel } from '../../dockable-ui/model/PanelLayoutModel';
+import { toastManager } from '../../../utils/ToastManager';
 
 export class EditorRootStorage {
   public standardLayouts: LayoutModel[] = [];
@@ -46,11 +47,15 @@ export class EditorRootStorage {
   }
 
   @action public deleteLayout(id: string) {
+    const layoutName = this.userLayouts.find((layout) => layout.id === id).name;
+
     // Delete the layout in memory
     this.userLayouts = this.userLayouts.filter((layout) => layout.id !== id);
 
     // Then overwrite local storage with new layouts array
     this.saveUserLayouts();
+
+    toastManager.successToast('Deleted layout ' + layoutName);
   }
 
   private saveUserLayouts() {

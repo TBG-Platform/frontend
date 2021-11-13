@@ -15,7 +15,7 @@ interface Props {
 @observer
 export class ManageLayoutsDialog extends React.Component<Props> {
   public render() {
-    const { dialogViewState, editorStorage } = this.props;
+    const { dialogViewState } = this.props;
 
     return (
       <Dialog
