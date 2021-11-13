@@ -3,6 +3,7 @@ import './page-editor.scss';
 import React from 'react';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { Menu, MenuItem } from '@blueprintjs/core';
+import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 import { PageEditorState } from '../state/PageEditorState';
@@ -17,11 +18,17 @@ interface Props {
 @observer
 export class PageEditor extends React.Component<Props> {
   private pageRef = React.createRef<HTMLDivElement>();
+  private pageResizeObserver: ResizeObserver;
+  @observable private pageRect: DOMRect;
 
   componentDidMount() {
     if (this.pageRef.current) {
       this.props.pageEditorState.setPageDiv(this.pageRef.current);
+      this.pageRect = this.pageRef.current.getBoundingClientRect();
     }
+
+    this.pageResizeObserver = new ResizeObserver(this.onPageResize);
+    this.pageResizeObserver.observe(this.pageRef.current);
   }
 
   public render() {
@@ -49,11 +56,11 @@ export class PageEditor extends React.Component<Props> {
     const selectedPage = pageEditorState.selectedPage;
 
     // Cannot render page items with the ref to the page display (after the editor mounts)
-    if (pageEditorState.pageDiv) {
+    if (pageEditorState.pageDiv && this.pageRect) {
       return selectedPage.items.map((item) => (
         <PageItemWidget
           key={`item-` + item.id}
-          pageDiv={pageEditorState.pageDiv}
+          pageRect={this.pageRect}
           pageItem={item}
           selected={selectedPage.isItemSelected(item.id)}
           onClick={() => selectedPage.selectItem(item.id)}
@@ -65,6 +72,12 @@ export class PageEditor extends React.Component<Props> {
     // Return nothing until page editor ref is given
     return undefined;
   }
+
+  @action private onPageResize = () => {
+    if (this.pageRef.current) {
+      this.pageRect = this.pageRef.current.getBoundingClientRect();
+    }
+  };
 }
 
 interface PageContextMenuProps {

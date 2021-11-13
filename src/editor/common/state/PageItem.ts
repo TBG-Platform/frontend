@@ -37,7 +37,7 @@ export class PageItem {
     item.setTop(extractCssValue(model.settings.top, '%'));
     item.setWidth(extractCssValue(model.settings.width, '%'));
     item.setHeight(extractCssValue(model.settings.height, '%'));
-    item.textSettings.updateSettings(model.textSettings, model.text);
+    item.textSettings.updateSettings(model.textSettings, model.text, model.fontSizePercent);
     item.linkedPageId = model.linkedPageId;
 
     return item;
@@ -49,6 +49,7 @@ export class PageItem {
       settings: this.settings,
       textSettings: this.textSettings.settings,
       text: this.textSettings.text,
+      fontSizePercent: this.textSettings.size,
       linkedPageId: this.linkedPage?.id ?? '',
     };
   }

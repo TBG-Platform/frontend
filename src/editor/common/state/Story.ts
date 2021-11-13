@@ -9,12 +9,14 @@ export class Story {
   public id = RandomUtils.createId();
   @observable public name = 'Untitled_story';
   @observable public pages: Page[] = [];
+  public firstPageId = '';
 
   public static fromModel(model: StoryModel) {
     const story = new Story();
 
     story.id = model.id;
     story.name = model.name;
+    story.firstPageId = model.firstPageId;
     story.pages = model.pages.map((pageModel) => Page.fromModel(pageModel));
 
     return story;
@@ -24,6 +26,7 @@ export class Story {
     return {
       id: this.id,
       name: this.name,
+      firstPageId: this.firstPageId,
       pages: this.pages.map((page) => page.toModel()),
     };
   }

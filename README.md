@@ -29,6 +29,7 @@ When working inside the frontend repo, follow this general workflow:
 - E.g for this ticket: https://mattn.atlassian.net/browse/FRONT-4 I made a branch named `FRONT-4_page-details`
 - When making commits, start your commit message with `<jira-ticket-number>:<commit-message>`, e.g `FRONT-4: did the thing` - separate the jira ticket number with a colon
 - You should now see the branch and all commits from the jira ticket!
+- Write any unit tests necessary, run `npm test` to make sure you didn't break any existing tests
 - When ready to pull request, first pull dev into your branch and deal with any conflicts, then raise the PR against dev
 - Your PR will then be reviewed and merged; once merged, the branch will be deleted and you can move your Jira ticket to 'Done'
 
@@ -36,11 +37,11 @@ When working inside the frontend repo, follow this general workflow:
 
 The structure of the repo has a few conventions.
 
-Under `src/` are the high-level folders for the apps within the repo, for the game editor, game player and website.
+Under `src/` are the high-level folders for the apps within the repo, for the game editor, game player and website. Within these folders are sub-folders for various pages, screens, panels etc - self-contained items.
 
 At each level under src, there should be a `common` folder which holds components and/or state common to that level (e.g the editor has a common folder which holds inputs used between various editor sub-folders).
 
-For each sub-folder within a high-level folder, there should be `components` and `state` folders to hold .tsx & .scss and .ts files respectively.
+For each sub-folder within a high-level folder, there should be `components` and `state` folders to hold .tsx & .scss and .ts files respectively. Where appropriate, there may also be a `test` folder holding any test files for that sub-folder item.
 
 ## Imports
 
@@ -108,6 +109,14 @@ In some cases, we have our own wrappers for blueprint components - always check 
 With regards to styling, under `src/common` lives the `tbg-palette.scss` which holds common scss variables.
 
 Currently, it holds a few colours. When adding new colours or sizing values that would be reused throughout the app, put them in the palette file.
+
+## Unit Testing
+
+This repo uses jest for its unit tests. Keep tests in their own `test` folder rather than alongside the source file they test (see the folder structure section above).
+
+We currently only test state and business logic, though we may add in storybook later for component testing.
+
+Please write unit tests to cover any new state or logic you have done. If you raise a PR without unit tests, it won't get merged!
 
 # Editor
 

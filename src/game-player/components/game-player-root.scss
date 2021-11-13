@@ -1,0 +1,21 @@
+.game-player-root {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .game-stage {
+    background-color: white;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    position: relative;
+
+    .game-page {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

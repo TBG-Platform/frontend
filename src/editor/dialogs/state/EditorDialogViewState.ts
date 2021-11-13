@@ -3,6 +3,7 @@ import { action, observable } from 'mobx';
 export enum EditorDialogType {
   ADD_PAGE = 'add-page',
   SAVE_LAYOUT = 'save-layout',
+  GAME_PLAYER = 'game-player',
 }
 
 export class EditorDialogViewState {

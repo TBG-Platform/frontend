@@ -32,9 +32,10 @@ export class TextSettings {
     this.setDefaultValues();
   }
 
-  public updateSettings(settings: CSSProperties, text: string) {
+  public updateSettings(settings: CSSProperties, text: string, size: string) {
     this.settings = settings;
     this.text = text;
+    this.size = size;
 
     this.fromSettings(settings);
   }
@@ -134,7 +135,5 @@ export class TextSettings {
     this.italic = settings.fontStyle === 'italic';
     this.decoration = EnumUtils.getEnumKey(TextDecoration, settings.textDecoration as string);
     this.color = settings.color;
-    const size = settings.fontSize as string;
-    this.size = size.split(this.sizeUnit)[0];
   }
 }

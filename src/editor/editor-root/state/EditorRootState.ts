@@ -1,10 +1,12 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 
 import { DockableUIState } from '../../dockable-ui/state/DockableUIState';
 import { DuiLayoutModel, LayoutModel, PanelModel } from '../../dockable-ui/model/PanelLayoutModel';
 import { DuiPanelTab } from '../../dockable-ui/state/DuiPanel';
 import { EditorDialogType, EditorDialogViewState } from '../../dialogs/state/EditorDialogViewState';
 import { EditorRootStorage } from './EditorRootStorage';
+import { GamePlayerRootState } from '../../../game-player/state/GamePlayerRootState';
+import { GameStoryFactory } from '../../../game-player/utils/GameFactory';
 import { Page } from '../../common/state/Page';
 import { PageEditorState } from '../../page-editor/state/PageEditorState';
 import { PageInspectorState } from '../../page-inspector/state/PageInspectorState';
@@ -14,12 +16,14 @@ import { Story } from '../../common/state/Story';
 import { StoryGraphState } from '../../story-graph/state/StoryGraphState';
 import { StoryModel } from '../../common/model/StoryModel';
 import { TabBaseState } from './TabBaseState';
+import { toastManager } from '../../../utils/ToastManager';
 
 export interface PanelTab extends DuiPanelTab {
   type: PanelTabType;
 }
 
 export class EditorRootState {
+  @observable.ref public gameState?: GamePlayerRootState;
   public story: Story;
   public storyGraphState = new StoryGraphState();
   public dockableUiState = new DockableUIState();
@@ -30,10 +34,12 @@ export class EditorRootState {
 
   constructor() {
     // Setup story - will be done elsewhere later and passed into constructor
-    const story = new Story();
     const firstPage = new Page();
     firstPage.setName('First page');
+
+    const story = new Story();
     story.addPage(firstPage);
+    story.firstPageId = firstPage.id;
     this.story = story;
 
     this.dockableUiState.addEventListener('close-tab', this.onCloseTab);
@@ -71,6 +77,8 @@ export class EditorRootState {
     page.setName(name);
 
     this.story.addPage(page);
+
+    toastManager.successToast('Created new page ' + name);
   };
 
   public startSaveLayout = () => {
@@ -105,6 +113,8 @@ export class EditorRootState {
 
     // Then save the layout
     this.editorStorage.saveUserLayout(layoutModel);
+
+    toastManager.successToast('Saved layout ' + name);
   };
 
   public loadLayout(layoutModel: LayoutModel) {
@@ -145,6 +155,25 @@ export class EditorRootState {
   public getTab(id: string): PanelTab | undefined {
     return this.tabMap.get(id);
   }
+
+  @action public startGamePlayer = () => {
+    // Get story data model from current story being edited
+    const storyModel = this.story.toModel();
+
+    // Create the game story from the model
+    const gameStory = GameStoryFactory.createGameStory(storyModel);
+
+    // Pass this into a newly made game state
+    this.gameState = new GamePlayerRootState(gameStory);
+
+    // Can now open the game player dialog
+    this.dialogViewState.showDialog(EditorDialogType.GAME_PLAYER);
+  };
+
+  @action public onCloseGamePlayer = () => {
+    // Clear the previous game state
+    this.gameState = undefined;
+  };
 
   private loadEditor() {
     // Load the initial layout
