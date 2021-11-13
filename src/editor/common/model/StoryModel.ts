@@ -3,6 +3,7 @@ import { CSSProperties } from 'react';
 export interface StoryModel {
   id: string;
   name: string;
+  firstPageId: string;
   pages: PageModel[];
 }
 
@@ -17,5 +18,6 @@ export interface PageItemModel {
   settings: CSSProperties;
   textSettings: CSSProperties;
   text: string;
+  fontSizePercent: string;
   linkedPageId: string;
 }

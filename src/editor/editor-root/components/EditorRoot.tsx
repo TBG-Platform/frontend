@@ -8,6 +8,7 @@ import { AddPageDialog } from '../../dialogs/add-page-dialog/components/AddPageD
 import { DockableUI } from '../../dockable-ui/components/DockableUI';
 import { EditorNavbar } from './EditorNavbar';
 import { EditorRootState } from '../state/EditorRootState';
+import { GamePlayerDialog } from '../../../game-player/components/GamePlayerDialog';
 import { PanelTabType } from '../state/PanelTabType';
 import { SaveLayoutDialog } from '../../dialogs/save-layout-dialog/components/SaveLayoutDialog';
 import { TabBodyRenderer } from './TabBodyRenderer';
@@ -31,6 +32,11 @@ export class EditorRoot extends React.Component<Props> {
         <SaveLayoutDialog
           dialogViewState={editorState.dialogViewState}
           saveLayout={editorState.saveLayout}
+        />
+        <GamePlayerDialog
+          dialogViewState={editorState.dialogViewState}
+          gameState={editorState.gameState}
+          onClose={editorState.onCloseGamePlayer}
         />
 
         <div className={'editor-navbar-area'}>

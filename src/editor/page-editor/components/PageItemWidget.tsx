@@ -5,14 +5,13 @@ import './page-item-widget.scss';
 import React from 'react';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { Menu, MenuItem } from '@blueprintjs/core';
-import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 import { PageItem } from '../../common/state/PageItem';
 import { Vector } from '../../../utils/Vector';
 
 interface Props {
-  pageDiv: HTMLDivElement;
+  pageRect: DOMRect;
   pageItem: PageItem;
   selected: boolean;
   onClick: () => void;
@@ -23,25 +22,6 @@ interface Props {
 export class PageItemWidget extends React.Component<Props> {
   private pageItemRef = React.createRef<HTMLDivElement>();
   private dragOffset = new Vector();
-  private pageResizeObserver: ResizeObserver;
-  @observable private pageWidth = 0;
-
-  constructor(props: Props) {
-    super(props);
-
-    // Setup page width
-    this.pageWidth = props.pageDiv.getBoundingClientRect().width;
-  }
-
-  componentDidMount() {
-    const { pageDiv } = this.props;
-
-    this.pageResizeObserver = new ResizeObserver((_entries: ResizeObserverEntry[]) => {
-      this.pageWidth = pageDiv.getBoundingClientRect().width;
-    });
-
-    this.pageResizeObserver.observe(pageDiv);
-  }
 
   public render() {
     const { pageItem, selected, onDelete } = this.props;
@@ -75,11 +55,9 @@ export class PageItemWidget extends React.Component<Props> {
   }
 
   private getFontSize() {
-    const { pageDiv, pageItem } = this.props;
+    const { pageItem, pageRect } = this.props;
 
-    // Page item 'size' prop is percentage of page width
-    //    const pageRect = pageDiv.getBoundingClientRect();
-    const w = this.pageWidth;
+    const w = pageRect.width;
     const s = parseFloat(pageItem.textSettings.size);
 
     const fontSize = (w / 100) * s;
@@ -114,10 +92,9 @@ export class PageItemWidget extends React.Component<Props> {
   };
 
   private updateItemPos(mousePos: Vector) {
-    const { pageDiv, pageItem } = this.props;
+    const { pageItem, pageRect } = this.props;
 
     // Get mouse pos relative to page pos
-    const pageRect = pageDiv.getBoundingClientRect();
     const pagePos = new Vector(pageRect.left, pageRect.top);
     mousePos.sub(pagePos);
 
@@ -141,7 +118,7 @@ export class PageItemWidget extends React.Component<Props> {
   };
 
   private onResize = (e: MouseEvent) => {
-    const { pageDiv, pageItem } = this.props;
+    const { pageRect, pageItem } = this.props;
 
     // Mouse pos - item left is new width
     const itemRect = this.pageItemRef.current.getBoundingClientRect();
@@ -151,7 +128,6 @@ export class PageItemWidget extends React.Component<Props> {
     mousePos.sub(itemPos);
 
     // Get size as percentage
-    const pageRect = pageDiv.getBoundingClientRect();
     const widthPercent = (mousePos.x / pageRect.width) * 100;
     const heightPercent = (mousePos.y / pageRect.height) * 100;
 

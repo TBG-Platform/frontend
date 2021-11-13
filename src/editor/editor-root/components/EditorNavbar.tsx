@@ -17,13 +17,17 @@ export class EditorNavbar extends React.Component<Props> {
   public render() {
     return (
       <div className={'editor-navbar'}>
-        {this.renderFilesMenu()}
-        {this.renderViewMenu()}
-        {this.renderLayoutMenu()}
+        <div className={'navbar-group'}>
+          {this.renderFilesMenu()}
+          {this.renderViewMenu()}
+          {this.renderLayoutMenu()}
 
-        <Divider />
+          <Divider />
 
-        {this.renderAddPage()}
+          {this.renderAddPage()}
+        </div>
+
+        <div className={'navbar-group'}>{this.renderPlayButton()}</div>
       </div>
     );
   }
@@ -140,13 +144,28 @@ export class EditorNavbar extends React.Component<Props> {
     const { editorState } = this.props;
 
     return (
-      <div className={'add-page-button'}>
+      <div className={'navbar-button'}>
         <Button
           text={'Add page'}
           icon={'add'}
           intent={Intent.PRIMARY}
           small
           onClick={editorState.startAddPage}
+        />
+      </div>
+    );
+  }
+
+  private renderPlayButton() {
+    const { editorState } = this.props;
+
+    return (
+      <div className={'navbar-button play'}>
+        <Button
+          text={'Play'}
+          icon={'play'}
+          intent={Intent.WARNING}
+          onClick={editorState.startGamePlayer}
         />
       </div>
     );
