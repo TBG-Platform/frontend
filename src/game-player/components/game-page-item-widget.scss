@@ -1,6 +1,10 @@
 .game-page-item-widget {
   position: absolute;
 
+  &.interactive {
+    cursor: pointer;
+  }
+
   .gpi-text {
     width: 100%;
     height: 100%;

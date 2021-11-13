@@ -15,8 +15,13 @@ export class GamePageItemWidget extends React.Component<Props> {
   public render() {
     const { pageItem } = this.props;
 
+    // Apply classes based on item props
+    const interactive = pageItem.linkedPageId ? 'interactive' : '';
+
+    const classes = ['game-page-item-widget', interactive];
+
     return (
-      <div className={'game-page-item-widget'} style={{ ...pageItem.settings }}>
+      <div className={classes.join(' ')} style={{ ...pageItem.settings }}>
         <div
           className={'gpi-text'}
           style={{ ...pageItem.textSettings, fontSize: this.getFontSize() }}
