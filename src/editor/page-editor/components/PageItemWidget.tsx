@@ -80,11 +80,7 @@ export class PageItemWidget extends React.Component<Props> {
     const w = this.pageWidth;
     const s = parseFloat(pageItem.textSettings.size);
 
-    console.log('w: width', w);
-
     const fontSize = (w / 100) * s;
-
-    console.log('w: fontSize', fontSize);
 
     return fontSize + 'px';
   }

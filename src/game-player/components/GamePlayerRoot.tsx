@@ -27,12 +27,6 @@ export class GamePlayerRoot extends React.Component<Props> {
   public render() {
     const { gameState } = this.props;
 
-    console.log('game rendering', gameState);
-
-    if (this.stageRef.current) {
-      console.log('gameRender, stageWidth: ', this.stageRef.current.getBoundingClientRect().width);
-    }
-
     return (
       <div ref={this.rootRef} className={'game-player-root'}>
         <div ref={this.stageRef} className={'game-stage'}>
@@ -43,7 +37,6 @@ export class GamePlayerRoot extends React.Component<Props> {
   }
 
   private renderCurrentPage() {
-    console.log('render current page');
     return <div className={'game-page'}>{this.renderPageItems()}</div>;
   }
 
@@ -63,7 +56,6 @@ export class GamePlayerRoot extends React.Component<Props> {
   }
 
   @action private onResizeRoot = () => {
-    console.log('onresize');
     if (!this.rootRef.current || !this.stageRef.current) {
       return;
     }
@@ -77,18 +69,13 @@ export class GamePlayerRoot extends React.Component<Props> {
     stage.style.height = isTall ? 'auto' : '100%';
 
     this.stageWidth = stage.getBoundingClientRect().width;
-    console.log('stageWidth', this.stageWidth);
   };
 
   private getFontSize = (gpi: GamePageItem) => {
     const w = this.stageWidth;
     const s = parseFloat(gpi.fontSizePercent);
 
-    console.log('width', w);
-
     const fontSize = (w / 100) * s;
-
-    console.log('fontSize', fontSize);
 
     return fontSize + 'px';
   };
