@@ -3,6 +3,7 @@ import { DuiPanelTab } from '../state/DuiPanel';
 import { PanelTab } from '../../editor-root/state/EditorRootState';
 
 export interface DuiLayoutModel {
+  id: string;
   rootContainerId: string;
   containers: DuiPanelContainerModel[];
   panels: DuiPanelModel[];
