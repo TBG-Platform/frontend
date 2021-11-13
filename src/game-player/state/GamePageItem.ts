@@ -25,4 +25,7 @@ export class GamePageItem {
     this.fontSizePercent = props.fontSizePercent;
     this.linkedPageId = props.linkedPageId;
   }
+
+  // To be overriden by root state for applicable items
+  public onClickItem = (_id: string) => {};
 }
