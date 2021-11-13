@@ -4,7 +4,7 @@ import React from 'react';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { GamePageItem } from '../state/GamePageItem';
+import { GamePageItemWidget } from './GamePageItemWidget';
 import { GamePlayerRootState } from '../state/GamePlayerRootState';
 
 interface Props {
@@ -42,14 +42,7 @@ export class GamePlayerRoot extends React.Component<Props> {
     const { gameState } = this.props;
 
     return gameState.currentPage.items.map((gpi) => (
-      <div key={`gpi-${gpi.id}`} className={'game-page-item'} style={{ ...gpi.settings }}>
-        <div
-          className={'game-page-item-text'}
-          style={{ ...gpi.textSettings, fontSize: this.getFontSize(gpi) }}
-        >
-          {gpi.text}
-        </div>
-      </div>
+      <GamePageItemWidget key={`gpi-${gpi.id}`} stageWidth={this.stageWidth} pageItem={gpi} />
     ));
   }
 
@@ -67,14 +60,5 @@ export class GamePlayerRoot extends React.Component<Props> {
     stage.style.height = isTall ? 'auto' : '100%';
 
     this.stageWidth = stage.getBoundingClientRect().width;
-  };
-
-  private getFontSize = (gpi: GamePageItem) => {
-    const w = this.stageWidth;
-    const s = parseFloat(gpi.fontSizePercent);
-
-    const fontSize = (w / 100) * s;
-
-    return fontSize + 'px';
   };
 }
