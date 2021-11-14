@@ -1,4 +1,5 @@
-@import '../../../common/tbg-palette.scss';
+@import '../../../common/styles/tbg-palette.scss';
+@import '../../../common/styles/tbg-variables.scss';
 
 .page-inspector {
   width: 100%;
@@ -8,7 +9,7 @@
   flex-direction: column;
 
   .inspector-toolbar-area {
-    flex: 0 0 30px;
+    flex: 0 0 $editorToolbarHeight;
     width: 100%;
   }
 

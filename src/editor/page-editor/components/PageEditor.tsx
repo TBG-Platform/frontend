@@ -91,7 +91,7 @@ const PageContextMenu: React.FC<PageContextMenuProps> = ({ onAddItem, children }
         <Menu>
           <MenuItem
             icon={'widget'}
-            text={'Add widget here'}
+            text={'Add page item here'}
             onClick={(e: React.MouseEvent) => onAddItem(new Vector(e.clientX, e.clientY))}
           />
         </Menu>

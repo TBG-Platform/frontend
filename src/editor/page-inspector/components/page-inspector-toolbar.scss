@@ -1,4 +1,4 @@
-@import '../../../common/tbg-palette.scss';
+@import '../../../common/styles/tbg-palette.scss';
 
 .page-inspector-toolbar {
   width: 100%;
@@ -6,7 +6,7 @@
   padding-left: 5px;
   padding-right: 5px;
   border-bottom: 1px solid $mainBorderColor;
-  background-color: white;
+  background-color: $white;
 
   display: flex;
   align-items: center;

@@ -1,8 +1,10 @@
+@import '../../common/styles/tbg-palette.scss';
+
 .game-player-root {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: black;
+  background-color: $black;
 
   display: flex;
   justify-content: center;
@@ -30,7 +32,7 @@
   }
 
   .game-stage {
-    background-color: white;
+    background-color: $white;
     aspect-ratio: 16/9;
     overflow: hidden;
     position: relative;

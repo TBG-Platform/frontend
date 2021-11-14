@@ -1,7 +1,7 @@
 import './page-editor-toolbar.scss';
 
 import React from 'react';
-import { Button, ButtonGroup } from '@blueprintjs/core';
+import { Button, ButtonGroup, Intent } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
 import { PageEditorState } from '../state/PageEditorState';
@@ -36,6 +36,10 @@ export class PageEditorToolbar extends React.Component<Props> {
         <ButtonGroup minimal>
           <StandardButton
             icon={'widget'}
+            text={'Add page item'}
+            intent={Intent.PRIMARY}
+            minimal
+            outlined
             small
             tooltipText={'Add page item'}
             onClick={pageEditorState.toggleAddingPageWidget}

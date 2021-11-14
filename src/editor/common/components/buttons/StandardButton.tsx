@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, IconName, Position } from '@blueprintjs/core';
+import { Button, IconName, Intent, Position } from '@blueprintjs/core';
 import { Tooltip2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 
@@ -7,6 +7,7 @@ interface Props {
   icon: IconName;
   onClick?: () => void;
   text?: string;
+  intent?: Intent;
   minimal?: boolean;
   outlined?: boolean;
   small?: boolean;
@@ -17,7 +18,19 @@ interface Props {
 }
 
 export const StandardButton: React.FC<Props> = observer(
-  ({ icon, onClick, text, minimal, outlined, small, large, tooltipText, className, rightIcon }) => {
+  ({
+    icon,
+    onClick,
+    text,
+    intent,
+    minimal,
+    outlined,
+    small,
+    large,
+    tooltipText,
+    className,
+    rightIcon,
+  }) => {
     return (
       <Tooltip2
         hoverOpenDelay={500}
@@ -29,6 +42,7 @@ export const StandardButton: React.FC<Props> = observer(
             className={className}
             icon={icon}
             text={text}
+            intent={intent}
             onClick={onClick}
             minimal={minimal}
             outlined={outlined}
