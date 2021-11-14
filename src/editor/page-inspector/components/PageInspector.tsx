@@ -25,9 +25,12 @@ export class PageInspector extends React.Component<Props> {
           <PageInspectorToolbar inspectorState={inspectorState} />
         </div>
         <div className={'details-area'}>
+          <div className={'sub-details-separator'}>Page properties</div>
           <div className={'sub-details-area'}>
             <PageDetails page={selectedPage} />
           </div>
+
+          <div className={'sub-details-separator'}>Selected item properties</div>
           <div className={'sub-details-area'}>
             <PageItemDetails
               pageItem={selectedPage.selectedItem}
