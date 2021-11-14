@@ -1,0 +1,12 @@
+mutation LoginWithGoogle($data: LoginWithGoogle!) {
+  loginWithGoogle(data: $data) {
+    user {
+      email
+      id
+      username
+      name
+    }
+    accessToken
+    refreshToken
+  }
+}
