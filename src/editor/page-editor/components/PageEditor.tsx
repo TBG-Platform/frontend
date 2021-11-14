@@ -13,6 +13,7 @@ import { Vector } from '../../../utils/Vector';
 
 interface Props {
   pageEditorState: PageEditorState;
+  playFromHere: (pageId: string) => void;
 }
 
 @observer
@@ -32,12 +33,12 @@ export class PageEditor extends React.Component<Props> {
   }
 
   public render() {
-    const { pageEditorState } = this.props;
+    const { pageEditorState, playFromHere } = this.props;
 
     return (
       <div className={'page-editor'}>
         <div className={'page-editor-toolbar-area'}>
-          <PageEditorToolbar pageEditorState={pageEditorState} />
+          <PageEditorToolbar pageEditorState={pageEditorState} playFromHere={playFromHere} />
         </div>
         <div className={'page-edit-area'}>
           <PageContextMenu onAddItem={pageEditorState.addPageItem}>
@@ -91,7 +92,7 @@ const PageContextMenu: React.FC<PageContextMenuProps> = ({ onAddItem, children }
         <Menu>
           <MenuItem
             icon={'widget'}
-            text={'Add widget here'}
+            text={'Add page item here'}
             onClick={(e: React.MouseEvent) => onAddItem(new Vector(e.clientX, e.clientY))}
           />
         </Menu>
