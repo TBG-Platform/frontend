@@ -3,6 +3,7 @@ import 'mobx-react-lite/batchingForReactDom';
 import './page-item-widget.scss';
 
 import React from 'react';
+import parse from 'html-react-parser';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { Menu, MenuItem } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
@@ -44,7 +45,7 @@ export class PageItemWidget extends React.Component<Props> {
               className={'page-item-text'}
               style={{ ...pageItem.textSettings.settings, fontSize: this.getFontSize() }}
             >
-              {pageItem.textSettings.text}
+              {parse(pageItem.textSettings.text)}
             </div>
 
             <div className={'resize-handle'} onMouseDown={this.onResizeMouseDown}></div>

@@ -25,6 +25,7 @@
     "@blueprintjs/popover2": "^0.12.7",
     "@blueprintjs/select": "^3.18.9",
     "file-loader": "^6.1.0",
+    "html-react-parser": "^1.4.0",
     "jodit-react": "^1.1.12",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
@@ -33,6 +34,7 @@
     "react-dom": "^16.13.1",
     "react-flow-renderer": "^9.6.9",
     "react-split-pane": "^0.1.92",
+    "sanitize-html": "^2.5.3",
     "save-dev": "0.0.1-security",
     "tslint": "^6.1.2"
   },
@@ -44,6 +46,7 @@
     "@types/react-color": "^3.0.5",
     "@types/react-dom": "^16.9.8",
     "@types/resize-observer-browser": "^0.1.6",
+    "@types/sanitize-html": "^2.5.0",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^3.6.0",
     "gh-pages": "^3.2.3",

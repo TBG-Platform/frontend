@@ -30,6 +30,8 @@ export class PageItemDetails extends React.Component<Props> {
   public render() {
     const { pageItem } = this.props;
 
+    console.log('inspector render');
+
     if (!pageItem) {
       return <div className={'page-item-details'}>{this.renderNoItemSelected()}</div>;
     }
@@ -133,12 +135,21 @@ export class PageItemDetails extends React.Component<Props> {
   private renderContent() {
     const { pageItem } = this.props;
 
+    console.log('inspector render content');
+
     return (
       <DetailsSection
         title={'Content'}
         content={
           <div className={'item-content'}>
-            <RichTextInput value={pageItem.textSettings.text} />
+            <Observer>
+              {() => (
+                <RichTextInput
+                  value={pageItem.textSettings.text}
+                  onChange={pageItem.textSettings.setText}
+                />
+              )}
+            </Observer>
           </div>
         }
       />
