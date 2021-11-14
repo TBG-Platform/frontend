@@ -19,7 +19,11 @@ export class TabBodyRenderer {
         const pes = editorState.tabStatesMap.get(tab.id);
         if (pes) {
           return (
-            <PageEditor key={`page-editor-${tab.id}`} pageEditorState={pes as PageEditorState} />
+            <PageEditor
+              key={`page-editor-${tab.id}`}
+              pageEditorState={pes as PageEditorState}
+              playFromHere={editorState.startGamePlayer}
+            />
           );
         }
         break;

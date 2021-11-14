@@ -1,7 +1,7 @@
 import './page-editor-toolbar.scss';
 
 import React from 'react';
-import { Button, ButtonGroup, Intent } from '@blueprintjs/core';
+import { Button, Intent } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
 
 import { PageEditorState } from '../state/PageEditorState';
@@ -11,12 +11,13 @@ import { StandardDivider } from '../../common/components/dividers/StandardDivide
 
 interface Props {
   pageEditorState: PageEditorState;
+  playFromHere: (pageId: string) => void;
 }
 
 @observer
 export class PageEditorToolbar extends React.Component<Props> {
   public render() {
-    const { pageEditorState } = this.props;
+    const { pageEditorState, playFromHere } = this.props;
 
     const selectedPage = pageEditorState.selectedPage;
 
@@ -33,18 +34,23 @@ export class PageEditorToolbar extends React.Component<Props> {
 
         <StandardDivider />
 
-        <ButtonGroup minimal>
-          <StandardButton
-            icon={'widget'}
-            text={'Add page item'}
-            intent={Intent.PRIMARY}
-            minimal
-            outlined
-            small
-            tooltipText={'Add page item'}
-            onClick={pageEditorState.toggleAddingPageWidget}
-          />
-        </ButtonGroup>
+        <StandardButton
+          icon={'widget'}
+          text={'Add page item'}
+          intent={Intent.PRIMARY}
+          small
+          tooltipText={'Add page item'}
+          onClick={pageEditorState.toggleAddingPageWidget}
+        />
+
+        <StandardButton
+          icon={'play'}
+          text={'Play from here'}
+          intent={Intent.WARNING}
+          small
+          tooltipText={'Play game from this page'}
+          onClick={() => playFromHere(selectedPage.id)}
+        />
       </div>
     );
   }

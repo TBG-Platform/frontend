@@ -156,12 +156,17 @@ export class EditorRootState {
     return this.tabMap.get(id);
   }
 
-  @action public startGamePlayer = () => {
+  @action public startGamePlayer = (startPageId?: string) => {
     // Get story data model from current story being edited
     const storyModel = this.story.toModel();
 
     // Create the game story from the model
     const gameStory = GameStoryFactory.createGameStory(storyModel);
+
+    // If launching the game from a certain page
+    if (startPageId) {
+      gameStory.firstPageId = startPageId;
+    }
 
     // Pass this into a newly made game state
     const debugMode = true;

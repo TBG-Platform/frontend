@@ -4,7 +4,7 @@ import { Tooltip2 } from '@blueprintjs/popover2';
 import { observer } from 'mobx-react';
 
 interface Props {
-  icon: IconName;
+  icon?: IconName;
   onClick?: () => void;
   text?: string;
   intent?: Intent;

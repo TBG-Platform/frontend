@@ -172,7 +172,7 @@ export class EditorNavbar extends React.Component<Props> {
           text={'Play'}
           icon={'play'}
           intent={Intent.WARNING}
-          onClick={editorState.startGamePlayer}
+          onClick={() => editorState.startGamePlayer()}
         />
       </div>
     );
