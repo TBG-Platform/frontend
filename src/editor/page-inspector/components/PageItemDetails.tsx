@@ -13,6 +13,7 @@ import {
 import { Page } from '../../common/state/Page';
 import { PageItem } from '../../common/state/PageItem';
 import { PageSelector } from '../../common/components/inputs/page-selector/PageSelector';
+import { RichTextInput } from '../../common/components/inputs/rich-text-input/RichTextInput';
 import { StandardDivider } from '../../common/components/dividers/StandardDivider';
 import { TextAlign, TextDecoration } from '../../common/state/TextSettings';
 import { TextAreaInput } from '../../common/components/inputs/text-area-input/TextAreaInput';
@@ -37,7 +38,7 @@ export class PageItemDetails extends React.Component<Props> {
       <div className={'page-item-details'}>
         {this.renderTransformSettings()}
         {this.renderStyleSettings()}
-        {this.renderContentSettings()}
+        {this.renderContent()}
         {this.renderEventSettings()}
       </div>
     );
@@ -124,6 +125,21 @@ export class PageItemDetails extends React.Component<Props> {
             color={pageItem.settings.backgroundColor}
             setColor={pageItem.setBackgroundColor}
           />
+        }
+      />
+    );
+  }
+
+  private renderContent() {
+    const { pageItem } = this.props;
+
+    return (
+      <DetailsSection
+        title={'Content'}
+        content={
+          <div className={'item-content'}>
+            <RichTextInput value={pageItem.textSettings.text} />
+          </div>
         }
       />
     );

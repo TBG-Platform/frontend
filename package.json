@@ -25,6 +25,7 @@
     "@blueprintjs/popover2": "^0.12.7",
     "@blueprintjs/select": "^3.18.9",
     "file-loader": "^6.1.0",
+    "jodit-react": "^1.1.12",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "react": "^16.13.1",
