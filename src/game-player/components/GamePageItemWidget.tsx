@@ -1,6 +1,7 @@
 import './game-page-item-widget.scss';
 
 import React from 'react';
+import parse from 'html-react-parser';
 import { observer } from 'mobx-react';
 
 import { GamePageItem } from '../state/GamePageItem';
@@ -22,12 +23,8 @@ export class GamePageItemWidget extends React.Component<Props> {
 
     return (
       <div className={classes.join(' ')} style={{ ...pageItem.settings }}>
-        <div
-          className={'gpi-text'}
-          style={{ ...pageItem.textSettings, fontSize: this.getFontSize() }}
-          onClick={() => pageItem.onClickItem(pageItem.linkedPageId)}
-        >
-          {pageItem.text}
+        <div className={'gpi-text'} onClick={() => pageItem.onClickItem(pageItem.linkedPageId)}>
+          {parse(pageItem.text)}
         </div>
       </div>
     );

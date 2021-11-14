@@ -19,7 +19,7 @@ export class PageDetails extends React.Component<Props> {
     return (
       <div className={'page-details'}>
         <DetailsSection
-          title={'Page'}
+          title={'General'}
           content={
             <div className={'page-details-content'}>
               <EditableText
