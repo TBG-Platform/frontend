@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
 
+  .no-items-state {
+    user-select: none;
+  }
+
   .transform-content {
     display: flex;
     gap: 20px;
@@ -32,6 +36,7 @@
 
   .link-content {
     display: flex;
+    align-items: center;
     gap: 5px;
   }
 }

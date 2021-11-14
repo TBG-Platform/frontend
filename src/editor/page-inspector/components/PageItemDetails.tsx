@@ -36,9 +36,9 @@ export class PageItemDetails extends React.Component<Props> {
     return (
       <div className={'page-item-details'}>
         {this.renderTransformSettings()}
-        {this.renderBackgroundSettings()}
+        {this.renderStyleSettings()}
         {this.renderContentSettings()}
-        {this.renderLinkSettings()}
+        {this.renderEventSettings()}
       </div>
     );
   }
@@ -46,6 +46,7 @@ export class PageItemDetails extends React.Component<Props> {
   private renderNoItemSelected() {
     return (
       <NonIdealState
+        className={'no-items-state'}
         icon={'widget'}
         title={'No item selected'}
         description={'Select an item on the page, or create a new one'}
@@ -58,7 +59,7 @@ export class PageItemDetails extends React.Component<Props> {
 
     return (
       <DetailsSection
-        title={'Transform (%)'}
+        title={'Transform'}
         content={
           <div className={'transform-content'}>
             <div className={'section-column'}>
@@ -111,12 +112,12 @@ export class PageItemDetails extends React.Component<Props> {
     );
   }
 
-  private renderBackgroundSettings() {
+  private renderStyleSettings() {
     const { pageItem } = this.props;
 
     return (
       <DetailsSection
-        title={'Background'}
+        title={'Style'}
         content={
           <ColorPicker
             label={'Fill'}
@@ -230,16 +231,17 @@ export class PageItemDetails extends React.Component<Props> {
     );
   }
 
-  private renderLinkSettings() {
+  private renderEventSettings() {
     const { linkablePages, pageItem, onLinkPageItem, onUnlinkPageItem } = this.props;
 
     const linkedPage = pageItem.linkedPage?.name ?? 'No linked page';
 
     return (
       <DetailsSection
-        title={'Linked page'}
+        title={'Events'}
         content={
           <div className={'link-content'}>
+            Go to page:
             <PageSelector
               pages={linkablePages}
               onSelect={(page: Page) => {
