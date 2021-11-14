@@ -56,7 +56,7 @@ export class ManageLayoutsDialog extends React.Component<Props> {
     }
 
     return editorStorage.userLayouts.map((layout) => (
-      <div className={'layout-item'}>
+      <div key={`layout-item-${layout.id}`} className={'layout-item'}>
         {layout.name}
         <Button
           className={'actions'}

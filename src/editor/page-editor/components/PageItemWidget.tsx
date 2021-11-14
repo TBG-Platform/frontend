@@ -3,6 +3,7 @@ import 'mobx-react-lite/batchingForReactDom';
 import './page-item-widget.scss';
 
 import React from 'react';
+import parse from 'html-react-parser';
 import { ContextMenu2 } from '@blueprintjs/popover2';
 import { Menu, MenuItem } from '@blueprintjs/core';
 import { observer } from 'mobx-react';
@@ -40,12 +41,7 @@ export class PageItemWidget extends React.Component<Props> {
           style={{ ...pageItem.settings }}
         >
           <div className={'page-item-content'} draggable={'false'}>
-            <div
-              className={'page-item-text'}
-              style={{ ...pageItem.textSettings.settings, fontSize: this.getFontSize() }}
-            >
-              {pageItem.textSettings.text}
-            </div>
+            <div className={'page-item-text'}>{parse(pageItem.text)}</div>
 
             <div className={'resize-handle'} onMouseDown={this.onResizeMouseDown}></div>
           </div>
@@ -54,16 +50,16 @@ export class PageItemWidget extends React.Component<Props> {
     );
   }
 
-  private getFontSize() {
-    const { pageItem, pageRect } = this.props;
+  // private getFontSize() {
+  //   const { pageItem, pageRect } = this.props;
 
-    const w = pageRect.width;
-    const s = parseFloat(pageItem.textSettings.size);
+  //   const w = pageRect.width;
+  //   const s = parseFloat(pageItem.textSettings.size);
 
-    const fontSize = (w / 100) * s;
+  //   const fontSize = (w / 100) * s;
 
-    return fontSize + 'px';
-  }
+  //   return fontSize + 'px';
+  // }
 
   private onItemMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     // Work out the drag offset; mouse pos relative to item pos
