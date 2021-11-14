@@ -10,7 +10,8 @@ interface Props {
 
 @observer
 export class RichTextInput extends React.Component<Props> {
-  private standardButtons = 'bold, underline, italic, strikethrough, align, brush, ol, ul';
+  private standardButtons =
+    'bold, underline, italic, strikethrough, align, font, fontsize, brush, ol, ul';
   private config: any = {
     readonly: false,
     defaultMode: 1,
