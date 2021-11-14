@@ -25,26 +25,11 @@ export class RichTextInput extends React.Component<Props> {
   public render() {
     const { value, onChange } = this.props;
 
-    console.log('editor render, value = ', value);
-
-    const standardButtons = 'bold, underline, italic, strikethrough, align, ol, ul';
-
-    const config: any = {
-      readonly: false,
-      defaultMode: 1,
-      buttons: standardButtons,
-      buttonsMD: standardButtons,
-      buttonsSM: standardButtons,
-      events: {
-        processPaste: (_e: ClipboardEvent, html: string) => sanitizeHtml(html),
-      },
-    };
-
     return (
       <JoditEditor
         value={value}
         config={this.config}
-        onChange={(newContent: string) => onChange(sanitizeHtml(newContent))}
+        onChange={(newContent: string) => onChange(newContent)}
       />
     );
   }

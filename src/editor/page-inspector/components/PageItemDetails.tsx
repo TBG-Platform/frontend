@@ -142,14 +142,10 @@ export class PageItemDetails extends React.Component<Props> {
         title={'Content'}
         content={
           <div className={'item-content'}>
-            <Observer>
-              {() => (
-                <RichTextInput
-                  value={pageItem.textSettings.text}
-                  onChange={pageItem.textSettings.setText}
-                />
-              )}
-            </Observer>
+            <RichTextInput
+              value={pageItem.textSettings.text}
+              onChange={pageItem.textSettings.setText}
+            />
           </div>
         }
       />
