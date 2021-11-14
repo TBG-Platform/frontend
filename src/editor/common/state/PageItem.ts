@@ -10,7 +10,8 @@ import { TextSettings } from './TextSettings';
 export class PageItem {
   public id = RandomUtils.createId();
   @observable public settings: CSSProperties = {};
-  @observable public textSettings = new TextSettings();
+  //@observable public textSettings = new TextSettings();
+  @observable.ref public text = '';
   @observable.ref public left: string;
   @observable.ref public top: string;
   @observable.ref public width: string;
@@ -37,7 +38,6 @@ export class PageItem {
     item.setTop(extractCssValue(model.settings.top, '%'));
     item.setWidth(extractCssValue(model.settings.width, '%'));
     item.setHeight(extractCssValue(model.settings.height, '%'));
-    item.textSettings.updateSettings(model.textSettings, model.text, model.fontSizePercent);
     item.linkedPageId = model.linkedPageId;
 
     return item;
@@ -47,12 +47,14 @@ export class PageItem {
     return {
       id: this.id,
       settings: this.settings,
-      textSettings: this.textSettings.settings,
-      text: this.textSettings.text,
-      fontSizePercent: this.textSettings.size,
+      text: this.text,
       linkedPageId: this.linkedPage?.id ?? '',
     };
   }
+
+  @action public setText = (text: string) => {
+    this.text = text;
+  };
 
   @action public setLeft = (left: string) => {
     this.left = left;

@@ -30,8 +30,6 @@ export class PageItemDetails extends React.Component<Props> {
   public render() {
     const { pageItem } = this.props;
 
-    console.log('inspector render');
-
     if (!pageItem) {
       return <div className={'page-item-details'}>{this.renderNoItemSelected()}</div>;
     }
@@ -40,7 +38,7 @@ export class PageItemDetails extends React.Component<Props> {
       <div className={'page-item-details'}>
         {this.renderTransformSettings()}
         {this.renderStyleSettings()}
-        {this.renderContent()}
+        {this.renderContentSettings()}
         {this.renderEventSettings()}
       </div>
     );
@@ -132,26 +130,6 @@ export class PageItemDetails extends React.Component<Props> {
     );
   }
 
-  private renderContent() {
-    const { pageItem } = this.props;
-
-    console.log('inspector render content');
-
-    return (
-      <DetailsSection
-        title={'Content'}
-        content={
-          <div className={'item-content'}>
-            <RichTextInput
-              value={pageItem.textSettings.text}
-              onChange={pageItem.textSettings.setText}
-            />
-          </div>
-        }
-      />
-    );
-  }
-
   private renderContentSettings() {
     const { pageItem } = this.props;
 
@@ -160,94 +138,7 @@ export class PageItemDetails extends React.Component<Props> {
         title={'Content'}
         content={
           <div className={'item-content'}>
-            <Observer>
-              {() => (
-                <TextAreaInput
-                  label={'Text'}
-                  text={pageItem.textSettings.text}
-                  onChange={pageItem.textSettings.setText}
-                />
-              )}
-            </Observer>
-            <div className={'text-settings-row'}>
-              <ButtonGroup minimal>
-                <Button
-                  icon={'alignment-left'}
-                  outlined={pageItem.textSettings.isXAlignSelected(TextAlign.START)}
-                  onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.START)}
-                />
-                <Button
-                  icon={'alignment-horizontal-center'}
-                  outlined={pageItem.textSettings.isXAlignSelected(TextAlign.CENTER)}
-                  onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.CENTER)}
-                />
-                <Button
-                  icon={'alignment-right'}
-                  outlined={pageItem.textSettings.isXAlignSelected(TextAlign.END)}
-                  onClick={() => pageItem.textSettings.setTextAlignX(TextAlign.END)}
-                />
-              </ButtonGroup>
-
-              <StandardDivider />
-
-              <ButtonGroup minimal>
-                <Button
-                  icon={'alignment-top'}
-                  outlined={pageItem.textSettings.isYAlignSelected(TextAlign.START)}
-                  onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.START)}
-                />
-                <Button
-                  icon={'alignment-vertical-center'}
-                  outlined={pageItem.textSettings.isYAlignSelected(TextAlign.CENTER)}
-                  onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.CENTER)}
-                />
-                <Button
-                  icon={'alignment-bottom'}
-                  outlined={pageItem.textSettings.isYAlignSelected(TextAlign.END)}
-                  onClick={() => pageItem.textSettings.setTextAlignY(TextAlign.END)}
-                />
-              </ButtonGroup>
-            </div>
-
-            <div className={'text-settings-row'}>
-              <ButtonGroup minimal>
-                <Button
-                  icon={'bold'}
-                  outlined={pageItem.textSettings.bold}
-                  onClick={pageItem.textSettings.toggleBold}
-                />
-                <Button
-                  icon={'italic'}
-                  outlined={pageItem.textSettings.italic}
-                  onClick={pageItem.textSettings.toggleItalic}
-                />
-                <Button
-                  icon={'underline'}
-                  outlined={pageItem.textSettings.isDecorationSelected(TextDecoration.UNDERLINE)}
-                  onClick={() => pageItem.textSettings.setDecoration(TextDecoration.UNDERLINE)}
-                />
-                <Button
-                  icon={'strikethrough'}
-                  outlined={pageItem.textSettings.isDecorationSelected(
-                    TextDecoration.STRIKETHROUGH
-                  )}
-                  onClick={() => pageItem.textSettings.setDecoration(TextDecoration.STRIKETHROUGH)}
-                />
-              </ButtonGroup>
-            </div>
-            <div className='text-settings-row'>
-              <ColorPicker
-                color={pageItem.textSettings.color}
-                setColor={pageItem.textSettings.setColor}
-              />
-
-              <NumberInput
-                label={'Size %'}
-                value={pageItem.textSettings.size}
-                onChange={pageItem.textSettings.setSize}
-                size={NumberInputSize.MEDIUM}
-              />
-            </div>
+            <RichTextInput value={pageItem.text} onChange={pageItem.setText} />
           </div>
         }
       />

@@ -16,9 +16,7 @@ export class GameStoryFactory {
         const itemProps: GamePageItemProps = {
           id: itemModel.id,
           settings: itemModel.settings,
-          textSettings: itemModel.textSettings,
           text: itemModel.text,
-          fontSizePercent: itemModel.fontSizePercent,
           linkedPageId: itemModel.linkedPageId,
         };
 
