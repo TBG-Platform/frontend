@@ -52,13 +52,17 @@ export class Page {
     this.selectedItem = this.items.find((item) => item.id === itemId);
   }
 
-  @action public addTextBlock(pos: Vector) {
+  @action public deselectItem() {
+    this.selectedItem = undefined;
+  }
+
+  @action public addPageItem(pos: Vector) {
     // Sizing is in percent
-    const textBlock = new PageItem(pos.x.toFixed(3), pos.y.toFixed(3), '40', '20');
+    const pageItem = new PageItem(pos.x.toFixed(3), pos.y.toFixed(3), '40', '20');
 
-    this.items.push(textBlock);
+    this.items.push(pageItem);
 
-    this.selectedItem = textBlock;
+    this.selectedItem = pageItem;
   }
 
   @action public deleteSelectedItem = () => {

@@ -38,6 +38,7 @@ export class PageItemWidget extends React.Component<Props> {
           className={classNames.join(' ')}
           draggable={'false'}
           onMouseDown={this.onItemMouseDown}
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
           style={{ ...pageItem.settings }}
         >
           <div className={'page-item-content'} draggable={'false'}>
@@ -62,6 +63,8 @@ export class PageItemWidget extends React.Component<Props> {
   // }
 
   private onItemMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
     // Work out the drag offset; mouse pos relative to item pos
     const itemRect = this.pageItemRef.current.getBoundingClientRect();
     const itemPos = new Vector(itemRect.left, itemRect.top);
