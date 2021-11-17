@@ -14,9 +14,6 @@ export class PageInspectorState extends TabBaseState {
 
     this.pages = pages;
     this.selectedPage = pages[0];
-
-    // TODO - editorRootstate should detect which page is being edited
-    // and send that in this constructor when creating the tab
   }
 
   public getLinkablePages() {

@@ -1,7 +1,7 @@
 import './page-item-details.scss';
 
 import React from 'react';
-import { Button, ButtonGroup, NonIdealState } from '@blueprintjs/core';
+import { Button, NonIdealState } from '@blueprintjs/core';
 import { Observer, observer } from 'mobx-react';
 
 import { ColorPicker } from '../../common/components/inputs/color-picker/ColorPicker';
@@ -14,9 +14,6 @@ import { Page } from '../../common/state/Page';
 import { PageItem } from '../../common/state/PageItem';
 import { PageSelector } from '../../common/components/inputs/page-selector/PageSelector';
 import { RichTextInput } from '../../common/components/inputs/rich-text-input/RichTextInput';
-import { StandardDivider } from '../../common/components/dividers/StandardDivider';
-import { TextAlign, TextDecoration } from '../../common/state/TextSettings';
-import { TextAreaInput } from '../../common/components/inputs/text-area-input/TextAreaInput';
 
 interface Props {
   pageItem: PageItem | undefined;
@@ -138,12 +135,21 @@ export class PageItemDetails extends React.Component<Props> {
         title={'Content'}
         content={
           <div className={'item-content'}>
-            <RichTextInput value={pageItem.text} onChange={pageItem.setText} />
+            <Observer>
+              {() => <RichTextInput value={pageItem.text} onChange={this.handleContentChange} />}
+            </Observer>
           </div>
         }
       />
     );
   }
+
+  private handleContentChange = (text: string) => {
+    const { pageItem } = this.props;
+
+    // This wrapper is necessary, otherwise the rich text editor keeps a ref to first item given
+    pageItem.setText(text);
+  };
 
   private renderEventSettings() {
     const { linkablePages, pageItem, onLinkPageItem, onUnlinkPageItem } = this.props;
