@@ -5,12 +5,10 @@ import { action, observable } from 'mobx';
 import { Page } from './Page';
 import { PageItemModel } from '../model/StoryModel';
 import { RandomUtils } from '../../../utils/RandomUtils';
-import { TextSettings } from './TextSettings';
 
 export class PageItem {
   public id = RandomUtils.createId();
   @observable public settings: CSSProperties = {};
-  //@observable public textSettings = new TextSettings();
   @observable.ref public text = '';
   @observable.ref public left: string;
   @observable.ref public top: string;
