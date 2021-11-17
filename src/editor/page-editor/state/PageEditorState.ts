@@ -1,8 +1,8 @@
+import React from 'react';
 import { action, observable } from 'mobx';
 
 import { Page } from '../../common/state/Page';
 import { PanelTab } from '../../editor-root/state/EditorRootState';
-import { PanelTabType } from '../../editor-root/state/PanelTabType';
 import { TabBaseState } from '../../editor-root/state/TabBaseState';
 import { Vector } from '../../../utils/Vector';
 import { keyboardObserver } from '../../../utils/KeyboardObserver';
@@ -12,7 +12,7 @@ export class PageEditorState extends TabBaseState {
   @observable.ref public selectedPage: Page;
   @observable.ref public pageDiv: HTMLDivElement;
 
-  private addingPageWidget = false;
+  private addingPageItem = false;
 
   constructor(tab: PanelTab, pages: Page[]) {
     super(tab);
@@ -30,15 +30,13 @@ export class PageEditorState extends TabBaseState {
   };
 
   public toggleAddingPageWidget = () => {
-    this.addingPageWidget = !this.addingPageWidget;
+    this.addingPageItem = !this.addingPageItem;
 
-    if (this.addingPageWidget) {
+    if (this.addingPageItem) {
       keyboardObserver.addSpecificKeyListener(this.toggleAddingPageWidget, ['Escape']);
-      this.pageDiv.addEventListener('click', this.onPageClick);
       this.pageDiv.style.cursor = 'pointer';
     } else {
       keyboardObserver.removeSpecificKeyListener(this.toggleAddingPageWidget, ['Escape']);
-      this.pageDiv.removeEventListener('click', this.onPageClick);
       this.pageDiv.style.cursor = 'default';
     }
   };
@@ -53,12 +51,15 @@ export class PageEditorState extends TabBaseState {
     const rightPerent = (mousePos.y / pageRect.height) * 100;
 
     const pos = new Vector(leftPercent, rightPerent);
-    this.selectedPage.addTextBlock(pos);
+    this.selectedPage.addPageItem(pos);
   };
 
-  private onPageClick = (e: MouseEvent) => {
-    this.addPageItem(new Vector(e.clientX, e.clientY));
-
-    this.toggleAddingPageWidget();
+  public onPageClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (this.addingPageItem) {
+      this.addPageItem(new Vector(e.clientX, e.clientY));
+      this.toggleAddingPageWidget();
+    } else {
+      this.selectedPage?.deselectItem();
+    }
   };
 }

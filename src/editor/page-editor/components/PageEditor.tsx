@@ -42,7 +42,11 @@ export class PageEditor extends React.Component<Props> {
         </div>
         <div className={'page-edit-area'}>
           <PageContextMenu onAddItem={pageEditorState.addPageItem}>
-            <div ref={this.pageRef} className={'page-display'}>
+            <div
+              ref={this.pageRef}
+              className={'page-display'}
+              onClick={pageEditorState.onPageClick}
+            >
               {this.renderPageItems()}
             </div>
           </PageContextMenu>
